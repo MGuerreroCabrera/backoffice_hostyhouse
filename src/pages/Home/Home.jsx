@@ -1,3 +1,4 @@
+import AppFooter from "../../components/AppFooter/AppFooter";
 import Header from "../../components/Header/Header";
 import Reservations from "../../components/Reservations/Reservations";
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -9,6 +10,7 @@ const Home = () => {
       <Header />
       <Sidebar />      
       <Reservations />
+      <AppFooter />
     </div>
   )
 }

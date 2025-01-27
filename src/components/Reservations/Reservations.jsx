@@ -28,8 +28,8 @@ const Reservations = () => {
             try {
                 const response = await fetch(`http://localhost:3000/api/v1/reservations?${page}&limit${limit}`);
                 if(!response.ok) {
-                    //! Enviar mensaje al componente Alert
-                    console.log("Error en la petición");
+                    setLoading(false);
+                    setError("Ha ocurrido un error en la petición");
                 }
                 const data = await response.json();
                 setReservations(data.records);
