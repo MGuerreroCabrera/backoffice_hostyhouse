@@ -8,6 +8,7 @@ import { UsersContext } from "../../providers/UsersProvider";
 import { resetPwd } from "../../reducers/users/users.actions";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Form from "../../components/Form/Form";
 
 const ResetPassword = () => {
 
@@ -37,7 +38,7 @@ const ResetPassword = () => {
        }
     }
 
-    return (
+    return (        
         <div className="reset-password-container">
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <CorporateImageForm/>

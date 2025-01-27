@@ -1,0 +1,90 @@
+.reservations-container {
+    width: 80%;
+    height: 80svh;
+    position: absolute;
+    z-index: 0;
+    background-color: var(--hh-color-000);
+    border: 1px solid var(--hh-color-090);
+    border-radius: var(--hh-br-m);
+    padding: var(--hh-spacing-l);
+}
+
+.reservations-container h2 {
+    font-size: var(--hh-font-size-m);
+    color: var(--hh-color-090);
+}
+
+.reservations-container .reservations-header {
+    width: 100%;
+    min-height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    padding: var(--hh-spacing-m);
+    background-color: var(--hh-color-010);
+    border-radius: var(--hh-br-m);
+    margin-top: var(--hh-spacing-s);
+}
+
+.reservations-container .reservations-header span {
+    width: 20%;
+    text-align: center;
+    color: var(--hh-color-000);
+    font-size: var(--hh-font-size-s);
+}
+
+.reservations-container .data-row {
+    width: 100%;
+    min-height: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    padding: var(--hh-spacing-m);
+    border-radius: var(--hh-br-m);
+    margin-top: var(--hh-spacing-xs);
+}
+
+.reservations-container .data-row:hover {
+    background-color: var(--hh-color-080);
+    transition: 0.2s;
+    transform: scale(1.02);
+    opacity: 0.9;
+}
+
+.reservations-container .data-row span {
+    width: 20%;
+    text-align: center;
+    color: var(--hh-color-090);
+    font-size: var(--hh-font-size-s);
+}
+
+.pagination-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    gap: var(--hh-spacing-m);
+    padding: var(--hh-spacing-l);    
+}
+
+.pagination-row button {
+    border: none;
+    outline: none;
+    cursor: pointer
+}
+
+.pagination-row span {
+    font-size: var(--hh-font-size-xs);
+    color: var(--hh-color-010);
+}
+
+.pagination-row .arrow {
+    cursor: pointer;
+    width: 20px;
+}
+
+.pagination-row .arrow.prev {
+    transform: rotate(180deg);
+}

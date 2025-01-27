@@ -47,7 +47,7 @@
     top: 0;
     left: 15px;
     font-size: 12px;
-    padding: var(--hh-spacing-s);
+    padding: var(--hh-spacing-xs);
     background-color: var(--hh-color-000);
 }
 
