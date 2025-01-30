@@ -1,6 +1,8 @@
 import AppFooter from "../../components/AppFooter/AppFooter";
 import Header from "../../components/Header/Header";
-import Reservations from "../../components/Reservations/Reservations";
+import HomeCards from "../../components/HomeCards/HomeCards";
+import HomeTop from "../../components/HomeTop/HomeTop";
+// import Reservations from "../../components/Reservations/Reservations";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import "./Home.css";
 
@@ -9,7 +11,9 @@ const Home = () => {
     <div className="home-container">
       <Header />
       <Sidebar />      
-      <Reservations />
+      <HomeTop />
+      <HomeCards />
+      {/* <Reservations /> */}
       <AppFooter />
     </div>
   )

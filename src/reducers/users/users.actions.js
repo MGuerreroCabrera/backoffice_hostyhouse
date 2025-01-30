@@ -25,8 +25,6 @@ export const forgotPwd = async (body, dispatch) => {
 
     const { error, response } = await API({ endpoint: "/users/validatemail", method: "POST", body, content_type: true });    
 
-    console.log(error, response);
-
     if (error) {
         dispatch({ type: "ERROR", payload: error.message });
     } else {
@@ -43,8 +41,6 @@ export const resetPwd = async (body, dispatch, navigate) => {
 
     // Control existe token de usuario a cambiar   
     const { error, response } = await API({ endpoint: "/users/resetpassword", method: "PUT", body, content_type: true });
-
-    console.log(response);
 
     if(error) {
         localStorage.removeItem("tokenToReset");

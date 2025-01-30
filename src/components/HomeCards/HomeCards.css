@@ -1,0 +1,10 @@
+.home-cards-container {
+    width: 100%;
+    min-height: 55svh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    z-index: 0;  
+    padding: var(--hh-spacing-xl);
+    gap: var(--hh-spacing-l);
+}

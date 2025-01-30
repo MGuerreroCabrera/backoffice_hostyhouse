@@ -2,6 +2,8 @@ import "./Reservations.css";
 import { useState } from "react";
 import { useEffect } from "react";
 import Loading from "../Loading/Loading";
+import Alert from "../Alert/Alert";
+import { API } from "../../utils/API/API";
 
 const Reservations = () => {
     // Estado para almacenar las reservas
@@ -26,18 +28,18 @@ const Reservations = () => {
     useEffect(() => {
         const fetchReservations  = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/v1/reservations?${page}&limit${limit}`);
-                if(!response.ok) {
+                const { error, response } = await API({ endpoint: `/reservations?page=${page}&limit=${limit}` });
+                if(error) {
                     setLoading(false);
                     setError("Ha ocurrido un error en la petición");
                 }
-                const data = await response.json();
-                setReservations(data.records);
-                console.log(reservations);
+                const data = response.records;
+                setReservations(data);
                 setLoading(false);
-                setTotalPages(Math.ceil(data.totalRecords / limit));
-            } catch (error) {
-                setError(error);
+                setTotalPages(Math.ceil(response.totalRecords / limit));
+            } catch (err) {
+                setLoading(false);
+                setError(err.message);
             }
         }
 
@@ -60,10 +62,11 @@ const Reservations = () => {
         }
     };
 
+
     return (
         <>
             {loading && <Loading />}
-            {error && <Alert>{error}</Alert>}
+            {error && <Alert>{ error }</Alert>}
             <div className="reservations-container">
                 <h2>Próximas reservas</h2>
                 <div className="reservations-header">

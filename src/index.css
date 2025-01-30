@@ -42,7 +42,9 @@
   --hh-font-size-xs: clamp(10px, 0.8vw + 0.8em, 12px);
   --hh-font-size-s: clamp(12px, 1vw + 1em, 14px);
   --hh-font-size-m: clamp(16px, 2vw + 1em, 18px);
-  --hh-font-size-l: clamp(20px, 3vw + 1em, 24px);
+  --hh-font-size-l: clamp(1rem, 1vw + 1em, 2rem);
+  --hh-font-size-xl: clamp(1rem, 2vw + 1rem, 5rem);
+  --hh-font-size-xxl: clamp(1rem, 7vw, 5rem);
 }
 
 /* Estilos para el body por defecto */
