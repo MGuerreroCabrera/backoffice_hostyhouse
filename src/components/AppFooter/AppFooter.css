@@ -1,10 +1,11 @@
 .app-footer-container {
     width: 100%;
-    min-height: auto;
+    min-height: 10svh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: var(--hh-spacing-xl);
+    background-color: var(--hh-color-080);
 }
 
 .app-footer-container > span {

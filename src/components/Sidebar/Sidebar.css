@@ -50,10 +50,15 @@
 
 .sidebar ul li {    
     width: 100%;
+    padding: var(--hh-spacing-m);
+    color: var(--hh-color-090);
+}
+
+.nav-element-container {
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     gap: var(--hh-spacing-m);
-    padding: var(--hh-spacing-m);
     color: var(--hh-color-090);
 }
 

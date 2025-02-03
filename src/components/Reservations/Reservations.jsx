@@ -19,12 +19,12 @@ const Reservations = () => {
     const [totalPages, setTotalPages] = useState(1);
 
     // Estado para controlar si ha habido error en la consulta
-    const [error, setError] = useState(false);
+    const [error, setError] = useState(null);
     
     // Límite de registros por página
     const limit = 10;    
 
-    // usaEffect para llamar a la API
+    // useEffect para llamar a la API
     useEffect(() => {
         const fetchReservations  = async () => {
             try {
@@ -50,7 +50,6 @@ const Reservations = () => {
     const handleNextPage = () => {
         if(page < totalPages) {
             setPage(page + 1);
-            console.log("Página: ", page);
         }
     };
 
@@ -58,7 +57,6 @@ const Reservations = () => {
     const handlePreviusPage = () => {
         if(page > 1) {
             setPage(page - 1);
-            console.log("Página: ", page);
         }
     };
 
@@ -67,7 +65,7 @@ const Reservations = () => {
         <>
             {loading && <Loading />}
             {error && <Alert>{ error }</Alert>}
-            <div className="reservations-container">
+            <div className="data-container">
                 <h2>Próximas reservas</h2>
                 <div className="reservations-header">
                     <span>Fecha de entrada</span>

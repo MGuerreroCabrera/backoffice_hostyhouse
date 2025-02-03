@@ -8,12 +8,13 @@
     border-radius: var(--hh-br-m);
     border-top: 3px solid var(--hh-color-010) ;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    transition: transform 0.3s ease, border-top-color 0.3s ease;
+    transition: transform 0.3s ease, border-top-color 0.3s ease, border-top 0.3s ease;
 }
 
 .home-cards-container .card:hover {
-    transform: scale(1.025); /* Efecto de escala al pasar el cursor */
-    border-top-color: var(--hh-color-020); /* Cambio de color del borde superior */
+    transform: scale(1.025); 
+    border-top-color: var(--hh-color-020);
+    outline: 1px solid var(--hh-color-020);
 }
 
 .card .card-header {
@@ -38,6 +39,8 @@
 .card-body {
     width: 100%;
     padding: var(--hh-spacing-m);
+    text-decoration: none;
+    color: var(--hh-color-090);
 }
 
 /* Media query para pantallas medianas */

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Sidebar.css";
 import { SidebarData } from "../../data/data";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
 
@@ -20,8 +21,10 @@ const Sidebar = () => {
         <ul>
           { SidebarData.map((item, index) => (
             <li key={ index }>
-              <img src={ item.icon } alt={ item.title } />
-              <span>{ item.title }</span>
+              <Link to={ item.path } onClick={ toggleSidebar } className="nav-element-container">
+                <img src={ item.icon } alt={ item.title } />
+                <span>{ item.title }</span>
+              </Link>
             </li>
           )) }
         </ul>

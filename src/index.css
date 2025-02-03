@@ -41,7 +41,7 @@
 
   --hh-font-size-xs: clamp(10px, 0.8vw + 0.8em, 12px);
   --hh-font-size-s: clamp(12px, 1vw + 1em, 14px);
-  --hh-font-size-m: clamp(16px, 2vw + 1em, 18px);
+  --hh-font-size-m: clamp(16px, 1vw + 1em, 18px);
   --hh-font-size-l: clamp(1rem, 1vw + 1em, 2rem);
   --hh-font-size-xl: clamp(1rem, 2vw + 1rem, 5rem);
   --hh-font-size-xxl: clamp(1rem, 7vw, 5rem);
@@ -53,4 +53,24 @@ body {
   min-height: 100svh;
   background-color: var(--hh-color-090);
   font-family: var(--hh-font-family-primary);
+}
+
+.page-container {
+  width: 100%;
+  min-height: 80svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--hh-color-080);
+}
+
+.data-container {
+  width: 80%;
+  height: 80svh;
+  position: relative;
+  background-color: var(--hh-color-000);
+  border: 1px solid var(--hh-color-090);
+  border-radius: var(--hh-br-m);
+  padding: var(--hh-spacing-l);
 }

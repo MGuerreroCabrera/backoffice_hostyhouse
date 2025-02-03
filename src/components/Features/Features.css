@@ -1,0 +1,113 @@
+.ttle-btn-add-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--hh-spacing-m);
+}
+
+.section-title {
+    font-size: var(--hh-font-size-m);
+    color: var(--hh-color-090);
+}
+
+.btn-add-record {
+    min-width: 100px;
+    border:none;
+    cursor: pointer;
+    padding: var(--hh-spacing-m);
+    color: var(--hh-color-010);
+    outline: 1px solid var(--hh-color-010);
+    border-radius: var(--hh-br-m);
+}
+
+.btn-add-record:hover {
+    outline: 1px solid var(--hh-color-020);
+    color: var(--hh-color-020);
+}
+
+.features-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--hh-color-010);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-s);
+}
+
+.features-header span {
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-000);
+}
+
+.l-columns {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--hh-spacing-xl);
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.modal-content {
+    background-color: var(--hh-color-000);
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+.new-feature-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;    
+    align-items: flex-start;
+    gap: var(--hh-spacing-m);
+    padding: var(--hh-spacing-m);
+}
+
+.form-title {
+    font-size: var(--hh-font-size-m);
+    color: var(--hh-color-090);
+}
+
+.new-feature-form .input-text {
+    width: 100%;
+    outline: none;
+    border-radius: var(--hh-br-m);
+    padding: var(--hh-spacing-s);
+    border: 1px solid var(--hh-color-010);    
+    color: var(--hh-color-080);
+}
+
+.new-feature-form label {
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-080);
+}
+
+.buttons-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--hh-spacing-s);
+}
+
+.buttons-row button {
+    min-width: 100px;
+    cursor: pointer;
+    border-radius: var(--hh-br-m);
+    padding: var(--hh-spacing-s);
+    border: 1px solid var(--hh-color-010);    
+    color: var(--hh-color-010);
+}

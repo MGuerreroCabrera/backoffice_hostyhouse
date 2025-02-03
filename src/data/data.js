@@ -7,31 +7,31 @@ export const SidebarData = [
   },
   {
       title: "Características vivienda",
-      path: "features",
+      path: "/features",
       icon: "icons/features.png",
       admin: false
   },
   {
       title: "Viviendas",
-      path: "housings",
+      path: "/housings",
       icon: "icons/housings.png",
       admin: false
   },
   {
       title: "Reservas",
-      path: "reservations",
+      path: "/reservations",
       icon: "icons/reservations.png",
       admin: false
   },
   {
       title: "Clientes",
-      path: "customers",
+      path: "/customers",
       icon: "icons/customers.png",
       admin: false
   },    
   {
       title: "Usuarios",
-      path: "users",
+      path: "/users",
       icon: "icons/users.png",
       admin: true
   }

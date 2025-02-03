@@ -8,7 +8,7 @@ const Form = ({ children, handleSubmit, submit, register, errors }) => {
   //console.log("Errors en Form", errors);
   
   return (
-    <form onSubmit={handleSubmit(submit)}>
+    <form onSubmit={handleSubmit(submit)} className="login-form">
       <FormContext.Provider value={{register, errors}}>
         {children}
       </FormContext.Provider>
