@@ -4,10 +4,11 @@ const HomeTop = () => {
   return (
     <div className="home-top-container">
         <h1 className="h1">
-            ¿Problemas con la gestión de las reservas de tus viviendas de alquier vacacional?
+            Bienvenido a Hosty House. Aplicación integral de testión de viviendas vacacionales.
         </h1>
         <h2 className="h2">
-            Hosty House es la plataforma perfecta de gestión integral de viviendas de alquiler vacacional.
+            Sube todas tus viviendas, gestiona sus característica, servicios, características y reservas sin descuidar tus clientes.
+            Saca el máximo provecho a tus estancias.
         </h2>
     </div>
   )

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { API } from "../../utils/API/API";
 import Alert from "../Alert/Alert";
 import Loading from "../Loading/Loading";
+import Paginator from "../Paginator/Paginator";
 
 const Features = () => {
   // Estado para almacenar las características de las viviendas
@@ -22,6 +23,12 @@ const Features = () => {
   // Estado para controlar el error de la consulta
   const [error, setError] = useState(null);
 
+  // Estado para mensaje resultado OK
+  const [opOk, setOpOK] = useState(false);
+
+  // Estado para controlar la visibilidad del Alert
+  const [showAlert, setShowAlert] = useState(false);
+
   // Estado que controla la visibilidad del modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,25 +41,39 @@ const Features = () => {
   // Configuración de react-hook-form
   const { register, handleSubmit, formState: { errors } } = useForm();
 
+   // Función para cerrar el Alert
+   const closeAlert = () => {
+       setShowAlert(false);
+       setError(null);
+   }
+
   // Función para manejar el envío del formulario
   const onSubmit = async (data) => {
     try {
+      setLoading(true);
+
       const formData = new FormData();
       formData.append("name", data.name);
-      formData.append("icon", data.icon);
+      formData.append("icon", data.icon[0]);      
 
-      console.log(formData);
-
-      const { response, error } = await API ({ endpoint: "/features", method: "POST", body: formData, content_type: false});
+      const { error } = await API ({ endpoint: "/features", method: "POST", body: formData, content_type: false});
 
       if(error) {
+        setLoading(false);
         setError(error.message);
+        setShowAlert(true);
       } else {
+        setLoading(false);
         closeModal();
         setError(null);
+        setOpOK(true);
+        setShowAlert(true);
+        fetchFeatures();
       }
     } catch (error) {
+      setLoading(false);
       setError(error);
+      setShowAlert(true);
     }
     
   };
@@ -60,42 +81,50 @@ const Features = () => {
   // Límite de registros
   const limit = 10;
 
-  // useEffect para llamar a la API
-  useEffect(() => {
-    const fetchFeatures = async () => {
-      try {
-        const { error, response } = await API({ endpoint: `/features?page=${page}&limit${limit}` });
+  // Función que llama a la API para listar los registros
+  const fetchFeatures = async () => {
+    try {
+      setLoading(true);
 
-        if(error) {
-          setError(error.message);
-          setLoading(false);
-        } 
-        const data = response.records;
-        console.log("Data: ", data);
-        setFeatures(data);
+      const { error, response } = await API({ endpoint: `/features?page=${page}&limit${limit}` });
+
+      if(error) {
+        setError(error.message);
         setLoading(false);
-        setTotalPages(Math.ceil(response.totalRecords / limit));        
-        } catch (err) {
-            setLoading(false);
-            setError(err.message);
-        }
-    }
+      } 
+
+      const data = response.records;
+      
+      setFeatures(data);
+      setLoading(false);
+      setTotalPages(Math.ceil(response.totalRecords / limit));        
+      } catch (err) {
+          setLoading(false);
+          setError(err.message);
+      }
+  }
+
+  // useEffect para llamar a la API
+  useEffect(() => {    
     fetchFeatures();
   }, [page]);
 
-// Función para pasar a la siguiente página
-const handleNextPage = () => {
-  if(page < totalPages) {
-      setPage(page + 1);
+  const deleteFeature = async (id) => {
+    try {
+      setLoading(true);
+      const { error } = await API({ endpoint: `/features/${id}`, method: "DELETE" });
+      if(error) {
+        setLoading(false);
+        setError(error.message);        
+      } else {
+        setLoading(false);
+        setFeatures(features.filter(feature => feature._id !== id));        
+      }
+    } catch (err) {
+      setLoading(false);
+      setError(err.message)
+    }
   }
-};
-
-// Función para pasar a la página anterior
-const handlePreviusPage = () => {
-  if(page > 1) {
-      setPage(page - 1);
-  }
-};
 
   return (
     <>
@@ -107,14 +136,14 @@ const handlePreviusPage = () => {
               <label htmlFor="name">
                 Nombre de la característica
               </label>
-              <input type="text" { ...register("name", {required: "Campo obligatorio"}) } placeholder={ errors.name ? errors.name.message : "" } className="input-text" />
-              <label htmlFor="icon">
-                Subir icono
+              <input type="text" { ...register("name", {required: "El campo nombre es obligatorio"}) } placeholder={ errors.name ? errors.name.message : "" } className="input-text" />
+              {errors.name && <Alert type="error" onClose={ closeAlert }>{ errors.name.message }</Alert>}
+              <label htmlFor="icon" className="upload-row">
+                <img src="/icons/upload.png" alt="Subir icono" />
+                <span>Subir icono</span>
               </label>
-              <input type="file" { ...register("icon", { required: "Campo obligatorio"}) } className="input-text" />
-              {errors.icon && (
-                <span>{errors.icon.message}</span>
-              )}
+              <input type="file" id="icon" { ...register("icon", { required: "Debes seleccionar un icono para este registro"}) } className="input-text" style={{ display: "none" }}/>
+              {errors.icon && <Alert type="error" onClose={ closeAlert }>{ errors.icon.message }</Alert>}
               <div className="buttons-row">
                 <button type="button" onClick={ closeModal }>Cancelar</button>
                 <button type="submit">Enviar</button>
@@ -123,15 +152,16 @@ const handlePreviusPage = () => {
           </div>
         </div>
       )}
-      {error && <Alert type="error">{error}</Alert>}
       {loading && <Loading />}
+      {showAlert && error && <Alert type="error" onClose={ closeAlert }>{error}</Alert>}
+      {showAlert && opOk && <Alert type="success" onClose={ closeAlert }>Registro creado con éxito</Alert>}
       <div className="data-container">
         <div className="ttle-btn-add-row">
           <h2 className="section-title">Características de las viviendas</h2>
           <button className="btn-add-record" onClick={ openModal }>+ Nuevo registro</button>
         </div>
           <div className="features-header">
-              <div className="l-columns">
+              <div className="l-column">
                 <span>Icono</span>
                 <span>Nombre</span>
               </div>
@@ -141,14 +171,16 @@ const handlePreviusPage = () => {
           </div>
           {features.map((feature) => (
             <div className="features-row" key={feature._id}>
-              <span>{feature.name}</span>
+              <div className="l-column">
+                <img src={ feature.icon } alt={ feature.name } title="Eliminar registro" />
+                <span>{ feature.name }</span>
+              </div>
+              <div className="actions">
+                <img src="icons/delete.png" alt="Eliminar registro" className="action-button" onClick={() => deleteFeature(feature._id)} />
+              </div>
             </div>
           ))}
-          <div className="pagination-row">
-            <img src="icons/arrow.png" className="arrow prev" alt="anterior" onClick={handlePreviusPage} disabled={page === 1} />
-            <span>Página { page } de { totalPages }</span>
-            <img src="icons/arrow.png" className="arrow" alt="siguiente" onClick={handleNextPage} disabled={page === totalPages} />
-          </div>
+          <Paginator page={ page } totalPages={ totalPages } setPage={ setPage } />
       </div>
     </>
   )

@@ -16,6 +16,7 @@
 }
 
 .home-top-container .h2 {
+    font-weight: 200;
     color: var(--hh-color-100);
     font-size: var(--hh-font-size-l);
 }

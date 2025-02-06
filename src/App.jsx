@@ -1,5 +1,5 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Auth from "./pages/Auth/Auth";
 import Home from "./pages/Home/Home";
 import { useEffect } from "react";

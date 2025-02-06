@@ -17,9 +17,11 @@
   --hh-color-010: #01B0BE;
   --hh-color-020: #027b84;
   --hh-color-080: #c7c7c7;
+  --hh-color-085: #808080;
   --hh-color-090: #606060;  
   --hh-color-100: #232323;
   --hh-error-color: #ff0000;
+  --hh-success-color: #006700;
 
   /* Espaciados */
   --hh-spacing-xs: 5px;
@@ -73,4 +75,8 @@ body {
   border: 1px solid var(--hh-color-090);
   border-radius: var(--hh-br-m);
   padding: var(--hh-spacing-l);
+}
+
+.action-button {
+  cursor: pointer;
 }
