@@ -13,6 +13,7 @@ export const login = async (body, dispatch, navigate) => {
     } else {
         dispatch({ type: "LOGIN_SUCCESS", payload: response });
         localStorage.setItem("hhToken", response.data.token); 
+        localStorage.setItem("hhUserName", response.data.name);
         navigate("/");
     }
 };
@@ -84,7 +85,16 @@ export const checkSession = async (dispatch, navigate) => {
             navigate("/login");
         } else {
             dispatch({ type: "LOGIN_CHECKED", payload: response });
-            // navigate("/");
         }
     }
 };
+
+// Función que hace logout
+export const logout = (navigate) => {
+    // Eliminar el token y el nombre del usuario del localStorage
+    localStorage.removeItem("hhToken");
+    localStorage.removeItem("hhUserName");
+
+    // Navegar al login
+    navigate("/login");
+}

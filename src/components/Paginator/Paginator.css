@@ -5,6 +5,7 @@
     align-items: center;
     position: absolute;
     bottom: 0;
+    left: 0;
     gap: var(--hh-spacing-m);
     padding: var(--hh-spacing-l);    
 }

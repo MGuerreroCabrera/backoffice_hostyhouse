@@ -172,7 +172,7 @@ const Features = () => {
           {features.map((feature) => (
             <div className="features-row" key={feature._id}>
               <div className="l-column">
-                <img src={ feature.icon } alt={ feature.name } title="Eliminar registro" />
+                <img src={ feature.icon } alt={ feature.name } title="Eliminar registro" className="icon" />
                 <span>{ feature.name }</span>
               </div>
               <div className="actions">
