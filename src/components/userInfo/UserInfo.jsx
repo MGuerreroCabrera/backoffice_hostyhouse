@@ -1,6 +1,6 @@
+import "./UserInfo.css";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../reducers/users/users.actions";
-import "./UserInfo.css";
 
 const UserInfo = () => {
 

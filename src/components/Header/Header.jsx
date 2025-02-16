@@ -1,6 +1,6 @@
 import "./Header.css";
 import CorporateImageForm from "../CorporateImageForm/CorporateImageForm";
-import UserInfo from "../userInfo/userInfo";
+import UserInfo from "../UserInfo/UserInfo";
 
 const Header = () => {
   return (
