@@ -1,14 +1,17 @@
+import "./Customers.css";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import "./Customers.css";
+import CustormersList from "../../components/CustomersList/CustormersList";
+import AppFooter from "../../components/AppFooter/AppFooter";
 
 const Customers = () => {
   return (
     <>
+      <div className="page-container">      
       <Header />
       <Sidebar />
-      <div className="page-container">      
-      Customers
+      <CustormersList />
+      <AppFooter />
       </div>
     </>
   )

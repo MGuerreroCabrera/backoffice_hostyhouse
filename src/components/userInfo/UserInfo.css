@@ -12,11 +12,20 @@
 }
 
 .user-info-container > img {
-    width: 20px;
+    width: 15px;
     cursor: pointer;
 }
 
 .user-info-container > p {
     font-size: var(--hh-font-size-s);
     color: var(--hh-color-090);
+}
+
+@media (max-width: 500px) {
+    .user-info-container > p {
+        font-size: var(--hh-font-size-xs);
+    }
+    .user-info-container > img {
+        width: 10px;
+    }
 }

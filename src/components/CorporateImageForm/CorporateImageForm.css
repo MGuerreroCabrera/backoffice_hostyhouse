@@ -16,3 +16,8 @@
     font-family: var(--hh-font-family-primary);
 }
 
+@media (max-width: 500px) {
+    .coporate-image-container > img {
+        width: 25px;
+    }
+}

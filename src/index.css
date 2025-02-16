@@ -56,27 +56,3 @@ body {
   background-color: var(--hh-color-090);
   font-family: var(--hh-font-family-primary);
 }
-
-.page-container {
-  width: 100%;
-  min-height: 80svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  background-color: var(--hh-color-080);
-}
-
-.data-container {
-  width: 80%;
-  height: 80svh;
-  position: relative;
-  background-color: var(--hh-color-000);
-  border: 1px solid var(--hh-color-090);
-  border-radius: var(--hh-br-m);
-  padding: var(--hh-spacing-l);
-}
-
-.action-button {
-  cursor: pointer;
-}

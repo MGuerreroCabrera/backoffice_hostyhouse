@@ -1,31 +1,3 @@
-.ttle-btn-add-row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: var(--hh-spacing-m);
-}
-
-.section-title {
-    font-size: var(--hh-font-size-l);
-    color: var(--hh-color-090);
-}
-
-.btn-add-record {
-    min-width: 100px;
-    border:none;
-    cursor: pointer;
-    padding: var(--hh-spacing-m);
-    color: var(--hh-color-010);
-    outline: 1px solid var(--hh-color-010);
-    border-radius: var(--hh-br-m);
-}
-
-.btn-add-record:hover {
-    outline: 1px solid var(--hh-color-020);
-    color: var(--hh-color-020);
-}
-
 .features-header {
     width: 100%;
     display: flex;

@@ -1,4 +1,4 @@
-import "./Features.css"
+import "./FeaturesList.css";
 import { useState } from "react"
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -6,8 +6,9 @@ import { API } from "../../utils/API/API";
 import Alert from "../Alert/Alert";
 import Loading from "../Loading/Loading";
 import Paginator from "../Paginator/Paginator";
+import { closeAlert } from "../../utils/closeAlert";
 
-const Features = () => {
+const FeaturesList = () => {
   // Estado para almacenar las características de las viviendas
   const [features, setFeatures] = useState([]);
 
@@ -40,12 +41,6 @@ const Features = () => {
 
   // Configuración de react-hook-form
   const { register, handleSubmit, formState: { errors } } = useForm();
-
-   // Función para cerrar el Alert
-   const closeAlert = () => {
-       setShowAlert(false);
-       setError(null);
-   }
 
   // Función para manejar el envío del formulario
   const onSubmit = async (data) => {
@@ -137,13 +132,13 @@ const Features = () => {
                 Nombre de la característica
               </label>
               <input type="text" { ...register("name", {required: "El campo nombre es obligatorio"}) } placeholder={ errors.name ? errors.name.message : "" } className="input-text" />
-              {errors.name && <Alert type="error" onClose={ closeAlert }>{ errors.name.message }</Alert>}
+              {errors.name && <Alert type="error" onClose={ () => { closeAlert(setShowAlert, setError) } }>{ errors.name.message }</Alert>}
               <label htmlFor="icon" className="upload-row">
                 <img src="/icons/upload.png" alt="Subir icono" />
                 <span>Subir icono</span>
               </label>
               <input type="file" id="icon" { ...register("icon", { required: "Debes seleccionar un icono para este registro"}) } className="input-text" style={{ display: "none" }}/>
-              {errors.icon && <Alert type="error" onClose={ closeAlert }>{ errors.icon.message }</Alert>}
+              {errors.icon && <Alert type="error" onClose={ () => { closeAlert(setShowAlert, setError) } }>{ errors.icon.message }</Alert>}
               <div className="buttons-row">
                 <button type="button" onClick={ closeModal }>Cancelar</button>
                 <button type="submit">Enviar</button>
@@ -153,8 +148,8 @@ const Features = () => {
         </div>
       )}
       {loading && <Loading />}
-      {showAlert && error && <Alert type="error" onClose={ closeAlert }>{error}</Alert>}
-      {showAlert && opOk && <Alert type="success" onClose={ closeAlert }>Registro creado con éxito</Alert>}
+      {showAlert && error && <Alert type="error" onClose={ () => { closeAlert(setShowAlert, setError) } }>{ error }</Alert>}
+      {showAlert && opOk && <Alert type="success" onClose={ () => { closeAlert(setShowAlert, setError) } }>Registro creado con éxito</Alert>}
       <div className="data-container">
         <div className="ttle-btn-add-row">
           <h2 className="section-title">Características de las viviendas</h2>
@@ -186,4 +181,4 @@ const Features = () => {
   )
 }
 
-export default Features
+export default FeaturesList

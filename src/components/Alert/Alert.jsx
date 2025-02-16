@@ -13,7 +13,8 @@ const Alert = ({ type, children, onClose }) => {
     }, [onClose]);
 
     return (
-        <div className={`alert-container glass ${type}`}>
+        // <div className={`alert-container glass ${type}`}>
+        <div className={`alert-container ${type}`}>
             <p>{ children }</p>
         </div>
     );

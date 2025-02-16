@@ -3,9 +3,10 @@
     position: absolute;
     top: 10px;
     left: 70px;
-    box-shadow: 1px 1px 5px 0 var(--hh-color-010);
-    backdrop-filter: blur(1.5px);
-    -webkit-backdrop-filter: blur(1.5px);
+    backdrop-filter: blur(2px) saturate(200%);
+    -webkit-backdrop-filter: blur(2px) saturate(200%);
+    background-color: rgba(57, 59, 65, 0.6);
+    border: 1px solid rgba(147, 146, 146, 0.125);
     animation: slideFromTopLeft 0.5s ease-out forwards;
     padding: var(--hh-spacing-l);
 }

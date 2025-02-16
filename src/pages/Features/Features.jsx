@@ -1,7 +1,7 @@
+import "./Features.css";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import FeaturesComponent from "../../components/Features/Features";
-import "./Features.css";
+import FeaturesList from "../../components/FeaturesList/FeaturesList";
 import AppFooter from "../../components/AppFooter/AppFooter";
 
 const Features = () => {
@@ -9,7 +9,7 @@ const Features = () => {
     <div className="page-container">
       <Header />
       <Sidebar />
-      <FeaturesComponent />
+      <FeaturesList />
       <AppFooter />
     </div>
   )

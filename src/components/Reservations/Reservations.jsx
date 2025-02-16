@@ -3,8 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Loading from "../Loading/Loading";
 import Alert from "../Alert/Alert";
-import { API } from "../../utils/API/API";
 import Paginator from "../Paginator/Paginator";
+import { fetchReservations } from "../../reducers/reservations/reservations.actions";
 
 const Reservations = () => {
     // Estado para almacenar las reservas
@@ -21,30 +21,10 @@ const Reservations = () => {
 
     // Estado para controlar si ha habido error en la consulta
     const [error, setError] = useState(null);
-    
-    // Límite de registros por página
-    const limit = 10;    
 
     // useEffect para llamar a la API
     useEffect(() => {
-        const fetchReservations  = async () => {
-            try {
-                const { error, response } = await API({ endpoint: `/reservations?page=${page}&limit=${limit}` });
-                if(error) {
-                    setLoading(false);
-                    setError("Ha ocurrido un error en la petición");
-                }
-                const data = response.records;
-                setReservations(data);
-                setLoading(false);
-                setTotalPages(Math.ceil(response.totalRecords / limit));
-            } catch (err) {
-                setLoading(false);
-                setError(err.message);
-            }
-        }
-
-        fetchReservations();
+        fetchReservations(setLoading, setError, setReservations, setTotalPages, page);
     }, [page]);
 
     return (
