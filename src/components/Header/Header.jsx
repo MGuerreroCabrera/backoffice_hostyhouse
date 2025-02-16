@@ -1,12 +1,12 @@
 import "./Header.css";
 import CorporateImageForm from "../CorporateImageForm/CorporateImageForm";
-import UserInfo from "../UserInfo/UserInfo";
+import UserConnected from "../UserConnected/UserConnected";
 
 const Header = () => {
   return (
     <div className="header-container">
         <CorporateImageForm />
-        <UserInfo />
+        <UserConnected />
     </div>
   )
 }
