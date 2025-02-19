@@ -1,4 +1,5 @@
 import "./UserConnected.css";
+import { logout } from "../../reducers/users/users.actions";
 import { useNavigate } from 'react-router-dom';
 
 const UserConnected = () => {

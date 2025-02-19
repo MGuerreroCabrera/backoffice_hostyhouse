@@ -74,3 +74,34 @@ export const downloadCustomersList = async(setLoading, setError, setCustomers, c
         setLoading(false);
     }
 }
+
+// Función que elimina un cliente
+export const deleteCustomer = async(id, setLoading, error, setError, customers, setCustomers, setOpOk) => {
+    try {
+        // Poner el loading a true
+        setLoading(true);
+
+        // Llamar a la API con el id del cliente a eliminar
+        const { error } = await API({ endpoint: `/customers/${id}`, method: "DELETE" });
+
+        if(error) {
+            // Poner loading a false
+            setLoading(false);
+            // Cambiar estado Error
+            setError(error.message);
+        } else {
+            // Poner estado loading a false
+            setLoading(false);
+            // Eliminar el registro eliminado del listado de pantalla
+            setCustomers(customers.filter(customer => customer._id !== id));
+            // Indicar que la operación ha ido bien
+            setOpOk(true);
+        }
+
+    } catch (err) {
+        // Poner el loading a false
+        setLoading(false);
+        // Poner el estado error con el err.message
+        setError(err.message);
+    }
+}

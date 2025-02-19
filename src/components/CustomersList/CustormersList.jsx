@@ -4,7 +4,7 @@ import Paginator from "../Paginator/Paginator";
 import { useEffect } from "react";
 import { API } from "../../utils/API/API";
 import Loading from "../Loading/Loading";
-import { downloadCustomersList, fetchCustomers } from "../../reducers/customers/customers.actions";
+import { downloadCustomersList, fetchCustomers, deleteCustomer } from "../../reducers/customers/customers.actions";
 
 const CustormersList = () => {
     // Estado para almacenar las características de las viviendas
@@ -23,13 +23,13 @@ const CustormersList = () => {
     const [error, setError] = useState(null);
 
     // Estado para mensaje resultado OK
-    const [opOk, setOpOK] = useState(false);    
+    const [opOk, setOpOk] = useState(false);    
 
     // Estado para controlar la visibilidad del Alert
-    const [showAlert, setShowAlert] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);    
 
     useEffect(() => {
-        fetchCustomers(setLoading, setError, setCustomers, setTotalPages, page);
+        fetchCustomers(setLoading, setError, setCustomers, setTotalPages, page);        
     }, [page]);
 
     return (
@@ -55,7 +55,7 @@ const CustormersList = () => {
                     <li>{ customer.lastName }</li>
                     <li>{ customer.email }</li>
                     <li>{ customer.phoneNumber }</li>
-                    <li><img src="icons/delete.png" alt="Eliminar elemento" title="Eliminar elemento" style={{ width: "15px" }} /></li>
+                    <li><img src="icons/delete.png" alt="Eliminar elemento" title="Eliminar elemento" style={{ width: "15px", cursor: "pointer" }} onClick={ ()=> { deleteCustomer(customer._id, setLoading, error, setError, customers, setCustomers, setOpOk) }} /></li>
                 </ul>
             ))}
             <Paginator page={ page } totalPages={ totalPages } setPage={ setPage } />
