@@ -17,7 +17,8 @@ const FeaturesList = () => {
 
   // Desestructurización de los estados de INITIAL FEATURE STATE
   //const { features, loading, page, totalPages, error, opOk, showAlert, isModalOpen, iconName } = state(INITIAL_FEATURES_STATE);
-  const { iconName } = INITIAL_FEATURES_STATE;
+  const { iconName, isModalOpen } = INITIAL_FEATURES_STATE;
+  console.log("isModalOpen: ", isModalOpen);
 
   // Estado para almacenar las características de las viviendas
   const [features, setFeatures] = useState([]);
@@ -41,7 +42,7 @@ const FeaturesList = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   // Estado que controla la visibilidad del modal
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  //const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Estado para almacenar el nombre del archivo del input file
   //const [iconName, setIconName] = useState(null);

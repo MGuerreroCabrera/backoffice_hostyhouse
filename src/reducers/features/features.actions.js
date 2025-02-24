@@ -30,4 +30,4 @@ export const handleFileChange = (event, dispatch) => {
   };
 
 
-  export const openModal = (dispatch) => { dispatch({ type: "OPEN_MODAL" }) };
+  export const openModal = (dispatch) => { dispatch({ type: "OPEN_MODAL" }); console.log("ENTRO") };
