@@ -1,8 +1,8 @@
 .alert-container {
     width: 350px;
     position: absolute;
-    top: 10px;
-    left: 70px;
+    top: 20px;
+    left: 20px;
     backdrop-filter: blur(2px) saturate(200%);
     -webkit-backdrop-filter: blur(2px) saturate(200%);
     background-color: rgba(57, 59, 65, 0.6);

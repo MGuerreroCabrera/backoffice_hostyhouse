@@ -7,8 +7,18 @@ import Alert from "../Alert/Alert";
 import Loading from "../Loading/Loading";
 import Paginator from "../Paginator/Paginator";
 import { closeAlert } from "../../utils/closeAlert";
+import { useReducer } from "react";
+import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
+import { handleFileChange, openModal } from "../../reducers/features/features.actions";
 
 const FeaturesList = () => {
+  // Uso del hook useReducer para manejar estados.
+  const [state, dispatch] = useReducer(featuresReducer);
+
+  // Desestructurización de los estados de INITIAL FEATURE STATE
+  //const { features, loading, page, totalPages, error, opOk, showAlert, isModalOpen, iconName } = state(INITIAL_FEATURES_STATE);
+  const { iconName } = INITIAL_FEATURES_STATE;
+
   // Estado para almacenar las características de las viviendas
   const [features, setFeatures] = useState([]);
 
@@ -33,8 +43,39 @@ const FeaturesList = () => {
   // Estado que controla la visibilidad del modal
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Estado para almacenar el nombre del archivo del input file
+  //const [iconName, setIconName] = useState(null);
+
+  // Función para manejar el cambio del input del icono
+  // const handleFileChange = (event) => {
+    
+  //   const file = event.target.files[0];
+
+  //   if(file){
+  //     // Tipos de archivos de imagen permitidos
+  //     const validImageTypes = [
+  //       "image/jpeg",
+  //       "image/png",
+  //       "image/gif",
+  //       "image/bmp",
+  //       "image/ico",
+  //       "image/svg+xml"
+  //     ];
+  //     // Comprobar formato de archivo
+  //     if (validImageTypes.includes(file.type)) {
+  //       setIconName(file.name);
+  //     } else {
+  //       setIconName("");
+  //       setError("Debes subir un archivo de imagen válido (JPEG, PNG, GIF, BMP, ICO, SVG)");
+  //       setShowAlert(true);
+  //     }
+
+  //   }
+
+  // };
+
   // Función que cambia el estado del modal a true
-  const openModal = () => { setIsModalOpen(true) };
+  // const openModal = () => { setIsModalOpen(true) };
 
   // Función que cambia el estado del modal a false
   const closeModal = () => { setIsModalOpen(false) };
@@ -135,9 +176,9 @@ const FeaturesList = () => {
               {errors.name && <Alert type="error" onClose={ () => { closeAlert(setShowAlert, setError) } }>{ errors.name.message }</Alert>}
               <label htmlFor="icon" className="upload-row">
                 <img src="/icons/upload.png" alt="Subir icono" />
-                <span>Subir icono</span>
+                <span>{iconName || "Subir icono"}</span>
               </label>
-              <input type="file" id="icon" { ...register("icon", { required: "Debes seleccionar un icono para este registro"}) } className="input-text" style={{ display: "none" }}/>
+              <input type="file" id="icon" { ...register("icon", { required: "Debes seleccionar un icono para este registro"}) } className="input-text" style={{ display: "none" }} onChange={ (event) => handleFileChange(event, dispatch) }/>
               {errors.icon && <Alert type="error" onClose={ () => { closeAlert(setShowAlert, setError) } }>{ errors.icon.message }</Alert>}
               <div className="buttons-row">
                 <button type="button" onClick={ closeModal }>Cancelar</button>
@@ -153,7 +194,7 @@ const FeaturesList = () => {
       <div className="data-container">
         <div className="ttle-btn-add-row">
           <h2 className="section-title">Características de las viviendas</h2>
-          <button className="btn-add-record" onClick={ openModal }>+ Nuevo registro</button>
+          <button className="btn-add-record" onClick={ () => openModal(dispatch) }>+ Nuevo registro</button>
         </div>
           <div className="features-header">
               <div className="l-column">
