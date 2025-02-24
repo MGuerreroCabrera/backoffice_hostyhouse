@@ -9,16 +9,15 @@ import Paginator from "../Paginator/Paginator";
 import { closeAlert } from "../../utils/closeAlert";
 import { useReducer } from "react";
 import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
-import { handleFileChange, openModal } from "../../reducers/features/features.actions";
+import { closeModal, handleFileChange, openModal } from "../../reducers/features/features.actions";
 
 const FeaturesList = () => {
   // Uso del hook useReducer para manejar estados.
-  const [state, dispatch] = useReducer(featuresReducer);
+  const [state, dispatch] = useReducer(featuresReducer, INITIAL_FEATURES_STATE);
 
   // Desestructurización de los estados de INITIAL FEATURE STATE
-  //const { features, loading, page, totalPages, error, opOk, showAlert, isModalOpen, iconName } = state(INITIAL_FEATURES_STATE);
-  const { iconName, isModalOpen } = INITIAL_FEATURES_STATE;
-  console.log("isModalOpen: ", isModalOpen);
+  //const { features, loading, page, totalPages, error, opOk, showAlert, isModalOpen, iconName } = state;
+  const { iconName, isModalOpen } = state;
 
   // Estado para almacenar las características de las viviendas
   const [features, setFeatures] = useState([]);
@@ -79,7 +78,7 @@ const FeaturesList = () => {
   // const openModal = () => { setIsModalOpen(true) };
 
   // Función que cambia el estado del modal a false
-  const closeModal = () => { setIsModalOpen(false) };
+  // const closeModal = () => { setIsModalOpen(false) };
 
   // Configuración de react-hook-form
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -166,7 +165,7 @@ const FeaturesList = () => {
   return (
     <>
       {isModalOpen && (
-        <div className="modal-overlay" onClick={ closeModal }>
+        <div className="modal-overlay" onClick={ () => closeModal(dispatch) }>
           <div className="modal-content" onClick={ (e) => e.stopPropagation() }>
             <h3 className="form-title">Nuevo registro</h3>
             <form onSubmit={ handleSubmit(onSubmit) } className="new-feature-form">
@@ -182,7 +181,7 @@ const FeaturesList = () => {
               <input type="file" id="icon" { ...register("icon", { required: "Debes seleccionar un icono para este registro"}) } className="input-text" style={{ display: "none" }} onChange={ (event) => handleFileChange(event, dispatch) }/>
               {errors.icon && <Alert type="error" onClose={ () => { closeAlert(setShowAlert, setError) } }>{ errors.icon.message }</Alert>}
               <div className="buttons-row">
-                <button type="button" onClick={ closeModal }>Cancelar</button>
+                <button type="button" onClick={ () => closeModal(dispatch) }>Cancelar</button>
                 <button type="submit">Enviar</button>
               </div>
             </form>

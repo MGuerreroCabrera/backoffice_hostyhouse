@@ -26,9 +26,11 @@ export const featuresReducer = (state, action) => {
         case "ERROR":
             return { ...state, error: action.payload };
         case "HANDLE_FILE_CHANGE":
-            return { ...state, iconName: action.payload }
+            return { ...state, iconName: action.payload };
         case "OPEN_MODAL":
-            return { ...state, isModalOpen: true }
+            return { ...state, isModalOpen: true };
+        case "CLOSE_MODAL":
+            return { ...state, isModalOpen: false };
         default:
             break;
     }
