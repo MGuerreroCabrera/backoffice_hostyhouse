@@ -1,30 +1,26 @@
 import "./Reservations.css";
-import { useState } from "react";
 import { useEffect } from "react";
 import Loading from "../Loading/Loading";
 import Alert from "../Alert/Alert";
 import Paginator from "../Paginator/Paginator";
 import { fetchReservations } from "../../reducers/reservations/reservations.actions";
+import { useReducer } from "react";
+import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/gobal/gloabal.reducer";
+import { INITIAL_RESERVATIONS_STATE, reservationsReducer } from "../../reducers/reservations/reservations.reducer";
 
 const Reservations = () => {
-    // Estado para almacenar las reservas
-    const [reservations, setReservations] = useState([]);
 
-    // Estado para el loading
-    const [loading, setLoading] = useState(true);
+    // Uso del hook useReducers (globalReducer y reservationsReducer)
+    const [globalState, globalDispatch] = useReducer(globalReducer, INITIAL_GLOBAL_STATE);
+    const [reservationsState, reservationsDispatch] = useReducer(reservationsReducer, INITIAL_RESERVATIONS_STATE);
 
-    // Estado para controlar las páginas de resultados
-    const [page, setPage] = useState(1);
-
-    // Estado para controlar el total de páginas
-    const [totalPages, setTotalPages] = useState(1);
-
-    // Estado para controlar si ha habido error en la consulta
-    const [error, setError] = useState(null);
+    // Desestructurizar propiedades de los reducers
+    const { loading, page, totalPages, error } = globalState;
+    const { reservations } = reservationsState;
 
     // useEffect para llamar a la API
     useEffect(() => {
-        fetchReservations(setLoading, setError, setReservations, setTotalPages, page);
+        fetchReservations(globalDispatch, reservationsDispatch, page);
     }, [page]);
 
     return (
@@ -49,7 +45,7 @@ const Reservations = () => {
                         <span>{reservation.amount}€</span>
                     </div> 
                 ))}
-                <Paginator page={ page } totalPages={ totalPages } setPage={ setPage } />
+                <Paginator page={ page } totalPages={ totalPages } globalDispatch={ globalDispatch } />
             </div>            
         </>
     )
