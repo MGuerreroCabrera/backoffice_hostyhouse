@@ -50,7 +50,7 @@ export const downloadCustomersList = (customers) => {
 }
 
 // Función que elimina un cliente
-export const deleteCustomer = async(id, globalDispatch, customersDispatch) => {
+export const deleteCustomer = async(id, globalDispatch, customersDispatch, customers) => {
     try {
         // Poner el loading a true
         globalDispatch({ type: "LOADING" });
@@ -67,7 +67,8 @@ export const deleteCustomer = async(id, globalDispatch, customersDispatch) => {
             // Poner estado loading a false
             globalDispatch({ type: "STOP_LOADING" });
             // Eliminar el registro eliminado del listado de pantalla
-            customersDispatch({ type: "SET_CUSTOMERS", payload: customers.filter(customer => customer._id !== id) });
+            const newCustomers = customers.filter(customer => customer._id !== id);
+            customersDispatch({ type: "SET_CUSTOMERS", payload: newCustomers });
             // Indicar que la operación ha ido bien
             globalDispatch({ type: "OP_OK" });
         }

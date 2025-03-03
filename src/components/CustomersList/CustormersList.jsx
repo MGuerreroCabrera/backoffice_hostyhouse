@@ -18,8 +18,7 @@ const CustormersList = () => {
     const { customers } = customersState;
      
 
-    useEffect(() => {
-        //fetchCustomers(setLoading, setError, setCustomers, setTotalPages, page);        
+    useEffect(() => { 
         fetchCustomers(page, globalDispatch, customersDispatch);
     }, [page]);
 
@@ -46,7 +45,7 @@ const CustormersList = () => {
                     <li>{ customer.lastName }</li>
                     <li>{ customer.email }</li>
                     <li>{ customer.phoneNumber }</li>
-                    <li><img src="icons/delete.png" alt="Eliminar elemento" title="Eliminar elemento" style={{ width: "15px", cursor: "pointer" }} onClick={ ()=> { deleteCustomer(customer._id, globalDispatch, customersDispatch) }} /></li>
+                    <li><img src="icons/delete.png" alt="Eliminar elemento" title="Eliminar elemento" style={{ width: "15px", cursor: "pointer" }} onClick={ ()=> { deleteCustomer(customer._id, globalDispatch, customersDispatch, customers) }} /></li>
                 </ul>
             ))}
             <Paginator page={ page } totalPages={ totalPages } globalDispatch={ globalDispatch } />
