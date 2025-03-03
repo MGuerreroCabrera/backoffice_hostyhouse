@@ -11,8 +11,10 @@ export const handleFileChange = (event, dispatch, globalDispatch, setValue) => {
       // Tipos de archivos de imagen permitidos
       const validImageTypes = [
         "image/jpeg",
+        "image/jpg",
         "image/png",
         "image/gif",
+        "image/webp",
         "image/bmp",
         "image/ico",
         "image/svg+xml"

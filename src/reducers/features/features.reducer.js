@@ -9,10 +9,6 @@ export const INITIAL_FEATURES_STATE = {
 
 export const featuresReducer = (state, action) => {
     switch (action.type) {
-        case "LOADING":
-            return { ...state, loading: true };
-        case "ERROR":
-            return { ...state, error: action.payload };
         case "HANDLE_FILE_CHANGE":
             return { ...state, iconName: action.payload };
         case "OPEN_MODAL":
