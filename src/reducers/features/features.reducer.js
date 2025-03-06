@@ -14,10 +14,10 @@ export const featuresReducer = (state, action) => {
         case "OPEN_MODAL":
             return { ...state, isModalOpen: true };
         case "CLOSE_MODAL":
-            return { ...state, isModalOpen: false };
+            return { ...state, isModalOpen: false, iconName: "" };
         case "SET_FEATURES":
             return { ...state, features: action.payload };
         default:
-            break;
+            return { ...state };
     }
 }

@@ -1,7 +1,6 @@
 import { API } from "../../utils/API/API";
 
 // Función que llama a la API para listar los registros
-//export const fetchCustomers = async (setLoading, setError, setCustomers, setTotalPages, page) => {
 export const fetchCustomers = async(page, globalDispatch, customersDispatch) => {
     try {
 

@@ -9,6 +9,6 @@ export const customersReducer = (state, action) => {
         case "SET_CUSTOMERS":
             return { ...state, customers: action.payload };
         default:
-            break;
+            return { ...state };
     }
 }

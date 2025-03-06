@@ -9,6 +9,6 @@ export const reservationsReducer = (state, action) => {
         case "FETCH_RESERVATIONS":
             return { ...state, reservations: action.payload };
         default:
-            break;
+            return { ...state };
     }
 }

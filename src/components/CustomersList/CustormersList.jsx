@@ -5,7 +5,7 @@ import Loading from "../Loading/Loading";
 import { downloadCustomersList, fetchCustomers, deleteCustomer } from "../../reducers/customers/customers.actions";
 import { useReducer } from "react";
 import { customersReducer, INITIAL_CUSTOMERS_STATE } from "../../reducers/customers/custormers.reducer";
-import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/gobal/gloabal.reducer";
+import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
 
 const CustormersList = () => {
 

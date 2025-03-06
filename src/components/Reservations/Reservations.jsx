@@ -5,7 +5,7 @@ import Alert from "../Alert/Alert";
 import Paginator from "../Paginator/Paginator";
 import { fetchReservations } from "../../reducers/reservations/reservations.actions";
 import { useReducer } from "react";
-import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/gobal/gloabal.reducer";
+import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
 import { INITIAL_RESERVATIONS_STATE, reservationsReducer } from "../../reducers/reservations/reservations.reducer";
 
 const Reservations = () => {

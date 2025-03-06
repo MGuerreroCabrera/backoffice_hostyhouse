@@ -34,6 +34,6 @@ export const globalReducer = (state, action) => {
         case "SET_TOTAL_PAGES":
             return { ...state, totalPages: action.payload };
         default:
-            break;
+            return { ...state };
     }
 }

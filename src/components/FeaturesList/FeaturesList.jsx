@@ -7,12 +7,14 @@ import Paginator from "../Paginator/Paginator";
 import { closeAlert } from "../../utils/closeAlert";
 import { useReducer } from "react";
 import { closeModal, handleFileChange, openModal, fetchFeatures, onSubmit, deleteFeature } from "../../reducers/features/features.actions";
-import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/gobal/gloabal.reducer";
+import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
 import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
 
 const FeaturesList = () => {
   // Uso del hook useReducer globalReducer
   const [globalState, globalDispatch] = useReducer(globalReducer, INITIAL_GLOBAL_STATE);
+
+  console.log(globalState);
 
   // Desestructurizar estados globales
   const { loading, error, opOk, showAlert, page, totalPages } = globalState;
@@ -24,16 +26,30 @@ const FeaturesList = () => {
   const { features, isModalOpen, iconName } = state;
 
   // Configuración de react-hook-form
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+
+  const iconValue = watch("icon");
+
+  useEffect(() => {
+    if(iconValue?.[0]) {
+      handleFileChange(iconValue[0], dispatch, globalDispatch)
+    }
+  }, [iconValue])
 
   const handleFormSubmit = (data) => {
-    onSubmit(data, globalDispatch, dispatch);
+    onSubmit(data, globalDispatch, dispatch, features, page);
   }
 
   // useEffect para llamar a la API
   useEffect(() => {    
     fetchFeatures(page, globalDispatch, dispatch);
   }, [page]);
+
+  // Cambio propiedad features
+  // useEffect(() => {    
+  //   dispatch({ type: "CLOSE_MODAL" });
+  //   // dispatch({ type: "SET_FEATURES", newFeatures });
+  // }, [features]);
 
   return (
     <>
@@ -54,10 +70,10 @@ const FeaturesList = () => {
               <input
                 type="file"
                 id="icon"
-                {...register("icon")}
+                {...register("icon", { required: "Icono obligatorio" })}
                 className="input-text"
                 style={{ display: "none" }}
-                onChange={(event) => handleFileChange(event, dispatch, globalDispatch, setValue)}
+                // onChange={(event) => handleFileChange(event, dispatch, globalDispatch, setValue)}
               />
               {errors.icon && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.icon.message }</Alert>}
               <div className="buttons-row">

@@ -1,10 +1,8 @@
 import { API } from "../../utils/API/API";
 
 // Función para manejar el cambio del input del icono
-export const handleFileChange = (event, dispatch, globalDispatch, setValue) => {
+export const handleFileChange = (file, dispatch, globalDispatch, setValue) => {
     
-    const file = event.target.files[0];
-
     dispatch({ type: "HANDLE_FILE_CHANGE", payload: file.name });// borrar
 
     if(file){
@@ -21,7 +19,7 @@ export const handleFileChange = (event, dispatch, globalDispatch, setValue) => {
       ];
       // Comprobar formato de archivo
       if (validImageTypes.includes(file.type)) {
-        setValue("icon", [file]);        
+        // setValue("icon", [file]);        
         dispatch({ type: "HANDLE_FILE_CHANGE", payload: file.name });
       } else {
         dispatch({ type: "HANDLE_FILE_CHANGE", payload: "" });
@@ -42,8 +40,6 @@ export const closeModal = (dispatch) => { dispatch({ type: "CLOSE_MODAL" }) };
 export const fetchFeatures = async (page, globalDispatch, dispatch) => {
 
   const limit = 10;
-
-  console.log("Entro en el features");
 
   try {
     globalDispatch({ type: "LOADING" });
@@ -88,12 +84,12 @@ export const deleteFeature = async (id, globalDispatch, features, dispatch) => {
 }
 
 // Función para manejar el envío del formulario
-export const onSubmit = async (data, globalDispatch, dispatch, features) => {
+export const onSubmit = async (data, globalDispatch, dispatch, features, page) => {  
   try {
     globalDispatch({ type: "LOADING" });
-    
+
     // Verifica que data.icon sea un array y contenga el archivo
-    if (!data.icon || !Array.isArray(data.icon) || data.icon.length === 0) {
+    if(!data.icon?.[0]){
       globalDispatch({ type: "STOP_LOADING" });
       globalDispatch({ type: "SET_ERROR", payload: "No se ha seleccionado ningún archivo de imagen." });
       globalDispatch({ type: "SHOW_ALERT" });
@@ -111,6 +107,8 @@ export const onSubmit = async (data, globalDispatch, dispatch, features) => {
       content_type: false
     });
 
+    
+
     if (error) {
       globalDispatch({ type: "STOP_LOADING" });
       globalDispatch({ type: "SET_ERROR", payload: error.message });
@@ -121,7 +119,15 @@ export const onSubmit = async (data, globalDispatch, dispatch, features) => {
       globalDispatch({ type: "SET_ERROR", payload: null });
       globalDispatch({ type: "OP_OK" });
       globalDispatch({ type: "SHOW_ALERT" });
-      fetchFeatures(page, globalDispatch, dispatch);  
+      // Agregar el nuevo registro al estado de features
+      const newFeature = { _id: response.data._id, name: response.data.name, icon: response.data.icon };
+      const updatedFeatures = [...features, newFeature];
+      dispatch({ type: "SET_FEATURES", payload: updatedFeatures });
+      globalDispatch({ type: "CLOSE_MODAL" });
+      // fetchFeatures(page, globalDispatch, dispatch);  
+      // const newFeatures = [...features, { _id: response.data._id, name: response.data.name, icon: response.data.icon}];
+      // dispatch({ type: "CLOSE_MODAL" });
+      // dispatch({ type: "SET_FEATURES", newFeatures });
     }
   } catch (error) {
     globalDispatch({ type: "STOP_LOADING" });
