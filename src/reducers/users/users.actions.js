@@ -141,13 +141,15 @@ export const closeModal = (usersDispatch) => { usersDispatch({ type: "CLOSE_MODA
 
 
 // Función que permite crear un nuevo usuario
-export const postUser = async (data, globalDispatch, usersDispatch, users) => {
+export const postUser = async (data, globalDispatch, usersDispatch, users, userId = null) => {
     try {
         // Poner el loading a true
         globalDispatch({ type: "LOADING" });
-
+        
+        const endpoint = userId ? `/users/${userId}`: "/users/register";
+        const method = userId ? "PUT" : "POST";
         // Llamar a la función API con los datos        
-        const { error, response } = await API({ endpoint: "/users/register", method: "POST", body: data, content_type: true });        
+        const { error, response } = await API({ endpoint, method, body: data, content_type: true });        
 
         if(error) {
             globalDispatch({ type: "STOP_LOADING" });
@@ -158,8 +160,11 @@ export const postUser = async (data, globalDispatch, usersDispatch, users) => {
             globalDispatch({ type: "SET_ERROR", payload: null });
             globalDispatch({ type: "OP_OK" });
             globalDispatch({ type: "SHOW_ALERT" });
-            // Añadir registro al array de registros siempre que en pantalla haya menos de 10 registros
-            if(users.length < 10) {
+            if(userId) {
+                const updatedUsers = users.map(user => user._id === userId ? { ...user, ...data } : user);
+                usersDispatch({ type: "SET_USERS", payload: updatedUsers });
+            } else if(users.length < 10) {
+                // Añadir registro al array de registros siempre que en pantalla haya menos de 10 registros
                 const newUser = { _id: response.data._id, name: response.data.name, email: response.data.email, password: response.data.password, rol: response.data.rol };
                 const updatedUsers = [ ...users, newUser ];
                 usersDispatch({ type: "SET_USERS", payload: updatedUsers });
@@ -172,10 +177,30 @@ export const postUser = async (data, globalDispatch, usersDispatch, users) => {
         globalDispatch({ type: "STOP_LOADING" });
         globalDispatch({ type: "SET_ERROR", payload: error.message });
         globalDispatch({ type: "SHOW_ALERT" });
+        usersDispatch({ type: "CLOSE_MODAL" });
+        closeModal(usersDispatch);
     }
 }
 
-// Función que permite actualizar un usuario
+// Función que devuelve los datos de un usuario por su id
+export const findUserById = async (id, globalDispatch) => {
+    // Poner loading a true
+    globalDispatch({ type: "LOADING" });
+    // Obtener el token del usuario
+    const token = localStorage.getItem("hhToken");
+    // Llamada a la API para obtener los datos del usuario
+    const { error, response } = await API({ endpoint: `/users/${id}`, headers: { "Authorization": `Bearer ${token}` } });
+
+    // Comprobar error
+    if(error) {
+        globalDispatch({ type: "STOP_LOADING" });
+        globalDispatch({ type: "SET_ERROR", payload: error.message });
+        globalDispatch({ type: "SHOW_ALERT" });
+    } else {
+        globalDispatch({ type: "STOP_LOADING" });
+        return response.data;
+    }
+}
 
 // Función que permite eliminar un usuario
 export const deleteUser = async (id, globalDispatch, usersDispatch, users) => {
