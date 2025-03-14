@@ -26,7 +26,7 @@ const FeaturesList = () => {
   const { features, isModalOpen, iconName } = state;
 
   // Configuración de react-hook-form
-  const { register, handleSubmit, formState: { errors }, watch } = useForm();
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
 
   const iconValue = watch("icon");
 
@@ -45,12 +45,12 @@ const FeaturesList = () => {
     fetchFeatures(page, globalDispatch, dispatch);
   }, [page]);
 
-  // Cambio propiedad features
-  // useEffect(() => {    
-  //   dispatch({ type: "CLOSE_MODAL" });
-  //   // dispatch({ type: "SET_FEATURES", newFeatures });
-  // }, [features]);
-
+  // Función que maneja el botón de Cancelar
+  const handleCancel = () => {
+    closeModal(dispatch);
+    reset();
+  }
+  
   return (
     <>
       {isModalOpen && (
@@ -77,7 +77,7 @@ const FeaturesList = () => {
               />
               {errors.icon && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.icon.message }</Alert>}
               <div className="buttons-row">
-                <button type="button" onClick={ () => closeModal(dispatch) }>Cancelar</button>
+                <button type="button" onClick={ handleCancel }>Cancelar</button>
                 <button type="submit">Enviar</button>
               </div>
             </form>

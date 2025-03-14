@@ -26,13 +26,16 @@ export const globalReducer = (state, action) => {
         case "SHOW_ALERT":
             return { ...state, showAlert: true };
         case "CLOSE_ALERT":
-            return { ...state, error: null, showAlert: false };
+            // return { ...state, error: null, showAlert: false };
+            return { ...state, showAlert: false };
         case "SUM_PAGE":
             return { ...state, page: state.page + 1 };
         case "SUBSTRACT_PAGE":
             return { ...state, page: state.page - 1 };
         case "SET_TOTAL_PAGES":
             return { ...state, totalPages: action.payload };
+        case "RESET_STATES":
+            return { ...state, opOk: false, showAlert: false }
         default:
             return { ...state };
     }

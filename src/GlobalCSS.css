@@ -26,29 +26,69 @@
 .action-button {
     cursor: pointer;
 }
+
 .ttle-btn-add-row {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--hh-spacing-m);
+    padding: var(--hh-spacing-m) 0;
 }
 
+.columns-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--hh-color-010);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-s);
+}
+
+/* Estilo global para los labels de los imputs */
+.input-label {
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-090);
+}
+
+/* Estilos para los botones de los formularios */
 .btn-add-record {
     min-width: 100px;
     border:none;
     cursor: pointer;
-    padding: var(--hh-spacing-m);
+    transition: all 0.5s ease-in-out;
+    padding: var(--hh-spacing-s);
     color: var(--hh-color-010);
-    outline: 1px solid var(--hh-color-010);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-080);
+    border: 1px solid var(--hh-color-010);
     border-radius: var(--hh-br-m);
+    outline: none;
 }
 
 .btn-add-record:hover {
-    outline: 1px solid var(--hh-color-020);
-    color: var(--hh-color-020);
+    color: var(--hh-color-000);
+    border: 1px solid var(--hh-color-020);
+    background-color: var(--hh-color-020);
 }
 
+.btn-1 {
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    padding: var(--hh-spacing-s);
+    color: var(--hh-color-010);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-080);
+    border: 1px solid var(--hh-color-010);
+    border-radius: var(--hh-br-s);
+}
+.btn-1:hover {
+    color: var(--hh-color-000);
+    border: 1px solid var(--hh-color-020);
+    background-color: var(--hh-color-020);
+}
 
 @media (max-width: 600px) {
     .btn-add-record {

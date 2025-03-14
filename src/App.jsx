@@ -13,6 +13,7 @@ import Housings from "./pages/Housings/Housings";
 import Reservations from "./pages/Reservations/Reservations";
 import Customers from "./pages/Customers/Customers";
 import Users from "./pages/Users/Users";
+import NotFound from "./pages/404/NotFound";
 
 const App = () => {
 
@@ -43,7 +44,8 @@ const App = () => {
         <Route path="/reservations" element={<Reservations />}/>
         <Route path="/customers" element={<Customers />}/>
         <Route path="/users" element={<Users />}/>
-        <Route path="*" element={<Home/>}/>
+        {/* <Route path="*" element={<Home/>}/> */}
+        <Route path="*" element={<NotFound />}/>
       </Routes>
     </>
   )

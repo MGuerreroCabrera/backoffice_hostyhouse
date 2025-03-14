@@ -1,7 +1,7 @@
 import { API } from "../../utils/API/API";
 
 // Función para manejar el cambio del input del icono
-export const handleFileChange = (file, dispatch, globalDispatch, setValue) => {
+export const handleFileChange = (file, dispatch, globalDispatch) => {
     
     dispatch({ type: "HANDLE_FILE_CHANGE", payload: file.name });// borrar
 
@@ -43,22 +43,22 @@ export const fetchFeatures = async (page, globalDispatch, dispatch) => {
 
   try {
     globalDispatch({ type: "LOADING" });
-    const { error, response } = await API({ endpoint: `/features?page=${page}&limit${limit}` });
+    const { error, response } = await API({ endpoint: `/features?page=${page}&limit=${limit}` });
 
     if(error) {
       globalDispatch({ type: "STOP_LOADING" });
       globalDispatch({ type: "SET_ERROR", payload: error.message });
-    } 
-    
-    //setFeatures(data);
-    dispatch({ type: "SET_FEATURES", payload: response.records });
-    globalDispatch({ type: "STOP_LOADING" });
-    const totalPages = Math.ceil(response.totalRecords / limit);
-    globalDispatch({ type: "SET_TOTAL_PAGES", payload: totalPages });
-    } catch (error) {
-        globalDispatch({ type: "STOP_LOADING" });
-        globalDispatch({ type: "SET_ERROR", payload: error.message });
+    } else {
+      dispatch({ type: "SET_FEATURES", payload: response.records });
+      globalDispatch({ type: "STOP_LOADING" });
+      const totalPages = Math.ceil(response.totalRecords / limit);
+      globalDispatch({ type: "SET_TOTAL_PAGES", payload: totalPages });
     }
+  } catch (error) {
+    globalDispatch({ type: "STOP_LOADING" });
+    globalDispatch({ type: "SET_ERROR", payload: error.message });
+    globalDispatch({ type: "SHOW_ALERT" });
+}
 }
 
 // Función que elimina un registro
@@ -80,11 +80,12 @@ export const deleteFeature = async (id, globalDispatch, features, dispatch) => {
   } catch (error) {
     globalDispatch({ type: "STOP_LOADING" });
     globalDispatch({ type: "SET_ERROR", payload: error.message });      
+    globalDispatch({ type: "SHOW_ALERT" });
   }
 }
 
 // Función para manejar el envío del formulario
-export const onSubmit = async (data, globalDispatch, dispatch, features, page) => {  
+export const onSubmit = async (data, globalDispatch, dispatch, features) => {  
   try {
     globalDispatch({ type: "LOADING" });
 
@@ -119,15 +120,13 @@ export const onSubmit = async (data, globalDispatch, dispatch, features, page) =
       globalDispatch({ type: "SET_ERROR", payload: null });
       globalDispatch({ type: "OP_OK" });
       globalDispatch({ type: "SHOW_ALERT" });
-      // Agregar el nuevo registro al estado de features
-      const newFeature = { _id: response.data._id, name: response.data.name, icon: response.data.icon };
-      const updatedFeatures = [...features, newFeature];
-      dispatch({ type: "SET_FEATURES", payload: updatedFeatures });
       globalDispatch({ type: "CLOSE_MODAL" });
-      // fetchFeatures(page, globalDispatch, dispatch);  
-      // const newFeatures = [...features, { _id: response.data._id, name: response.data.name, icon: response.data.icon}];
-      // dispatch({ type: "CLOSE_MODAL" });
-      // dispatch({ type: "SET_FEATURES", newFeatures });
+      // Agregar el nuevo registro al estado de features
+      if(features.length < 10) {
+        const newFeature = { _id: response.data._id, name: response.data.name, icon: response.data.icon };
+        const updatedFeatures = [...features, newFeature];
+        dispatch({ type: "SET_FEATURES", payload: updatedFeatures });
+      }
     }
   } catch (error) {
     globalDispatch({ type: "STOP_LOADING" });
