@@ -2,13 +2,14 @@ import "./UsersList.css";
 import { useReducer } from "react";
 import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
 import { INITIAL_USERS_STATE, usersReducer } from "../../reducers/users/users.reducer";
-import { fetchUsers, openModal, closeModal, postUser, deleteUser } from "../../reducers/users/users.actions";
+import { fetchUsers, openModal, closeModal, postUser, deleteUser, findUserById } from "../../reducers/users/users.actions";
 import { useEffect } from "react";
 import Paginator from "../Paginator/Paginator";
 import { useForm } from "react-hook-form";
 import Alert from "../Alert/Alert";
 import { closeAlert } from "../../utils/closeAlert";
 import Loading from "../Loading/Loading";
+import { useState } from "react";
 
 const UsersList = () => {
   // Uso del hook useReducer para ( globalReducer y usersReducers )
@@ -26,11 +27,14 @@ const UsersList = () => {
 
   // Configuración de react-hook-form
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  
+  // Estado para almacenar el id del usuario
+  const [editingUserId, setEditingUserId] = useState(null);
 
   const handleFormSubmit = (data) => {
     // Añadirle al objeto la propiedad rol
     data.rol = "user";
-    postUser(data, globalDispatch, usersDispatch, users, page);
+    postUser(data, globalDispatch, usersDispatch, users, editingUserId);
   }
 
   // Función que maneja el botón Cancelar
@@ -38,6 +42,18 @@ const UsersList = () => {
     closeModal(usersDispatch);
     reset();
   }  
+
+  // Función para manejar la apertura del modal con los datos del usuario
+  const handleEditUser = async (userId) => {
+    // Obtener los datos del usaurio
+    const userData = await findUserById(userId, globalDispatch);
+    // Resetear el formulario con los datos del usuario
+    reset(userData);
+    // Poner el id del usuario en el estado
+    setEditingUserId(userId);
+    // Abrir modal
+    openModal(usersDispatch, reset);
+  };
 
   return (
     <>
@@ -65,7 +81,7 @@ const UsersList = () => {
               <label htmlFor="password" className="input-label">
                 Contraseña
               </label>
-              <input type="text" { ...register("password", {required: "El campo contraseña es obligatorio"}) } placeholder={ errors.password ? errors.password.message : "" } className="input-text" />
+              <input type="password" { ...register("password", {required: "El campo contraseña es obligatorio"}) } placeholder={ errors.password ? errors.password.message : "" } className="input-text" />
               {errors.password && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.password.message }</Alert>}           
               <div className="buttons-row">
                 <button type="button" onClick={ handleCancel } className="btn-1">Cancelar</button>
@@ -111,7 +127,7 @@ const UsersList = () => {
             <span>{ user.rol }</span>
           </div>
           <div className="data-actions">
-            <img src="icons/edit.png" alt="Editar registro" title="Editar registro" />
+            <img src="icons/edit.png" alt="Editar registro" title="Editar registro" onClick={ () => handleEditUser(user._id) } />
             <img src="icons/delete.png" alt="Eliminar registro" title="Eliminar registro" onClick={() => deleteUser(user._id, globalDispatch, usersDispatch, users)} />
           </div>
         </div>
