@@ -21,7 +21,7 @@
 }
 
 .l-column .icon{
-    width: 20px;
+    width: 1rem;
 }
 
 .features-row {
@@ -30,7 +30,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    transition: all 0.5s ease-in-out;
+    border-radius: var(--hh-br-s);
     padding: var(--hh-spacing-s);
+}
+
+.features-row:first-child {
+    margin-top: var(--hh-spacing-l);
+}
+
+.features-row:hover {
+    background-color: var(--hh-color-080);
 }
 
 .features-row span {
