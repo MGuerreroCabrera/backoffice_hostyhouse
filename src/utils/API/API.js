@@ -1,7 +1,7 @@
 // Ruta básica de acceso a la API
-const BASE_URL = "https://proyecto-13-backend.vercel.app/api/v1";
+//const BASE_URL = "https://proyecto-13-backend.vercel.app/api/v1";
 
-//const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "http://localhost:3000/api/v1";
 
 // Función que permite crear y reutilizar peticiones al backend
 export const API = async ({ endpoint, method = "GET", body, content_type }) => {
@@ -18,7 +18,6 @@ export const API = async ({ endpoint, method = "GET", body, content_type }) => {
     try {
         const res = await fetch(BASE_URL + endpoint, { method, headers, body, content_type });       
         const response = await res.json();
-
         
         if(!res.ok) {
             return { error: response }
