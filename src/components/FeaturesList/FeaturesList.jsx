@@ -92,15 +92,15 @@ const FeaturesList = () => {
           <h2 className="section-title">Características de las viviendas</h2>
           <button className="btn-add-record" onClick={ () => { openModal(dispatch) } }>+ Nuevo registro</button>
         </div>
-          <div className="features-header">
-              <div className="l-column">
-                <span>Icono</span>
-                <span>Nombre</span>
-              </div>
-              <div className="actions">
-                <span>Acciones</span>
-              </div>
+        <div className="features-header">
+            <div className="l-column">
+            <span>Icono</span>
+            <span>Nombre</span>
           </div>
+          <div className="actions">
+            <span>Acciones</span>
+          </div>        
+        </div>
           {features.map((feature) => (
             <div className="features-row" key={feature._id}>
               <div className="l-column">

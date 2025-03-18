@@ -6,7 +6,7 @@
     background-color: var(--hh-color-010);
     border-radius: var(--hh-br-s);
     padding: var(--hh-spacing-s);
-    /* margin-bottom: var(--hh-spacing-xs); */
+    margin-bottom: var(--hh-spacing-xs);
 }
 
 .features-header span {
