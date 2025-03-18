@@ -3,12 +3,12 @@
     color: var(--hh-color-090);
 }
 
-.data-container .reservations-header {
+.reservations-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;    
-    padding: var(--hh-spacing-m);
+    padding: var(--hh-spacing-s);
     background-color: var(--hh-color-010);
     border-radius: var(--hh-br-m);
     margin-top: var(--hh-spacing-s);

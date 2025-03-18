@@ -3,7 +3,7 @@
     background-color: var(--hh-color-010);
     border-radius: var(--hh-br-s);
     padding: var(--hh-spacing-s);
-    margin-bottom: var(--hh-spacing-s);
+    margin-bottom: var(--hh-spacing-xs);
 }
 
 .customers-columns {
@@ -42,7 +42,7 @@
     align-items: center;
     font-size: var(--hh-font-size-s);    
     color: var(--hh-color-090);
-    padding: var(--hh-spacing-m)
+    padding: var(--hh-spacing-s)
 }
 
 @media (max-width: 1150px) {
