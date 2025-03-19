@@ -17,7 +17,7 @@ const UsersList = () => {
   const [usersState, usersDispatch] = useReducer(usersReducer, INITIAL_USERS_STATE);
 
   // Desestructurizar propiedades de los reducers
-  const { loading, page, totalPages, error, showAlert, opOk } = globalState;
+  const { loading, page, totalPages, error, showAlert, opOk, rol } = globalState;
   const { users, isModalOpen } = usersState;
 
   // useEffect para llamar a la API y traer los registros.
@@ -49,6 +49,8 @@ const UsersList = () => {
     const userData = await findUserById(userId, globalDispatch);
     // Resetear el formulario con los datos del usuario
     reset(userData);
+    // Establecer el rol del usuario
+    globalDispatch({ type: "SET_ROL", payload: userData.rol });
     // Poner el id del usuario en el estado
     setEditingUserId(userId);
     // Abrir modal
@@ -83,6 +85,9 @@ const UsersList = () => {
               </label>
               <input type="password" { ...register("password", {required: "El campo contraseña es obligatorio"}) } placeholder={ errors.password ? errors.password.message : "" } className="input-text" />
               {errors.password && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.password.message }</Alert>}           
+              <label htmlFor="rol" className="input-label">
+                Rol del usuario
+              </label>
               <div className="buttons-row">
                 <button type="button" onClick={ handleCancel } className="btn-1">Cancelar</button>
                 <button type="submit" className="btn-1">Enviar</button>

@@ -40,6 +40,8 @@ export const usersReducer = (state, action) => {
             return { ...state, isModalOpen: true }
         case "CLOSE_MODAL":
             return { ...state, isModalOpen: false }
+        case "SET_ROL":
+            return { ...state, rol: action.payload };
         default:
             return { ...state }
     }
