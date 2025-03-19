@@ -149,7 +149,7 @@ export const postUser = async (data, globalDispatch, usersDispatch, users, userI
         const endpoint = userId ? `/users/${userId}`: "/users/register";
         const method = userId ? "PUT" : "POST";
         // Llamar a la función API con los datos        
-        const { error, response } = await API({ endpoint, method, body: data, content_type: true });        
+        const { error, response } = await API({ endpoint, method, body: data, content_type: true }); 
 
         if(error) {
             globalDispatch({ type: "STOP_LOADING" });

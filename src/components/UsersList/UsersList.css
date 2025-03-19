@@ -127,6 +127,17 @@
     color: var(--hh-color-090);
 }
 
+.new-user-form .selected-rol {
+    width: 100%;
+    outline: none;
+    border-radius: var(--hh-br-m);
+    padding: var(--hh-spacing-s);
+    border: 1px solid var(--hh-color-010);
+    color: var(--hh-color-090);
+    background-color: var(--hh-color-000);
+    font-size: var(--hh-fon-size-s);
+}
+
 /* Mediaqueries para responsive */
 @media (max-width: 768px) {
     .header-data:nth-child(1) {

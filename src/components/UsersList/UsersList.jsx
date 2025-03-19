@@ -32,8 +32,7 @@ const UsersList = () => {
   const [editingUserId, setEditingUserId] = useState(null);
 
   const handleFormSubmit = (data) => {
-    // Añadirle al objeto la propiedad rol
-    data.rol = "user";
+    if(error) { return };
     postUser(data, globalDispatch, usersDispatch, users, editingUserId);
   }
 
@@ -80,14 +79,31 @@ const UsersList = () => {
                 }
                 }) } placeholder={ errors.email ? errors.email.message : "" } className="input-text" />
               {errors.email && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.email.message }</Alert>}   
-              <label htmlFor="password" className="input-label">
-                Contraseña
-              </label>
-              <input type="password" { ...register("password", {required: "El campo contraseña es obligatorio"}) } placeholder={ errors.password ? errors.password.message : "" } className="input-text" />
-              {errors.password && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.password.message }</Alert>}           
+              { editingUserId === null && (
+                <>              
+                  <label htmlFor="password" className="input-label">
+                    Contraseña
+                  </label>
+                  <input type="password" { ...register("password", {required: "El campo contraseña es obligatorio"}) } placeholder={ errors.password ? errors.password.message : "" } className="input-text" />
+                  {errors.password && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.password.message }</Alert>}           
+                </>
+              ) }              
               <label htmlFor="rol" className="input-label">
                 Rol del usuario
               </label>
+              <select {...register("rol")} value={rol} onChange={(e) => {
+                const selectedRole = e.target.value;
+                // Verificar si el usuario que se está editando es admin
+                if(editingUserId && users.find(user => user._id === editingUserId).rol === "admin") {
+                  globalDispatch({ type: "SET_ERROR", payload: "No puedes cambiarle el rol a un administrador" });
+                  globalDispatch({ type: "SHOW_ALERT" });
+                } else {
+                  globalDispatch({ type: "SET_ROL", payload: selectedRole });
+                }
+              }} className="input-text select-rol">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
               <div className="buttons-row">
                 <button type="button" onClick={ handleCancel } className="btn-1">Cancelar</button>
                 <button type="submit" className="btn-1">Enviar</button>
