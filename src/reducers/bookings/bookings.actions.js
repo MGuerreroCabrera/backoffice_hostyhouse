@@ -23,3 +23,7 @@ export const fetchBookings  = async (globalDispatch, bookingsDispatch, page) => 
         globalDispatch({ type: "SET_ERROR", payload: error.message });
     }
 }
+
+export const putBooking = async (globalDispatch, bookingDispatch) => {
+    
+}
