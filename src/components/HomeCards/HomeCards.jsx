@@ -5,7 +5,7 @@ const HomeCards = () => {
   return (
     <div className="home-cards-container">
         {/* Card RESERVAS */}
-        <Card iconUrl="icons/reservations.png" alt="reservations" title="Reservas" path="/reservations">
+        <Card iconUrl="icons/bookings.png" alt="bookings" title="Reservas" path="/bookings">
             <p>
                 Gestiona el flujo de huéspedes y la disponibilidad de todas las viviendas.
             </p>

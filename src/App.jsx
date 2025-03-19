@@ -10,7 +10,7 @@ import { checkSession } from "./reducers/users/users.actions";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Features from "./pages/Features/Features";
 import Housings from "./pages/Housings/Housings";
-import Reservations from "./pages/Reservations/Reservations";
+import Bookings from "./pages/Bookings/Bookings";
 import Customers from "./pages/Customers/Customers";
 import Users from "./pages/Users/Users";
 import NotFound from "./pages/404/NotFound";
@@ -41,10 +41,10 @@ const App = () => {
         <Route path="/reset-password" element={<ResetPassword />}/>
         <Route path="/features" element={<Features />}/>
         <Route path="/housings" element={<Housings />}/>
-        <Route path="/reservations" element={<Reservations />}/>
+        {/* <Route path="/reservations" element={<Reservations />}/> */}
+        <Route path="/bookings" element={<Bookings />}/>
         <Route path="/customers" element={<Customers />}/>
         <Route path="/users" element={<Users />}/>
-        {/* <Route path="*" element={<Home/>}/> */}
         <Route path="*" element={<NotFound />}/>
       </Routes>
     </>

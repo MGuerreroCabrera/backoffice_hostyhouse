@@ -1,27 +1,29 @@
-import "./Reservations.css";
+import "./Bookings.css";
 import { useEffect } from "react";
 import Loading from "../Loading/Loading";
 import Alert from "../Alert/Alert";
 import Paginator from "../Paginator/Paginator";
-import { fetchReservations } from "../../reducers/reservations/reservations.actions";
+import { fetchBookings } from "../../reducers/bookings/bookings.actions";
 import { useReducer } from "react";
 import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
-import { INITIAL_RESERVATIONS_STATE, reservationsReducer } from "../../reducers/reservations/reservations.reducer";
+import { INITIAL_BOOKINGS_STATE, bookingsReducer } from "../../reducers/bookings/bookings.reducer";
 
-const Reservations = () => {
+const Bookings = () => {
 
-    // Uso del hook useReducers (globalReducer y reservationsReducer)
+    // Uso del hook useReducers (globalReducer y bookingsReducer)
     const [globalState, globalDispatch] = useReducer(globalReducer, INITIAL_GLOBAL_STATE);
-    const [reservationsState, reservationsDispatch] = useReducer(reservationsReducer, INITIAL_RESERVATIONS_STATE);
+    const [bookingsState, bookingsDispatch] = useReducer(bookingsReducer, INITIAL_BOOKINGS_STATE);
 
     // Desestructurizar propiedades de los reducers
     const { loading, page, totalPages, error } = globalState;
-    const { reservations } = reservationsState;
+    const { bookings } = bookingsState;
 
     // useEffect para llamar a la API
     useEffect(() => {
-        fetchReservations(globalDispatch, reservationsDispatch, page);
+        fetchBookings(globalDispatch, bookingsDispatch, page);
     }, [page]);
+
+    console.log("Reservas: ", bookings);
 
     return (
         <>
@@ -29,20 +31,20 @@ const Reservations = () => {
             {error && <Alert>{ error }</Alert>}
             <div className="data-container">
                 <h2>Próximas reservas</h2>
-                <div className="reservations-header">
+                <div className="bookings-header">
                     <span>Fecha de entrada</span>
                     <span>Fecha de salida</span>
                     <span>Nombre vivienda</span>
                     <span>Número de huéspedes</span>
                     <span>Importe de la reserva</span>
                 </div>
-                {reservations.map((reservation) => (
-                    <div key={reservation._id} className="data-row">
-                        <span>{new Date(reservation.checkIn).toLocaleDateString()}</span>
-                        <span>{new Date(reservation.checkOut).toLocaleDateString()}</span>
-                        <span>{reservation.housingId.name}</span>
-                        <span>{reservation.adults + reservation.children}</span>
-                        <span>{reservation.amount}€</span>
+                {bookings.map((booking) => (
+                    <div key={booking._id} className="data-row">
+                        <span>{new Date(booking.checkIn).toLocaleDateString()}</span>
+                        <span>{new Date(booking.checkOut).toLocaleDateString()}</span>
+                        <span>{booking.housingId.name}</span>
+                        <span>{booking.adults + booking.children}</span>
+                        <span>{booking.amount}€</span>
                     </div> 
                 ))}
                 <Paginator page={ page } totalPages={ totalPages } globalDispatch={ globalDispatch } />
@@ -51,4 +53,4 @@ const Reservations = () => {
     )
 }
 
-export default Reservations
+export default Bookings

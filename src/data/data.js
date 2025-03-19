@@ -19,8 +19,8 @@ export const SidebarData = [
   },
   {
       title: "Reservas",
-      path: "/reservations",
-      icon: "icons/reservations.png",
+      path: "/bookings",
+      icon: "icons/bookings.png",
       admin: false
   },
   {

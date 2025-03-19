@@ -3,7 +3,7 @@
     color: var(--hh-color-090);
 }
 
-.reservations-header {
+.bookings-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -14,7 +14,7 @@
     margin-top: var(--hh-spacing-s);
 }
 
-.data-container .reservations-header span {
+.data-container .bookings-header span {
     width: 20%;
     text-align: center;
     color: var(--hh-color-000);
@@ -47,26 +47,26 @@
 }
 
 @media (max-width: 755px) {
-    .data-container .reservations-header span:nth-child(4),
-    .data-container .reservations-header span:nth-child(5),
+    .data-container .bookings-header span:nth-child(4),
+    .data-container .bookings-header span:nth-child(5),
     .data-container .data-row span:nth-child(4),
     .data-container .data-row span:nth-child(5) {
         display: none
     }
 
-    .data-container .reservations-header,
+    .data-container .bookings-header,
     .data-container .data-row {
         padding: var(--hh-spacing-xs);
     }
 
-    .data-container .reservations-header span,
+    .data-container .bookings-header span,
     .data-container .data-row span{        
         width: 33%;
     }
 }
 
 @media (max-width: 500px) {
-    .data-container .reservations-header span,
+    .data-container .bookings-header span,
     .data-container .data-row span {
         font-size: var(--hh-font-size-xs);
     }
