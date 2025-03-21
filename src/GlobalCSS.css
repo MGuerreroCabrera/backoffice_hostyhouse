@@ -78,17 +78,15 @@
     transition: all 0.5s ease-in-out;
     cursor: pointer;
     outline: none;
+    border: none;
     padding: var(--hh-spacing-s);
     color: var(--hh-color-010);
     font-size: var(--hh-font-size-s);
     background-color: var(--hh-color-080);
-    border: 1px solid var(--hh-color-010);
     border-radius: var(--hh-br-s);
 }
 .btn-1:hover {
-    color: var(--hh-color-000);
-    border: 1px solid var(--hh-color-020);
-    background-color: var(--hh-color-020);
+    outline: .5px solid var(--hh-color-090);
 }
 
 @media (max-width: 600px) {
