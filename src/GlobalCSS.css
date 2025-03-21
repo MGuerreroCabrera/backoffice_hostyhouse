@@ -13,7 +13,7 @@
     min-height: 80svh;
     position: relative;
     background-color: var(--hh-color-000);
-    border: 1px solid var(--hh-color-090);
+    border: 0.5px solid var(--hh-color-090);
     border-radius: var(--hh-br-m);
     padding: var(--hh-spacing-l);
 }

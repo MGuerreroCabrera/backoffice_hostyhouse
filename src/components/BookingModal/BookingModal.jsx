@@ -1,7 +1,10 @@
+import { useForm } from "react-hook-form";
 import "./BookingModal.css";
 import { useState } from "react";
+import { useEffect } from "react";
+import { fetchBookingById } from "../../reducers/bookings/bookings.actions";
 
-const BookingModal = ({ booking, onClose, onEdit }) => {
+const BookingModal = ({ booking = {}, onClose, onEdit, globalDispatch, bookingDispatch }) => {
     const [checkIn, setCheckIn] = useState(booking?.checkIn);
     const [checkOut, setCheckOut] = useState(booking?.checkOut);
     const [adults, setAdults] = useState(booking?.adults);
@@ -9,6 +12,16 @@ const BookingModal = ({ booking, onClose, onEdit }) => {
     const [amount, setAmount] = useState(booking?.amount);
 
     if (!booking) return null;
+
+    // Inicializar useForm
+    //const { register, handleSubmit } = useForm();
+
+    // Llamar a la API para obtener los datos de la reserva
+    useEffect(() => {
+        if (booking?._id && !booking.dataLoaded) {
+            fetchBookingById(globalDispatch, bookingDispatch, booking._id);
+        }
+    }, [booking._id]);
 
     const handleEdit = () => {
         const updatedBooking = {

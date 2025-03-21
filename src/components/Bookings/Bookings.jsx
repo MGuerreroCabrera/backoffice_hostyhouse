@@ -66,7 +66,10 @@ const Bookings = () => {
                 ))}
                 <Paginator page={ page } totalPages={ totalPages } globalDispatch={ globalDispatch } />
             </div>
-            <BookingModal booking={selectedBooking} onClose={closeModal} onEdit={handleEdit} />
+            {selectedBooking && (
+                <BookingModal booking={selectedBooking} onClose={closeModal} onEdit={handleEdit} globalDispatch={ globalDispatch } bookingDispatch={ bookingsDispatch }/>
+            )}
+            
         </>
     )
 }
