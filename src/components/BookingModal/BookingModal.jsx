@@ -1,20 +1,19 @@
-import { useForm } from "react-hook-form";
 import "./BookingModal.css";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { fetchBookingById } from "../../reducers/bookings/bookings.actions";
+import { fetchBookingById, updateBooking } from "../../reducers/bookings/bookings.actions";
 
-const BookingModal = ({ booking = {}, onClose, onEdit, globalDispatch, bookingDispatch }) => {
-    const [checkIn, setCheckIn] = useState(booking?.checkIn);
-    const [checkOut, setCheckOut] = useState(booking?.checkOut);
-    const [adults, setAdults] = useState(booking?.adults);
-    const [children, setChildren] = useState(booking?.children);
-    const [amount, setAmount] = useState(booking?.amount);
+const BookingModal = ({ booking = {}, closeModal, globalDispatch, bookingDispatch, bookings }) => {
 
     if (!booking) return null;
 
     // Inicializar useForm
-    //const { register, handleSubmit } = useForm();
+    const { register, handleSubmit } = useForm();
+
+    const onSubmit = (data) => {
+        // Llamar a la acción para actualizar la reserva
+        updateBooking(globalDispatch, bookingDispatch, booking._id, data, bookings);
+    };
 
     // Llamar a la API para obtener los datos de la reserva
     useEffect(() => {
@@ -23,27 +22,16 @@ const BookingModal = ({ booking = {}, onClose, onEdit, globalDispatch, bookingDi
         }
     }, [booking._id]);
 
-    const handleEdit = () => {
-        const updatedBooking = {
-            checkIn,
-            checkOut,
-            adults,
-            children,
-            amount,
-        };
-        onEdit(updatedBooking);
-    };
-
     const handleOverlayClick = (e) => {
         if (e.target.className === 'modal-overlay') {
-            onClose();
+            closeModal();
         }
     };
 
     return (
         <div className="modal-booking-overlay" onClick={handleOverlayClick}>
             <div className="modal-booking-content">
-                <img src="/icons/close.png" alt="Cerrar" title="Cerrar" className="close-icon" onClick={onClose} />
+                <img src="/icons/close.png" alt="Cerrar" title="Cerrar" className="close-icon" onClick={() => closeModal()} />
                 <h2>Detalles de la Reserva</h2>
                 <div className="data-booking-content">
                     <p>Fecha de entrada:{new Date(booking.checkIn).toLocaleDateString()}</p>
@@ -53,38 +41,38 @@ const BookingModal = ({ booking = {}, onClose, onEdit, globalDispatch, bookingDi
                     <p>Importe: {booking.amount}€</p>
                 </div>
                 <h2>Modificar Reserva</h2>
-                <form name="update-booking" className="update-booking-form">
+                <form name="update-booking" className="update-booking-form" onSubmit={ handleSubmit(onSubmit) }>
                     <div className="data-booking-row">
                         <label htmlFor="checkIn">
                             Nueva Fecha de Entrada
                         </label>
-                        <input type="date" value={checkIn} onChange={(e) => setCheckIn(e.target.value)} />
+                        <input type="date" { ...register("checkIn") } />
                     </div>
                     <div className="data-booking-row">
                         <label htmlFor="chechOut">
                             Nueva Fecha de Salida
                         </label>
-                        <input type="date" value={checkOut} onChange={(e) => setCheckOut(e.target.value)} />
+                        <input type="date" { ...register("checkOut") } />
                     </div>
                     <div className="data-booking-row">
                         <label htmlFor="adults">
                             Número de Adultos
                         </label>
-                        <input type="number" className="input-booking-form" value={adults} onChange={(e) => setAdults(e.target.value)} min="1" />
+                        <input type="number" className="input-booking-form" { ...register("adults", { min:1 }) } />
                     </div>
                     <div className="data-booking-row">
                         <label htmlFor="children">
                             Número de Niños
                         </label>
-                        <input type="number" className="input-booking-form" value={children} onChange={(e) => setChildren(e.target.value)} min="0" />
+                        <input type="number" className="input-booking-form" { ...register("children", { min:0 }) } />
                     </div>
                     <div className="data-booking-row">
                         <label htmlFor="amount">
                             Importe
                         </label>
-                        <input type="number" className="input-booking-form" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                        <input type="number" className="input-booking-form" { ...register("amount") } />
                     </div>
-                    <button className="btn-1" onClick={handleEdit}>Modificar Reserva</button>
+                    <button type="submit" className="btn-1">Modificar Reserva</button>
                 </form>
             </div>
         </div>

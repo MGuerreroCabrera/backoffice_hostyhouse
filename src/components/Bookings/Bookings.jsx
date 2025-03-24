@@ -8,6 +8,7 @@ import { useReducer } from "react";
 import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
 import { INITIAL_BOOKINGS_STATE, bookingsReducer } from "../../reducers/bookings/bookings.reducer";
 import BookingModal from "../BookingModal/BookingModal";
+import { closeAlert } from "../../utils/closeAlert";
 
 const Bookings = () => {
 
@@ -16,7 +17,7 @@ const Bookings = () => {
     const [bookingsState, bookingsDispatch] = useReducer(bookingsReducer, INITIAL_BOOKINGS_STATE);
 
     // Desestructurizar propiedades de los reducers
-    const { loading, page, totalPages, error } = globalState;
+    const { loading, page, totalPages, error, opOk, showAlert } = globalState;
     const { bookings, selectedBooking } = bookingsState;
 
     // useEffect para llamar a la API
@@ -32,20 +33,11 @@ const Bookings = () => {
         bookingsDispatch({ type: "SET_SELECTED_BOOKING", payload: null });
     };
 
-    const handleEdit = async (updatedBooking) => {
-        const isAvailable = true; // Simulación de comprobación de disponibilidad
-        if (isAvailable) {
-            await updateBooking(globalDispatch, bookingsDispatch, selectedBooking._id, updatedBooking);
-            closeModal();
-        } else {
-            globalDispatch({ type: "SET_ERROR", payload: "La nueva fecha no está disponible." });
-        }
-    };
-
     return (
         <>
             {loading && <Loading />}
-            {error && <Alert>{ error }</Alert>}
+            {error && <Alert type="error" onClose={ () => closeAlert(globalDispatch) } globalDispatch={ globalDispatch }>{ error }</Alert>}
+            {showAlert && opOk && <Alert type="success" onClose={ () => { closeAlert(globalDispatch) } }>Operación reralizada correctamente</Alert>}
             <div className="data-container">
                 <h2>Próximas reservas</h2>
                 <div className="bookings-header">
@@ -60,14 +52,15 @@ const Bookings = () => {
                         <span>{new Date(booking.checkIn).toLocaleDateString()}</span>
                         <span>{new Date(booking.checkOut).toLocaleDateString()}</span>
                         <span>{booking.housingId.name}</span>
-                        <span>{booking.adults + booking.children}</span>
+                        <span>{Number(booking.adults) + Number(booking.children)}</span>
                         <span>{booking.amount}€</span>
                     </div> 
                 ))}
                 <Paginator page={ page } totalPages={ totalPages } globalDispatch={ globalDispatch } />
             </div>
             {selectedBooking && (
-                <BookingModal booking={selectedBooking} onClose={closeModal} onEdit={handleEdit} globalDispatch={ globalDispatch } bookingDispatch={ bookingsDispatch }/>
+                // <BookingModal booking={selectedBooking} onClose={closeModal} onEdit={handleEdit} globalDispatch={ globalDispatch } bookingDispatch={ bookingsDispatch }/>
+                <BookingModal booking={selectedBooking} closeModal={ closeModal } globalDispatch={ globalDispatch } bookingDispatch={ bookingsDispatch } bookings={ bookings }/>
             )}
             
         </>

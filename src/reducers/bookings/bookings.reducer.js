@@ -10,7 +10,7 @@ export const bookingsReducer = (state, action) => {
         case "FETCH_BOOKINGS":
             return { ...state, bookings: action.payload };
         case "SET_SELECTED_BOOKING":
-            return { ...state, selectedBooking: action.payload };
+            return { ...state, selectedBooking: action.payload }
         default:
             return { ...state };
     }

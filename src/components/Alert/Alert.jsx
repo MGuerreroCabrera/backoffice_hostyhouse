@@ -1,6 +1,5 @@
-import { useEffect } from "react";
 import "./Alert.css";
-import { useState } from "react";
+import { useEffect } from "react";
 
 const Alert = ({ type, children, onClose }) => {
     useEffect(() => {
@@ -8,6 +7,7 @@ const Alert = ({ type, children, onClose }) => {
         const timer = setTimeout(() => {
             onClose();
         }, 3000);
+
 
         return () => clearTimeout(timer);
     }, [onClose]);
