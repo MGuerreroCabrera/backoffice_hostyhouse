@@ -88,3 +88,16 @@ input[type="date"] {
     background-color: var(--hh-color-000);
     color: var(--hh-color-090);
 }
+
+.booking-buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--hh-spacing-xs);
+}
+
+.booking-buttons-container div {
+    width: 49%;
+}

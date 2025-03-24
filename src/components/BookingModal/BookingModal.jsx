@@ -2,6 +2,7 @@ import "./BookingModal.css";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { fetchBookingById, updateBooking } from "../../reducers/bookings/bookings.actions";
+import { deleteBooking } from "../../utils/deleteBooking";
 
 const BookingModal = ({ booking = {}, closeModal, globalDispatch, bookingDispatch, bookings }) => {
 
@@ -27,6 +28,11 @@ const BookingModal = ({ booking = {}, closeModal, globalDispatch, bookingDispatc
             closeModal();
         }
     };
+
+    // Manejar el evento click de Eliminar reserva
+    const handleDelete = (closeModal) => {
+        deleteBooking(closeModal, globalDispatch, bookingDispatch, booking._id, bookings);
+    }
 
     return (
         <div className="modal-booking-overlay" onClick={handleOverlayClick}>
@@ -72,7 +78,14 @@ const BookingModal = ({ booking = {}, closeModal, globalDispatch, bookingDispatc
                         </label>
                         <input type="number" className="input-booking-form" { ...register("amount") } />
                     </div>
-                    <button type="submit" className="btn-1">Modificar Reserva</button>
+                    <div className="booking-buttons-container">
+                        <div>
+                            <button className="btn-1-delete" onClick={ () => handleDelete(closeModal) }>Eliminar Reserva</button>
+                        </div>
+                        <div>
+                            <button type="submit" className="btn-1">Modificar Reserva</button>
+                        </div>                        
+                    </div>
                 </form>
             </div>
         </div>

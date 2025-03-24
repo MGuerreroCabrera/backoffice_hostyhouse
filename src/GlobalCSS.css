@@ -89,6 +89,22 @@
     outline: .5px solid var(--hh-color-090);
 }
 
+.btn-1-delete {
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: var(--hh-spacing-s);
+    color: var(--hh-error-color);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-080);
+    border-radius: var(--hh-br-s);
+}
+.btn-1-delete:hover {
+    outline: .5px solid var(--hh-error-color);
+}
+
 @media (max-width: 600px) {
     .btn-add-record {
         width: 35%;
