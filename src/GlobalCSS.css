@@ -52,6 +52,31 @@
     color: var(--hh-color-090);
 }
 
+/* Estilo global para los inputs */
+.input-text {
+    border: none;
+    font-family: var(--hh-font-family-primary);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-xs);
+    outline: 0.5px solid var(--hh-color-090);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-000);
+    color: var(--hh-color-090);
+}
+
+.input-text:focus {
+    outline: .5px solid var(--hh-color-010);
+}
+
+/* Tamaños para los inputs */
+.input-100 {
+    width: 100%;
+}
+
+.input-50 {
+    width: 50%;
+}
+
 /* Estilos para los botones de los formularios */
 .btn-add-record {
     min-width: 100px;
@@ -62,15 +87,12 @@
     color: var(--hh-color-010);
     font-size: var(--hh-font-size-s);
     background-color: var(--hh-color-080);
-    border: 1px solid var(--hh-color-010);
     border-radius: var(--hh-br-m);
     outline: none;
 }
 
 .btn-add-record:hover {
-    color: var(--hh-color-000);
-    border: 1px solid var(--hh-color-020);
-    background-color: var(--hh-color-020);
+    outline: .5px solid var(--hh-color-020);
 }
 
 .btn-1 {

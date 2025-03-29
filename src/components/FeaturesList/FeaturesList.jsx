@@ -73,12 +73,11 @@ const FeaturesList = () => {
                 {...register("icon", { required: "Icono obligatorio" })}
                 className="input-text"
                 style={{ display: "none" }}
-                // onChange={(event) => handleFileChange(event, dispatch, globalDispatch, setValue)}
               />
               {errors.icon && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.icon.message }</Alert>}
               <div className="buttons-row">
-                <button type="button" onClick={ handleCancel }>Cancelar</button>
-                <button type="submit">Enviar</button>
+                <button type="button" className="btn-1" onClick={ handleCancel }>Cancelar</button>
+                <button type="submit" className="btn-1">Enviar</button>
               </div>
             </form>
           </div>

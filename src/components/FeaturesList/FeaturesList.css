@@ -143,12 +143,3 @@
     align-items: center;
     gap: var(--hh-spacing-s);
 }
-
-.buttons-row button {
-    min-width: 100px;
-    cursor: pointer;
-    border-radius: var(--hh-br-m);
-    padding: var(--hh-spacing-s);
-    border: 1px solid var(--hh-color-010);    
-    color: var(--hh-color-010);
-}

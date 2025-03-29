@@ -61,6 +61,29 @@ export const fetchFeatures = async (page, globalDispatch, dispatch) => {
 }
 }
 
+// Función que devuelve todos los registros sin paginar
+export const fetchAllFeatures = async (dispatch, globalDispatch) => {
+  try {
+    
+    globalDispatch({ type: "LOADING" });
+    const { error, response } = await API({ endpoint: "/features/all" });
+
+    if(error) {
+      globalDispatch({ type: "STOP_LOADING" });
+      globalDispatch({ type: "SET_ERROR", payload: error.message });
+      globalDispatch({ type: "SHOW_ALERT" });
+    } else {
+      dispatch({ type: "SET_FEATURES", payload: response.data });
+      globalDispatch({ type: "STOP_LOADING" });
+    }
+
+  } catch (error) {
+    globalDispatch({ type: "STOP_LOADING" });
+    globalDispatch({ type: "SET_ERROR", payload: error.message });
+    globalDispatch({ type: "SHOW_ALERT" });
+  }
+}
+
 // Función que elimina un registro
 export const deleteFeature = async (id, globalDispatch, features, dispatch) => {
   globalDispatch({ type: "LOADING" });
