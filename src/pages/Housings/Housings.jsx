@@ -1,8 +1,8 @@
 import "./Housings.css";
 import AppFooter from "../../components/AppFooter/AppFooter";
-import FormDataHousing from "../../components/FormDataHousing/FormDataHousing";
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import HousingsList from "../../components/HousingsList/HousingsList";
 
 const Housings = () => {
   return (
@@ -10,7 +10,7 @@ const Housings = () => {
       <div className="page-container">
         <Header />
         <Sidebar />
-        <FormDataHousing />
+        <HousingsList />
         <AppFooter />
       </div>
     </>

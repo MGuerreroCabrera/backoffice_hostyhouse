@@ -3,7 +3,7 @@ export const INITIAL_FEATURES_STATE = {
     features: [],
     // Propiedad para controlar si el modal está abierto
     isModalOpen: false,
-    // Propiedad para controlar el nombre del archivo (icono) que se sube
+    // Propiedad para controlar el nombre del archivo ( icono ) que se sube
     iconName: ""
 }
 

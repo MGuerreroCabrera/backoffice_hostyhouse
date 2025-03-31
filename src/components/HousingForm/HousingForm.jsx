@@ -1,4 +1,4 @@
-import "./FormDataHousing.css";
+import "./HousingForm.css";
 import { useForm } from 'react-hook-form';
 import { useReducer } from "react";
 import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
@@ -6,7 +6,7 @@ import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/globa
 import { useEffect } from "react";
 import { fetchAllFeatures } from "../../reducers/features/features.actions";
 
-const FormDataHousing = () => {
+const HousingForm = ({ onClick }) => {
     // Uso de useForm
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -49,7 +49,7 @@ const FormDataHousing = () => {
     }
     
     return (
-        <section className="data-container">
+        <section className="data-container" onClick={ onClick }>
             <h2>Nuevo registro</h2>
             <form name="data-housing" onSubmit={ handleSubmit(onSubmit) } className="data-housing-form">
                 <div className="form-row">
@@ -96,4 +96,4 @@ const FormDataHousing = () => {
     )
 }
 
-export default FormDataHousing
+export default HousingForm

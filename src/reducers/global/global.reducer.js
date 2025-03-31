@@ -10,7 +10,7 @@ export const INITIAL_GLOBAL_STATE = {
      // Propiedad para controlar el resultado de la operación
      opOk: false,
      // Propiedad para controlar la visualización del Alert
-     showAlert: false,
+     showAlert: false
 }
 
 export const globalReducer = (state, action) => {
