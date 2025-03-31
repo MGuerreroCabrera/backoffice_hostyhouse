@@ -14,14 +14,7 @@
     flex-direction: column;
     justify-content: flex-start;
     padding: var(--hh-spacing-s);
-}
-
-.data-housing-form .form-row-100 {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: var(--hh-spacing-s);
+    gap: var(--hh-spacing-xs);
 }
 
 .data-housing-form .upload-row {
@@ -106,9 +99,22 @@
 
 .housing-features .features-container .feature-div {
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: flex-start;   
+}
+
+.housing-features .features-container .feature-div .feature-title {
+    font-size: var(--hh-font-size-xs);
+    color: var(--hh-color-090);
+    padding: var(--hh-spacing-s);    
+}
+
+.housing-features .features-container .feature-div .feature-box {
+    display: flex;
     align-items: center;
     gap: var(--hh-spacing-s);
-    padding: var(--hh-spacing-m);    
+    padding: 0 var(--hh-spacing-s);    
 }
 
 .housing-features .features-container .feature-div .feature-img {

@@ -62,18 +62,21 @@ const FormDataHousing = () => {
                     <input type="text" { ...register("location", { required: "La ubicación de la vivienda es requerida" }) } className="input-text input-100" />
                     { errors.location && <span>{ errors.location.message }</span> }
                 </div>
-                <div className="form-row-100">
+                <div className="form-row">
                     <label htmlFor="description" className="input-label">Descripción de la vivienda</label>
                     <textarea { ...register("description", { required: "La descripción es requerida" }) } className="description"></textarea>                    
                 </div>
                 {/* AQUÍ VAN LAS CARACTERÍSTICAS DE LAS VIVIENDAS */}
                 <div className="housing-features">
                     <span>Características de la vivienda</span>
-                    <div className="features-container">
+                    <div className="features-container">                        
                         {state.features && state.features.map((feature) => (
-                            <div key={feature._id} className="feature-div">
-                                <img src={feature.icon} alt={feature.name} className="feature-img"/>
-                                <input type="text" { ...register(feature._id) } className="feature-input" />
+                            <div className="feature-div" key={feature._id} >
+                                <span className="feature-title">{`¿${feature.name}?`}</span>
+                                <div className="feature-box">
+                                    <img src={feature.icon} alt={feature.name} className="feature-img"/>
+                                    <input type="text" { ...register(feature._id) } className="feature-input" />
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -85,7 +88,7 @@ const FormDataHousing = () => {
                     </label>
                     <input type="file" id="housing-images" { ...register("housingImages") } style={{ display: "none" }} multiple />
                 </div>
-                <div className="form-row-100">
+                <div className="form-row">
                     <button type="submit" className="btn-1">Enviar</button>
                 </div>
             </form>
