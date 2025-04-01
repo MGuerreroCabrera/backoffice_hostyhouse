@@ -10,29 +10,3 @@
     align-items: center;
 }
 
-.modal-content {
-    width: clamp(380px, 50%, 80%);
-    background-color: red;
-}
-
-.close-icon {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    width: 15px;
-    height: 15px;
-}
-
-.modal-content h2 {
-    font-size: var(--hh-font-size-m);
-    color: var(--hh-color-090);
-}
-
-.modal-content .data-content {
-    display: flex;
-    flex-direction: column;
-    padding: var(--hh-spacing-m);
-    gap: var(--hh-spacing-m);
-}
-

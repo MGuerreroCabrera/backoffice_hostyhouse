@@ -84,15 +84,15 @@
     cursor: pointer;
     transition: all 0.5s ease-in-out;
     padding: var(--hh-spacing-s);
-    color: var(--hh-color-010);
+    color: var(--hh-color-000);
     font-size: var(--hh-font-size-s);
-    background-color: var(--hh-color-080);
+    background-color: var(--hh-color-010);
     border-radius: var(--hh-br-m);
     outline: none;
 }
 
 .btn-add-record:hover {
-    outline: .5px solid var(--hh-color-020);
+    background-color: var(--hh-color-020);
 }
 
 .btn-1 {
@@ -125,6 +125,15 @@
 }
 .btn-1-delete:hover {
     outline: .5px solid var(--hh-error-color);
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
 }
 
 @media (max-width: 600px) {

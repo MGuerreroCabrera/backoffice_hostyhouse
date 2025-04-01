@@ -41,7 +41,7 @@
 
   /* Tamaños de fuente */
 
-  --hh-font-size-xs: clamp(10px, 0.1vw + 0.1em, 10px);
+  --hh-font-size-xs: clamp(12px, 1rem, 10px);
   --hh-font-size-s: clamp(12px, 1vw + 1em, 14px);
   --hh-font-size-m: clamp(16px, 1vw + 1em, 18px);
   --hh-font-size-l: clamp(1rem, 1vw + 1em, 2rem);

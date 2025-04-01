@@ -5,8 +5,10 @@ import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features
 import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
 import { useEffect } from "react";
 import { fetchAllFeatures } from "../../reducers/features/features.actions";
+import { closeModal } from "../../reducers/housings/housings.actions";
+import HousingButton from "../HousingButton/HousingButton";
 
-const HousingForm = ({ onClick }) => {
+const HousingForm = ({ onClick, housingsDispatch }) => {
     // Uso de useForm
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -51,6 +53,7 @@ const HousingForm = ({ onClick }) => {
     return (
         <section className="data-container" onClick={ onClick }>
             <h2>Nuevo registro</h2>
+            <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar ventana" className="close-modal" onClick={ () => closeModal(housingsDispatch) }/>
             <form name="data-housing" onSubmit={ handleSubmit(onSubmit) } className="data-housing-form">
                 <div className="form-row">
                     <label htmlFor="name" className="input-label">Nombre</label>
@@ -92,6 +95,9 @@ const HousingForm = ({ onClick }) => {
                     <button type="submit" className="btn-1">Enviar</button>
                 </div>
             </form>
+            <HousingButton type="EDIT" text="Editar" />
+            <HousingButton type="SEE" text="Ver detalles" />
+            <HousingButton type="DELETE" text="Eliminar" />
             </section>
     )
 }

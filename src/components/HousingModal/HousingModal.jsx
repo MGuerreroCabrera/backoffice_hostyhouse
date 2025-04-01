@@ -6,7 +6,7 @@ const HousingModal = ({ housingsDispatch, globalDispatch }) => {
   return (
     <>
     <div className="modal-overlay" onClick={ () => { console.log("Estoy haciendo click en el overlay"); closeModal(housingsDispatch) }}>
-        <HousingForm onClick={ (e) => { e.stopPropagation(); console.log("Click dentro del formulario"); } } />       
+        <HousingForm housingsDispatch={ housingsDispatch } onClick={ (e) => { e.stopPropagation(); console.log("Click dentro del formulario"); } } />       
     </div>
     </>
   )
