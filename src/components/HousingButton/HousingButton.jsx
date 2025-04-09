@@ -7,7 +7,7 @@ const HousingButton = ({ type, text }) => {
   
   return (
     <div className={ `general-button ${type.toLowerCase()}` }>
-        <img src={ `/icons/${buttonConfiguration.imgSrc}` } alt={ type }  />
+        {buttonConfiguration.imgSrc && <img src={ `/icons/${buttonConfiguration.imgSrc}` } alt={ type }  /> }
         <span>{ text }</span>
     </div>
   )

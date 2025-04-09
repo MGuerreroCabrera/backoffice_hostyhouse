@@ -1,5 +1,5 @@
 .general-button {
-    width: clamp(80px, 10%, 50%);
+    width: clamp(110px, 10%, 50%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,4 +33,9 @@
 .delete {
     color: var(--hh-error-color);
     outline: .5px solid   var(--hh-error-color);
+}
+
+.void {
+    color: var(--hh-color-020);
+    outline: .5px solid var(--hh-color-020);
 }

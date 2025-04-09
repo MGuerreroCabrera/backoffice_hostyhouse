@@ -2,11 +2,11 @@ import "./HousingModal.css";
 import { closeModal } from "../../reducers/housings/housings.actions";
 import HousingForm from "../../components/HousingForm/HousingForm";
 
-const HousingModal = ({ housingsDispatch, globalDispatch }) => {
+const HousingModal = ({ housingsDispatch, housingsState }) => {
   return (
     <>
-    <div className="modal-overlay" onClick={ () => { console.log("Estoy haciendo click en el overlay"); closeModal(housingsDispatch) }}>
-        <HousingForm housingsDispatch={ housingsDispatch } onClick={ (e) => { e.stopPropagation(); console.log("Click dentro del formulario"); } } />       
+    <div className="modal-overlay" onClick={ () => { closeModal(housingsDispatch) }}>
+        <HousingForm housingsDispatch={ housingsDispatch } onClick={ (e) => { e.stopPropagation(); } } housingsState={ housingsState }/>       
     </div>
     </>
   )

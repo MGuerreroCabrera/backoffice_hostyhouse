@@ -14,8 +14,6 @@ const FeaturesList = () => {
   // Uso del hook useReducer globalReducer
   const [globalState, globalDispatch] = useReducer(globalReducer, INITIAL_GLOBAL_STATE);
 
-  console.log(globalState);
-
   // Desestructurizar estados globales
   const { loading, error, opOk, showAlert, page, totalPages } = globalState;
 

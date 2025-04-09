@@ -5,6 +5,7 @@ import { housingsReducer, INITIAL_HOUSINGS_STATE } from '../../reducers/housings
 import HousingModal from "../HousingModal/HousingModal";
 import { useEffect } from "react";
 import { openModal } from "../../reducers/housings/housings.actions";
+import HousingButton from "../HousingButton/HousingButton";
 
 const HousingsList = () => {
 
@@ -29,9 +30,15 @@ const HousingsList = () => {
                 <h2 className="section-title">Viviendas</h2>
                 <button className="btn-add-record" onClick={ () => openModal(housingsDispatch) }>+ Nuevo registro</button>
             </div>
+            <div className="tmp-row">
+            <HousingButton type="EDIT" text="Editar" />
+            <HousingButton type="SEE" text="Ver detalles" />
+            <HousingButton type="DELETE" text="Eliminar" />
+            <HousingButton type="VOID" text="Texto del botón" />
+            </div>
         </div>
         {housingsState.isModalOpen && (
-            <HousingModal housingsDispatch={ housingsDispatch } globalDispatch={ globalDispatch } />            
+            <HousingModal housingsDispatch={ housingsDispatch } housingsState={ housingsState } />            
         )}
     </>
   )
