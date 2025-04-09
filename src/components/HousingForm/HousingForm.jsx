@@ -31,9 +31,9 @@ const HousingForm = ({ housingsDispatch, housingsState }) => {
                 />
             ) : (
                 <ImageForm 
-                    housingsState={ housingsState } 
-                    globalDispatch={ globalDispatch }
-                    globalState={ globalState }
+                    housingsState = { housingsState } 
+                    globalDispatch = { globalDispatch }
+                    closeModal = { () => closeModal(housingsDispatch) }
                 />
             )}
         </section>

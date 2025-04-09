@@ -6,7 +6,7 @@ import Alert from "../Alert/Alert";
 import { closeAlert } from "../../utils/closeAlert";
 import HousingButton from "../HousingButton/HousingButton";
 
-const ImageForm = ({ housingsState, globalDispatch, globalState }) => {
+const ImageForm = ({ housingsState, globalDispatch, closeModal}) => {
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
   const [images, setImages] = useState([]);
   const [fileName, setFileName] = useState("Haz click aquí para seleccionar la imagen que quieres subir");
@@ -58,6 +58,11 @@ const ImageForm = ({ housingsState, globalDispatch, globalState }) => {
     closeAlert(globalDispatch);
   }
 
+  const handleFinish = () => {
+    reset();
+    closeModal();
+  }
+
   return (
     <>
       { fileError && <Alert type={ "error" } onClose={ handleCloseAlert } >{ fileError }</Alert> }
@@ -87,8 +92,7 @@ const ImageForm = ({ housingsState, globalDispatch, globalState }) => {
             />            
           </div>
         <div className="button-row">
-          {/* <HousingButton type="VOID" text="Finalizar" /> */}
-          <button className="btn-1">Finalizar</button>
+          <button className="btn-1" onClick={ handleFinish }>Finalizar</button>
           <button type="submit" className="btn-1">Enviar</button>
         </div>
       </form>
