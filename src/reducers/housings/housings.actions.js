@@ -36,7 +36,7 @@ export const addImagesToHousing = async (housingId, image, altText, globalDispat
     imageFormData.append("url", image);
     imageFormData.append("alt", altText);
 
-    const { error } = await API ({ 
+    const { error, response } = await API ({ 
         endpoint: `/housings/addImage/${housingId}`, 
         method: "POST", 
         body: imageFormData
@@ -47,5 +47,56 @@ export const addImagesToHousing = async (housingId, image, altText, globalDispat
     if (error) {       
         globalDispatch({ type: "SET_ERROR", payload: error.message });
         globalDispatch({ type: "SHOW_ALERT" });
-    }    
+    } else {
+        return response.data.images[0].url;
+    }
+}
+
+// Función que elimina una imagen de una vivienda
+export const deleteHousingImage = async (housingId, imageUrl, globalDispatch) => {
+    globalDispatch({ type: "LOADING" });
+    
+    const { error } = await API ({ 
+        endpoint: `/housings/deleteHousingImage/${housingId}`,
+        method: "DELETE",
+        body: { imageUrl: imageUrl },
+        content_type: true
+    });    
+
+    globalDispatch({ type: "STOP_LOADING" })
+
+    if (error) {
+        globalDispatch({ type: "SET_ERROR", payload: error.message });
+        globalDispatch({ type: "SHOW_ALERT" });
+    }
+}
+
+// Función que devuelve el listado de viviendas
+export const fetchHousings = async (globalDispatch, housingsDispatch) => {
+    // Activar el loading
+    globalDispatch({ type: "LOADING" });
+
+    try {
+        // Llamar a la API para la obtención de registros
+        const { error, response } = await API({ endpoint:"/housings" });
+
+        if(error) {
+            globalDispatch({ type: "STOP_LOADING" });
+            globalDispatch({ type: "SET_ERROR", payload: error.message });
+            globalDispatch({ type: "SHOW_ALERT" });
+        } else {
+            if(response.records) {
+                housingsDispatch({ type: "SET_HOUSINGS", payload: response.records });
+            } else {
+                housingsDispatch({ type: "SET_HOUSINGS", payload: [] })
+            }
+            globalDispatch({ type: "STOP_LOADING" });
+        }
+    } catch (error) {
+        globalDispatch({ type: "STOP_LOADING" });
+        globalDispatch({ type: "SET_ERROR", payload: error.message });
+        globalDispatch({ type: "SHOW_ALERT" });
+    }
+
+
 }

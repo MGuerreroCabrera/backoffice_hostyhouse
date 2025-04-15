@@ -23,8 +23,6 @@ const ForgotPassword = () => {
   // Rercoger el dispatch de UsersContext para poder pasarle el dispatch a la función login
   const { state, dispatch } = useContext(UsersContext);
 
-  console.log("Estados: ", state);
-
   return (
       <div className="forgot-pwd-container">
         { state.requested ? ( 

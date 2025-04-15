@@ -1,12 +1,11 @@
 import "./HousingForm.css";
 import { useForm } from "react-hook-form";
-import { addImagesToHousing } from "../../reducers/housings/housings.actions";
+import { addImagesToHousing, deleteHousingImage } from "../../reducers/housings/housings.actions";
 import { useState, useEffect } from "react";
 import Alert from "../Alert/Alert";
 import { closeAlert } from "../../utils/closeAlert";
-import HousingButton from "../HousingButton/HousingButton";
 
-const ImageForm = ({ housingsState, globalDispatch, closeModal}) => {
+const ImageForm = ({ housingsState, globalDispatch, closeModal, isDataComplete, setIsDataComplete }) => {
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
   const [images, setImages] = useState([]);
   const [fileName, setFileName] = useState("Haz click aquí para seleccionar la imagen que quieres subir");
@@ -15,6 +14,8 @@ const ImageForm = ({ housingsState, globalDispatch, closeModal}) => {
   const housingId = housingsState.housings._id;
 
   const imageFile = watch("housingImages");
+
+  // console.log("En ImageForm: ", isDataComplete);
 
   useEffect(() => {
     if (imageFile && imageFile.length > 0) {
@@ -36,15 +37,15 @@ const ImageForm = ({ housingsState, globalDispatch, closeModal}) => {
     const altText = data.imgAlt;
 
     if (imageFile && altText && !fileError) {
-      await addImagesToHousing(housingId, imageFile, altText, globalDispatch);
+      const imageUrl = await addImagesToHousing(housingId, imageFile, altText, globalDispatch);
       
-      // Actualizar el estado de las imágenes con la nueva imagen
-      const newImage = {
-        url: URL.createObjectURL(imageFile),
-        alt: altText
-      };
-      setImages([...images, newImage]);
-      
+      if (imageUrl) {
+        const newImage = {
+          url: imageUrl,
+          alt: altText
+        };
+        setImages([...images, newImage]);
+      }      
       // Limpiar el formulario
       reset();
       setFileName("Haz click aquí para seleccionar la imagen que quieres subir");
@@ -58,9 +59,15 @@ const ImageForm = ({ housingsState, globalDispatch, closeModal}) => {
     closeAlert(globalDispatch);
   }
 
-  const handleFinish = () => {
+  const handleFinish = () => {    
+    setIsDataComplete(true);
     reset();
     closeModal();
+  }
+
+  const handleDeleteImage = async (imageUrl) => {
+    await deleteHousingImage(housingId, imageUrl, globalDispatch);
+    setImages(images.filter(image => image.url !== imageUrl));
   }
 
   return (
@@ -96,11 +103,12 @@ const ImageForm = ({ housingsState, globalDispatch, closeModal}) => {
           <button type="submit" className="btn-1">Enviar</button>
         </div>
       </form>
-      <div className="images-container">
+      <div className="images-container" onClick={(e) => e.stopPropagation()}>
         {images.map((image, index) => (
           <div key={index} className="image-preview">
-            <img src={image.url} alt={image.alt} />
+            <img src={image.url} alt={image.alt} className="housing-img" />
             <p>{image.alt}</p>
+            <img src="/icons/delete-white.png" alt="Eliminar imagen" title="Eliminar imagen" className="delete-image-icon" onClick={ () => handleDeleteImage(image.url) } />
           </div>
         ))}
       </div>

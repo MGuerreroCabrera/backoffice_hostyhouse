@@ -7,7 +7,7 @@ import Loading from "../Loading/Loading";
 import { closeModal } from "../../reducers/housings/housings.actions";
 import { closeAlert } from "../../utils/closeAlert";
 
-const HousingForm = ({ housingsDispatch, housingsState }) => {
+const HousingForm = ({ housingsDispatch, housingsState, isDataComplete, setIsDataComplete }) => {
 
     const [ globalState, globalDispatch ] = useReducer(globalReducer, INITIAL_GLOBAL_STATE);    
 
@@ -16,6 +16,8 @@ const HousingForm = ({ housingsDispatch, housingsState }) => {
     
     // Estados para manejar si se ha enviado el primer formulario y recoger el campo necesario para el segundo.
     const [ isDataSubmitted, setIsDataSubmitted ] = useState(false);
+
+    // console.log("En HousingForm: ", isDataComplete);
     
     return (
         <section className="data-container">
@@ -34,6 +36,8 @@ const HousingForm = ({ housingsDispatch, housingsState }) => {
                     housingsState = { housingsState } 
                     globalDispatch = { globalDispatch }
                     closeModal = { () => closeModal(housingsDispatch) }
+                    isDataComplete = { isDataComplete }
+                    setIsDataComplete = { setIsDataComplete }
                 />
             )}
         </section>

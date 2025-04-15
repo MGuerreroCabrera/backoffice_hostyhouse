@@ -11,8 +11,6 @@ const FieldLoginForm = ({ ph = "", type, registerName, validations }) => {
 
     // Controlar si hay error
     const hasError = errors && errors[registerName];
-
-    console.log("Errors en FieldLoginForm", errors);
     
     return (
         <div className={`input-field ${hasError ? "error" : ""}`}>
