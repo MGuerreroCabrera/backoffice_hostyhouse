@@ -1,4 +1,4 @@
-import "./HousingForm.css";
+import "./HousingForms.css";
 import { useForm } from "react-hook-form";
 import { addImagesToHousing, deleteHousingImage } from "../../reducers/housings/housings.actions";
 import { useState, useEffect } from "react";

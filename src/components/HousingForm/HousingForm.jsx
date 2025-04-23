@@ -16,8 +16,6 @@ const HousingForm = ({ housingsDispatch, housingsState, isDataComplete, setIsDat
     
     // Estados para manejar si se ha enviado el primer formulario y recoger el campo necesario para el segundo.
     const [ isDataSubmitted, setIsDataSubmitted ] = useState(false);
-
-    // console.log("En HousingForm: ", isDataComplete);
     
     return (
         <section className="data-container">

@@ -47,15 +47,19 @@ const Bookings = () => {
                     <span>Número de huéspedes</span>
                     <span>Importe de la reserva</span>
                 </div>
-                {bookings.map((booking) => (
-                    <div key={booking._id} className="data-row" onClick={() => handleRowClick(booking._id)}>
-                        <span>{new Date(booking.checkIn).toLocaleDateString()}</span>
-                        <span>{new Date(booking.checkOut).toLocaleDateString()}</span>
-                        <span>{booking.housingId.name}</span>
-                        <span>{Number(booking.adults) + Number(booking.children)}</span>
-                        <span>{booking.amount}€</span>
-                    </div> 
-                ))}
+                {Array.isArray(bookings) && bookings.length > 0 ? (
+                    bookings.map((booking) => (
+                        <div key={booking._id} className="data-row" onClick={() => handleRowClick(booking._id)}>
+                            <span>{new Date(booking.checkIn).toLocaleDateString()}</span>
+                            <span>{new Date(booking.checkOut).toLocaleDateString()}</span>
+                            <span>{booking.housingId.name}</span>
+                            <span>{Number(booking.adults) + Number(booking.children)}</span>
+                            <span>{booking.amount}€</span>
+                        </div> 
+                    ))
+                ) : (
+                    <p style={{ padding: "10px" }}>No hay reservas en la base de datos.</p>
+                )}
                 <Paginator page={ page } totalPages={ totalPages } globalDispatch={ globalDispatch } />
             </div>
             {selectedBooking && (

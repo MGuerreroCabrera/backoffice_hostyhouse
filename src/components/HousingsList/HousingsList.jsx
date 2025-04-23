@@ -4,7 +4,7 @@ import { globalReducer, INITIAL_GLOBAL_STATE } from '../../reducers/global/globa
 import { housingsReducer, INITIAL_HOUSINGS_STATE } from '../../reducers/housings/housings.reducer';
 import HousingModal from "../HousingModal/HousingModal";
 import { useEffect } from "react";
-import { fetchHousings, openModal } from "../../reducers/housings/housings.actions";
+import { fetchHousings, openModal, deleteHousing } from "../../reducers/housings/housings.actions";
 import { useState } from "react";
 
 const HousingsList = () => {
@@ -14,6 +14,7 @@ const HousingsList = () => {
     const [housingsState, housingsDispatch] = useReducer(housingsReducer, INITIAL_HOUSINGS_STATE);
 
     const [isDataComplete, setIsDataComplete] = useState(false);
+    const [modalView, setModalView] = useState("form");
 
     // Desestructurizar las propiedades de los reducers
     // const { loading, page, totalPages, error, opOk, showAlert } = globalState;
@@ -33,14 +34,17 @@ const HousingsList = () => {
         }
     }, [isModalOpen, isDataComplete]);
 
-    // console.log("En HousingsList: ", isDataComplete);
+    // Manejador del botón eliminar vivienda
+    const handleDeleteHousing = async (id) => {
+        await deleteHousing(id, globalDispatch, housings, housingsDispatch);
+    }
 
   return (
     <>
         <div className="data-container">
             <div className="ttle-btn-add-row">
                 <h2 className="section-title">Viviendas</h2>
-                <button className="btn-add-record" onClick={ () => openModal(housingsDispatch) }>+ Nuevo registro</button>
+                <button className="btn-add-record" onClick={ () => { setModalView("form"); openModal(housingsDispatch) } }>+ Nuevo registro</button>
             </div>
             <div className="houses-container">
                 { Array.isArray(housings) && housings.map((housing) => (
@@ -57,11 +61,11 @@ const HousingsList = () => {
                                 <img src="/icons/edit.png" className="btn-img" />
                                 Editar
                             </button> 
-                            <button className="btn-card delete">
+                            <button className="btn-card delete" onClick={ () => handleDeleteHousing(housing._id) }>
                                 <img src="/icons/delete.png" className="btn-img" />
                                 Eliminar
                             </button> 
-                            <button className="btn-card show">
+                            <button className="btn-card show" onClick={ () => { setModalView("detail"); openModal(housingsDispatch); housingsDispatch({ type: "SET_HOUSING_ID", payload: housing._id }) } }>
                                 <img src="/icons/turquoise-eye.png" className="btn-img" />
                                 Ver
                             </button> 
@@ -75,7 +79,10 @@ const HousingsList = () => {
             housingsDispatch={ housingsDispatch } 
             housingsState={ housingsState } 
             isDataComplete={ isDataComplete }
-            setIsDataComplete={ setIsDataComplete } />            
+            setIsDataComplete={ setIsDataComplete }
+            modalView={ modalView }
+            globalDispatch = { globalDispatch }
+            />            
         )}
     </>
   )

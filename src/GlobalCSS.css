@@ -77,6 +77,9 @@
     width: 50%;
 }
 
+.input-20 {
+    width: 20%
+}
 /* Estilos para los botones de los formularios */
 .btn-add-record {
     min-width: 100px;
@@ -143,5 +146,11 @@
     }
     .data-container {
         width: 95%;
+    }
+    .input-50 {
+        width: 100%;
+    }
+    .input-20 {
+        width: 100%;
     }
 }

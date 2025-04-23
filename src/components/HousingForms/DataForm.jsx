@@ -1,4 +1,4 @@
-import "./HousingForm.css";
+import "./HousingForms.css";
 import { useReducer } from "react";
 import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
 import { useForm } from "react-hook-form";
@@ -29,7 +29,8 @@ const DataForm = ({ globalDispatch, housingsDispatch, setIsDataSubmitted }) => {
             features: state.features.map((feature) => ({
                 feature: feature._id,
                 value: data[feature._id] || ""
-            }))
+            })),
+            price: data.price
         }
         
         // Crear el registro de la nueva vivenda
@@ -56,8 +57,13 @@ const DataForm = ({ globalDispatch, housingsDispatch, setIsDataSubmitted }) => {
                 <label htmlFor="description" className="input-label">Descripción de la vivienda</label>
                 <textarea { ...register("description", { required: "La descripción es requerida" }) } className="description"></textarea>                    
             </div>
+            <div className="form-row">
+                <label htmlFor="price" className="input-label">Precio por noche</label>
+                <input type="number" { ...register("price", { required: "El precio por noche es requerido" }) } className="input-text input-20" />
+                { errors.price && <span>{ errors.price.message }</span> }                   
+            </div>
             <div className="housing-features">
-                <span>Características de la vivienda</span>
+                <span style={{ borderRadius: "5px" }}>Características de la vivienda</span>
                 <div className="features-container">                        
                     {state.features && state.features.map((feature) => (
                         <div className="feature-div" key={feature._id} >

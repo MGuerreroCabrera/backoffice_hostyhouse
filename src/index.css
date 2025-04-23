@@ -16,7 +16,7 @@
   --hh-color-000: #ffffff;
   --hh-color-010: #01B0BE;
   --hh-color-020: #027b84;
-  --hh-color-080: #e3e3e3;
+  --hh-color-080: #f4f4f4;
   --hh-color-085: #808080;
   --hh-color-090: #606060;  
   --hh-color-100: #232323;
@@ -45,7 +45,7 @@
   --hh-font-size-s: clamp(12px, 1vw + 1em, 14px);
   --hh-font-size-m: clamp(16px, 1vw + 1em, 18px);
   --hh-font-size-l: clamp(1rem, 1vw + 1em, 2rem);
-  --hh-font-size-xl: clamp(1rem, 2vw + 1rem, 5rem);
+  --hh-font-size-xl: clamp(1rem, 4vw, 5rem);
   --hh-font-size-xxl: clamp(1rem, 7vw, 5rem);
   --hh-font-size-ultra: clamp(3rem, 15vw, 10rem);
 }

@@ -1,7 +1,7 @@
 import { API } from "../../utils/API/API";
 
 // Función que abre el modal
-export const openModal = (housingsDispatch) => { housingsDispatch({ type: "OPEN_MODAL" }); }
+export const openModal = (housingsDispatch) => { housingsDispatch({ type: "OPEN_MODAL" }) }
 
 // Función que cierra el modal
 export const closeModal = (housingsDispatch) => { housingsDispatch({ type: "CLOSE_MODAL" }); }
@@ -97,6 +97,56 @@ export const fetchHousings = async (globalDispatch, housingsDispatch) => {
         globalDispatch({ type: "SET_ERROR", payload: error.message });
         globalDispatch({ type: "SHOW_ALERT" });
     }
-
-
 }
+
+// Función que elimina una vivienda
+export const deleteHousing = async (id, globalDispatch, housings, housingsDispatch) => {
+    console.log("Entro en deleteHousing");
+    // Activar el loading
+    globalDispatch({ type: "LOADING" });
+
+    // Llamar a la API para eliminar el registro
+    try {
+        const { error } = await API({ endpoint: `/housings/${id}`, method: "DELETE" });
+
+        // Comprobar si hay error en la respuesta
+        if (error) {
+            globalDispatch({ type: "SET_ERROR", payload: error.message });
+            globalDispatch({ type: "SHOW_ALERT" });
+        } else {
+            // Eliminar el registro del estado housings[]
+            const newHousings = housings.filter(housing => housing._id !== id);
+            housingsDispatch({ type: "SET_HOUSINGS", payload: newHousings });
+            globalDispatch({ type: "OP_OK" });
+            globalDispatch({ type: "SHOW_ALERT" });
+        }
+        globalDispatch({ type: "STOP_LOADING" });
+    } catch (error) {
+        globalDispatch({ type: "STOP_LOADING" });
+        globalDispatch({ type: "SET_ERROR", payload: error.message });
+        globalDispatch({ type: "SHOW_ALERT" });
+    }
+}
+
+// Función que devuelve los datos de una vivienda por su id
+export const getHousingById = async (id, globalDispatch, housingsDispatch) => {
+    console.log("Entro");
+    globalDispatch({ type: "LOADING" });
+    try {
+        const { error, response } = await API ({ endpoint: `/housings/${id}` });
+
+        // Comprobar si hay un error en la respuesta de la API
+        if (error) {
+            globalDispatch({ type: "SET_ERROR", payload: error.message });
+            globalDispatch({ type: "SHOW_ALERT" });
+        } else {
+            const housingData = response.data;
+            housingsDispatch({ type: "SET_HOUSING", payload: housingData });
+        }
+        globalDispatch({ type: "STOP_LOADING" });
+    } catch (error) {
+        globalDispatch({ type: "STOP_LOADING" });
+        globalDispatch({ type: "SET_ERROR", payload: error.message });
+        globalDispatch({ type: "SHOW_ALERT" });
+    }
+} 

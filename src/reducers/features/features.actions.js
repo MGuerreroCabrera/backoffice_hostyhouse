@@ -90,16 +90,16 @@ export const deleteFeature = async (id, globalDispatch, features, dispatch) => {
   try {
     const { error } = await API({ endpoint: `/features/${id}`, method: "DELETE" });
     if(error) {
-      globalDispatch({ type: "STOP_LOADING" });
       globalDispatch({ type: "SET_ERROR", payload: error.message });
+      globalDispatch({ type: "SHOW_ALERT" });
     } else {
-      globalDispatch({ type: "STOP_LOADING" });    
       // Definición del nuevo array de características.
       const newFeatures = features.filter(feature => feature._id !== id);
       dispatch({ type: "SET_FEATURES", payload: newFeatures });
       globalDispatch({ type: "OP_OK" });
       globalDispatch({ type: "SHOW_ALERT" });
     }
+    globalDispatch({ type: "STOP_LOADING" });    
   } catch (error) {
     globalDispatch({ type: "STOP_LOADING" });
     globalDispatch({ type: "SET_ERROR", payload: error.message });      
