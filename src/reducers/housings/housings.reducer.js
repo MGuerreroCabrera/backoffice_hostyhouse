@@ -14,7 +14,7 @@ export const housingsReducer = (state, action) => {
         case "SET_HOUSING_ID":
             return { ...state, housingId: action.payload };
         case "SET_HOUSING":
-            return { housing: action.payload };
+            return { housing: action.payload, isModalOpen: true };
         case "OPEN_MODAL":
             return { ...state, isModalOpen: true };
         case "CLOSE_MODAL":

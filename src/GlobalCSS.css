@@ -10,8 +10,12 @@
 
 .data-container {
     width: 80%;
-    min-height: 80svh;
+    height: 80svh;
     position: relative;
+    overflow-y: auto;
+    resize: vertical;
+    scrollbar-width: thin;
+    scrollbar-color: var(--hh-color-010) var(--hh-color-000);
     background-color: var(--hh-color-000);
     border: 0.5px solid var(--hh-color-090);
     border-radius: var(--hh-br-m);

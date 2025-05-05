@@ -38,6 +38,7 @@
 .house-card .desc-row {
     width: 100%;
     height: 70px;
+    padding: var(--hh-spacing-s);
 }
 
 .house-card p {

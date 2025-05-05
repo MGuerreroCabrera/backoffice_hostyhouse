@@ -57,7 +57,7 @@ const HousingsList = () => {
                             <p>{ housing.description?.substring(0, 150) + "..." }</p>
                         </div>
                         <div className="btn-row">
-                            <button className="btn-card edit">
+                            <button className="btn-card edit"  onClick={ () => { setModalView("edit"); openModal(housingsDispatch); housingsDispatch({ type: "SET_HOUSING_ID", payload: housing._id }) } }>
                                 <img src="/icons/edit.png" className="btn-img" />
                                 Editar
                             </button> 

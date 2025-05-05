@@ -54,6 +54,7 @@ export const addImagesToHousing = async (housingId, image, altText, globalDispat
 
 // Función que elimina una imagen de una vivienda
 export const deleteHousingImage = async (housingId, imageUrl, globalDispatch) => {
+    
     globalDispatch({ type: "LOADING" });
     
     const { error } = await API ({ 

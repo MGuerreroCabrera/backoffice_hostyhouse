@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import { closeModal, getHousingById } from "../../reducers/housings/housings.actions";
 import "./HousingDetail.css";
+import { closeModal } from "../../reducers/housings/housings.actions";
 
 // const HousingDetail = ({ housingsDispatch, housingsState, globalDispatch }) => {
     const HousingDetail = ({ housingsState, housingsDispatch }) => {
@@ -11,7 +10,7 @@ import "./HousingDetail.css";
         <div className="data-container" onClick={(e) => e.stopPropagation()}>
             <header className="housing-detail">
                 <h1>Detalle de la vivienda</h1>
-                <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar ventana" className="close-modal" onClick={ () => { closeModal(housingsDispatch) } } />
+                <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar" className="close-modal" onClick={ () => { closeModal(housingsDispatch) } } />
             </header>
             <main>
                 <p className="xxl-title">{ housing.name }</p>
@@ -29,7 +28,6 @@ import "./HousingDetail.css";
                 <div className="features-container">
                     { housing.features && housing.features.length > 0 ? (
                         housing.features.map(feature => {
-                            console.log("Feature:", feature);
                             return (
                                 <div key={ feature._id } className="feature-container">
                                     <p>{ feature.feature.name }</p>
