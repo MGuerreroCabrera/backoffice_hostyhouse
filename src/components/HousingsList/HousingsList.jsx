@@ -82,6 +82,7 @@ const HousingsList = () => {
             setIsDataComplete={ setIsDataComplete }
             modalView={ modalView }
             globalDispatch = { globalDispatch }
+            globalState = { globalState }
             />            
         )}
     </>

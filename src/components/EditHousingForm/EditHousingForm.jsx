@@ -1,13 +1,13 @@
 import "./EditHousingForm.css";
-import { closeModal, deleteHousingImage } from "../../reducers/housings/housings.actions";
+import { addImagesToHousing, closeModal, deleteHousingImage } from "../../reducers/housings/housings.actions";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useEffect } from "react";
+import Alert from "../Alert/Alert";
+import { closeAlert } from "../../utils/closeAlert";
+import Loading from "../Loading/Loading";
 
-const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch }) => {
-
-    // console.log("housingsState: ", housingsState);
-    // console.log("Id: ", housingsState.housingId);
+const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, globalState }) => {
 
     const housing = housingsState.housings.find(h => h._id === housingsState.housingId);
 
@@ -16,11 +16,35 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch }) =>
     const [fileName, setFileName] = useState("Haz click aquí para seleccionar la imagen que quieres subir");
     const [fileError, setFileError] = useState(null);
     const [images, setImages] = useState(housing.images);
+    const [alert, setAlert] = useState(false);
 
     const imageFile = watch("housingImages");
 
     const onSubmit = async (data) => {
-        console.log(data);
+        if(data.housingImages[0]) {
+            // Recoger los datos de la imagen
+            const imageFile = data.housingImages[0];
+            const altText = data.imgAlt;
+            // Llamada a la función que sube la imagen
+            const imageUrl = await addImagesToHousing(housing._id, imageFile, altText, globalDispatch);                        
+            // Inicializar objeto con los datos de la imagen
+            if(imageUrl) {
+                const newImage = {
+                    url: imageUrl,
+                    alt: altText
+                };
+                // Actualizar el array images con la nueva imagen
+                setImages([...images, newImage]);
+                // Reseteo de los datos de las imágenes
+                setFileName("Haz click aquí para seleccionar la imagen que quieres subir");
+                reset({
+                    housingImages: [],
+                    imgAlt: ""
+                });
+            }
+        } else {
+            console.log("Actualizar descripción");
+        }
     };
 
     // useEffect para la subida de imágenes
@@ -42,16 +66,30 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch }) =>
 
     // Función que maneja la opción de eliminar una imagen
     const handleDeleteImage = async (imageUrl) => {
+        globalDispatch({ type: "LOADING" });
         // Eliminar la imagen de la BBDD
         await deleteHousingImage(housingsState.housingId, imageUrl, globalDispatch);
         // Filtrar la imagen eliminada del array de imágenes
         const updatedImages = images.filter(image => image.url !== imageUrl);  
-
+        // Actualizar el array del estado imágenes
         setImages(updatedImages);
+        globalDispatch({ type: "STOP_LOADING" });
+        globalDispatch({ type: "OP_OK" });
+        globalDispatch({ type: "SHOW_ALERT" });
+        setAlert(true);
     }
 
+    // Manejador para cerrar la Alerta
+    const handleCloseAlert = () => {
+        closeAlert(globalDispatch);
+        setAlert(false);
+      }
+
     return (
-        <section className="data-container" onClick={(e) => e.stopPropagation()}>
+        <>
+        { alert && <Alert type="success" onClose={ handleCloseAlert }>Operación realizada correctamente</Alert> }      
+        { globalState.loading && <Loading /> }     
+        <section className="data-container" onClick={(e) => e.stopPropagation()}>            
             <header>
                 <h1>Editar datos</h1>
                 <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar" className="close-modal" onClick={ () => closeModal(housingsDispatch) } />
@@ -88,9 +126,8 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch }) =>
                         )) }
                     </div>                    
                     <div className="images-container" onClick={ (e) => e.stopPropagation() }>
-                        {/* { housing && housing.images && housing.images.length > 0 && housing.images.map((image) => ( */}
-                        { images && images.length > 0 && images.map((image) =>(
-                            <div key = { image._id } className="image-preview">
+                        { images && images.length > 0 && images.map((image, index) =>(
+                            <div key = { index } className="image-preview">
                                 <img src={image.url} alt={image.alt} className="housing-img" />
                                 <p>{image.alt}</p>                                
                                 <img src="/icons/delete-white.png" alt="Eliminar imagen" title="Eliminar imagen" className="delete-image-icon" onClick={ (e) => { e.stopPropagation(); handleDeleteImage(image.url) } } />
@@ -107,16 +144,25 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch }) =>
                         type="file" 
                         id="housing-images" 
                         accept="image/*"
-                        {...register("housingImages", { required: "La imagen es requerida" })} 
+                        {...register("housingImages")} 
                         style={{ display: "none" }} 
                         />
                     </div>
+                    <div className="upload-row">            
+                        <label htmlFor="imageAlt" className="input-label">Introduce un texto alternativo para la imagen</label> 
+                        <input 
+                        type="text" 
+                        {...register("imgAlt")} 
+                        className="input-text" 
+                        />            
+                    </div>
                     <div className="ehf-row">
-                        <button className="btn-1">Actualizar</button>
+                        <button type="submit" className="btn-1">Actualizar</button>
                     </div>
                 </form>
             </main>
         </section>
+        </>
     )
 }
 
