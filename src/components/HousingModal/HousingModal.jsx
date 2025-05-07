@@ -5,6 +5,7 @@ import HousingDetail from "../HousingDetail/HousingDetail";
 import EditHousingForm from "../EditHousingForm/EditHousingForm";
 
 const HousingModal = ({ housingsDispatch, housingsState, isDataComplete, setIsDataComplete, modalView, globalDispatch, globalState }) => {
+  console.log("housingsState: ", housingsState);
   return (
     <>
       <div className="modal-overlay" onClick={ (e) => { 

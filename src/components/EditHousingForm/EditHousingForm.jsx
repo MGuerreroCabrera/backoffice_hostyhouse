@@ -1,18 +1,25 @@
 import "./EditHousingForm.css";
-import { addImagesToHousing, closeModal, deleteHousingImage } from "../../reducers/housings/housings.actions";
+import { addImagesToHousing, closeModal, deleteHousingImage, putHousing } from "../../reducers/housings/housings.actions";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useEffect } from "react";
 import Alert from "../Alert/Alert";
 import { closeAlert } from "../../utils/closeAlert";
 import Loading from "../Loading/Loading";
+import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
+import { useReducer } from "react";
 
 const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, globalState }) => {
 
-    const housing = housingsState.housings.find(h => h._id === housingsState.housingId);
+    const housing = housingsState.housings.find(h => h._id === housingsState.housingId);  
 
+    console.log("Housing: ", housing);
+    console.log("HousingsState: ", housingsState);
+
+    
     const { register, handleSubmit, formState: { errors }, reset, watch } = useForm({ defaultValues: housing });
 
+    const [ state, dispatch ] = useReducer(featuresReducer, INITIAL_FEATURES_STATE);
     const [fileName, setFileName] = useState("Haz click aquí para seleccionar la imagen que quieres subir");
     const [fileError, setFileError] = useState(null);
     const [images, setImages] = useState(housing.images);
@@ -42,9 +49,26 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
                     imgAlt: ""
                 });
             }
-        } else {
-            console.log("Actualizar descripción");
-        }
+        } 
+        //console.log("Data: ", data);
+        // Construir objeto con los datos a actualizar
+        const housingData = {
+            name: data.name,
+            location: data.location,
+            description: data.description,
+            features: (housing && Array.isArray(housing.features)) ? housing.features.map((feature) => {
+                const newValue = data.features[feature.feature.name] || "";
+                return {
+                    feature: feature._id,
+                    value: newValue
+                }
+            }) : [],
+            price: data.price
+        };
+        //console.log("housingData: ", housingData);
+        // Llamar a la función que actualiza los datos del registro
+        await putHousing(housing._id, housingData, housingsDispatch, globalDispatch);            
+        
     };
 
     // useEffect para la subida de imágenes
@@ -89,6 +113,7 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
         <>
         { alert && <Alert type="success" onClose={ handleCloseAlert }>Operación realizada correctamente</Alert> }      
         { globalState.loading && <Loading /> }     
+        { globalState.error && <Alert type="error" onClose={ handleCloseAlert }>{ globalState.error }</Alert> }
         <section className="data-container" onClick={(e) => e.stopPropagation()}>            
             <header>
                 <h1>Editar datos</h1>
@@ -119,8 +144,8 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
                                 { feature.feature.name }
                             </label>
                             <div>
-                                <img src={ feature.feature.icon } className="feature-icon" alt={ feature.feature.name } />
-                                <input type="text" { ...register(`features.${feature.feature.name}`, { required: true }) } defaultValue={ feature.value } className="feature-input" />
+                                <img src={ feature.feature.icon } />
+                                <input type="text" { ...register(`features.${feature.feature.name}`) } defaultValue={ feature.value } className="feature-input" />                                
                             </div>
                         </div>
                         )) }

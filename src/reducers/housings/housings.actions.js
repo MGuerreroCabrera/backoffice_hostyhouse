@@ -19,13 +19,36 @@ export const createHousing = async (housingData, housingsDispatch, globalDispatc
 
         if (error) {
             globalDispatch({ type: "SET_ERROR", payload: error.message });
-            globalDispatch({ type: "STOP_LOADING" });
             globalDispatch({ type: "SHOW_ALERT" });
+        } else {
+            // Cargar los datos de nuevo registro
+            housingsDispatch({ type: "SET_HOUSINGS", payload: response.data });
         }
 
-        // Cargar los datos de nuevo registro
-        housingsDispatch({ type: "SET_HOUSINGS", payload: response.data });
         globalDispatch({ type: "STOP_LOADING" });
+}
+
+// Función que actualiza los datos de una vivienda
+export const putHousing = async (housingId, housingData, housingsDispatch, globalDispatch) => {
+    globalDispatch({ type: "LOADING" });
+
+    // Llamada a la API para actualizar los datos del registro
+    const { error, response } = await API({ 
+        endpoint: `/housings/${housingId}`,
+        method: "PUT",
+        body: housingData,
+        content_type: true
+     });
+
+     if(error) {
+        globalDispatch({ type: "SET_ERROR", payload: error.message });
+        globalDispatch({ type: "SHOW_ALERT" });
+     } else {
+        // Cargar los datos actualizados
+        housingsDispatch({ type: "SET_HOUSING", payload: response.data });
+     }
+
+    globalDispatch({ type: "STOP_LOADING" });
 }
 
 // Función para añadir imágenes a una vivienda

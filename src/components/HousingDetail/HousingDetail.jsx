@@ -1,10 +1,16 @@
 import "./HousingDetail.css";
 import { closeModal } from "../../reducers/housings/housings.actions";
 
-// const HousingDetail = ({ housingsDispatch, housingsState, globalDispatch }) => {
-    const HousingDetail = ({ housingsState, housingsDispatch }) => {
+const HousingDetail = ({ housingsState, housingsDispatch }) => {
 
-    const housing = housingsState.housings.find(h => h._id === housingsState.housingId);
+    console.log("housingsState en detalle: ", housingsState);
+    console.log("housingId en detalle: ", housingsState.housingId);
+    console.log("housing en detalle: ", housingsState.housings.find(house => house._id === housingsState.housingId));
+    const housing = housingsState.housings.find(house => house._id === housingsState.housingId);
+    if(!housing) {
+        return <p>Casa no encontrada</p>;        
+    }
+    console.log("Nombre: ", housing.name); //return;
 
     return (
         <div className="data-container" onClick={(e) => e.stopPropagation()}>
@@ -30,9 +36,9 @@ import { closeModal } from "../../reducers/housings/housings.actions";
                         housing.features.map(feature => {
                             return (
                                 <div key={ feature._id } className="feature-container">
-                                    <p>{ feature.feature.name }</p>
+                                    <p>{ feature.name }</p>
                                     <div className="feature-data">
-                                        <img src={ feature.feature.icon } alt={ feature.feature.name } />
+                                        <img src={ feature.icon } alt={ feature.name } />
                                         <p>{ feature.value }</p>
                                     </div>
                                 </div>
