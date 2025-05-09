@@ -8,18 +8,23 @@ import { closeAlert } from "../../utils/closeAlert";
 import Loading from "../Loading/Loading";
 import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
 import { useReducer } from "react";
+import { fetchHousing } from "../../utils/fetchHousing";
 
 const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, globalState }) => {
 
-    const housing = housingsState.housings.find(h => h._id === housingsState.housingId);  
-
-    console.log("Housing: ", housing);
-    console.log("HousingsState: ", housingsState);
-
+    useEffect(() => {
+        fetchHousing(housingsState.housingId, globalDispatch, housingsDispatch);
+    }, []);
+    
+    const housing = housingsState.housing;
+    //console.log("Datos actualizados: ", housing);
+    
     
     const { register, handleSubmit, formState: { errors }, reset, watch } = useForm({ defaultValues: housing });
-
+    
+    // Exportar el reducer de features ( "Mal nombre. state no, debería ser featureState" )
     const [ state, dispatch ] = useReducer(featuresReducer, INITIAL_FEATURES_STATE);
+
     const [fileName, setFileName] = useState("Haz click aquí para seleccionar la imagen que quieres subir");
     const [fileError, setFileError] = useState(null);
     const [images, setImages] = useState(housing.images);
@@ -50,25 +55,20 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
                 });
             }
         } 
-        //console.log("Data: ", data);
         // Construir objeto con los datos a actualizar
         const housingData = {
             name: data.name,
             location: data.location,
             description: data.description,
-            features: (housing && Array.isArray(housing.features)) ? housing.features.map((feature) => {
-                const newValue = data.features[feature.feature.name] || "";
-                return {
-                    feature: feature._id,
-                    value: newValue
-                }
-            }) : [],
+            features: housing.features.map((feature) => ({
+                feature: feature.feature._id,
+                value: data.features[feature.feature.name] || ""
+            })),
             price: data.price
         };
-        //console.log("housingData: ", housingData);
         // Llamar a la función que actualiza los datos del registro
         await putHousing(housing._id, housingData, housingsDispatch, globalDispatch);            
-        
+        closeModal(housingsDispatch);
     };
 
     // useEffect para la subida de imágenes
@@ -111,7 +111,7 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
 
     return (
         <>
-        { alert && <Alert type="success" onClose={ handleCloseAlert }>Operación realizada correctamente</Alert> }      
+        { alert && <Alert type="success" onClose={ handleCloseAlert } globalDispatch = { globalDispatch }>Operación realizada correctamente</Alert> }      
         { globalState.loading && <Loading /> }     
         { globalState.error && <Alert type="error" onClose={ handleCloseAlert }>{ globalState.error }</Alert> }
         <section className="data-container" onClick={(e) => e.stopPropagation()}>            

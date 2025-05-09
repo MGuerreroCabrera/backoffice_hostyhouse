@@ -6,6 +6,9 @@ import HousingModal from "../HousingModal/HousingModal";
 import { useEffect } from "react";
 import { fetchHousings, openModal, deleteHousing } from "../../reducers/housings/housings.actions";
 import { useState } from "react";
+import Loading from "../Loading/Loading";
+import Alert from "../Alert/Alert";
+import { closeAlert } from "../../utils/closeAlert";
 
 const HousingsList = () => {
 
@@ -38,9 +41,12 @@ const HousingsList = () => {
     const handleDeleteHousing = async (id) => {
         await deleteHousing(id, globalDispatch, housings, housingsDispatch);
     }
-
+    console.log("GlobalState: ", globalState);
   return (
     <>
+        { globalState.opOk && <Alert type="success" onClose={ () => closeAlert(globalDispatch) } globalDispatch = { globalDispatch }>Operación realizada correctamente</Alert> }      
+        { globalState.loading && <Loading /> }     
+        { globalState.error && <Alert type="error" onClose={ handleCloseAlert }>{ globalState.error }</Alert> }
         <div className="data-container">
             <div className="ttle-btn-add-row">
                 <h2 className="section-title">Viviendas</h2>

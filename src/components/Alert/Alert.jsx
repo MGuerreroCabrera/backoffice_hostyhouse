@@ -1,11 +1,12 @@
 import "./Alert.css";
 import { useEffect } from "react";
 
-const Alert = ({ type, children, onClose }) => {
+const Alert = ({ type, children, onClose, globalDispatch }) => {
     useEffect(() => {
         // Muestra el mensaje de notificación durante 5 segs
         const timer = setTimeout(() => {
             onClose();
+            globalDispatch({ type: "RESET_STATES" });
         }, 3000);
 
 
