@@ -8,9 +8,8 @@ const HousingDetail = ({ housingsState, globalDispatch, housingsDispatch }) => {
     useEffect(() => {        
         fetchHousing(housingsState.housingId, globalDispatch, housingsDispatch);
     }, [housingsState.housingId]);
+
     
-    console.log("Casa: ", housingsState.housing);
-    // return;
     const housing = housingsState.housing;
 
     return (

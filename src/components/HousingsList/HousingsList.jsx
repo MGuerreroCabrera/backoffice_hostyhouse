@@ -20,7 +20,6 @@ const HousingsList = () => {
     const [modalView, setModalView] = useState("form");
 
     // Desestructurizar las propiedades de los reducers
-    // const { loading, page, totalPages, error, opOk, showAlert } = globalState;
     const { housings, isModalOpen } = housingsState;
     
     // useEffect para la llamada a la API

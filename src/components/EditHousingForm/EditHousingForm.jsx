@@ -12,9 +12,6 @@ import { fetchHousing } from "../../utils/fetchHousing";
 
 const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, globalState }) => {
 
-    useEffect(() => {
-        fetchHousing(housingsState.housingId, globalDispatch, housingsDispatch);
-    }, []);
     
     const housing = housingsState.housing;
     //console.log("Datos actualizados: ", housing);
@@ -22,8 +19,10 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
     
     const { register, handleSubmit, formState: { errors }, reset, watch } = useForm({ defaultValues: housing });
     
-    // Exportar el reducer de features ( "Mal nombre. state no, debería ser featureState" )
-    const [ state, dispatch ] = useReducer(featuresReducer, INITIAL_FEATURES_STATE);
+    useEffect(() => {
+        reset();
+        fetchHousing(housingsState.housingId, globalDispatch, housingsDispatch);
+    }, []);
 
     const [fileName, setFileName] = useState("Haz click aquí para seleccionar la imagen que quieres subir");
     const [fileError, setFileError] = useState(null);
@@ -66,6 +65,7 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
             })),
             price: data.price
         };
+        console.log("Envío esto: ", housingData);
         // Llamar a la función que actualiza los datos del registro
         await putHousing(housing._id, housingData, housingsDispatch, globalDispatch);            
         closeModal(housingsDispatch);

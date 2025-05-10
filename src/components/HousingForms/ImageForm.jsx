@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import Alert from "../Alert/Alert";
 import { closeAlert } from "../../utils/closeAlert";
 
-const ImageForm = ({ housingsState, globalDispatch, closeModal, isDataComplete, setIsDataComplete }) => {
+const ImageForm = ({ housingsState, globalDispatch, closeModal, setIsDataComplete }) => {
   const { register, handleSubmit, formState: { errors }, reset, watch } = useForm();
   const [images, setImages] = useState([]);
   const [fileName, setFileName] = useState("Haz click aquí para seleccionar la imagen que quieres subir");
