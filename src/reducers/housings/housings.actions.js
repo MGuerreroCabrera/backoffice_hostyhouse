@@ -42,13 +42,17 @@ export const addImagesToHousing = async (housingId, image, altText, globalDispat
         body: imageFormData
     });
 
+    response ? console.log("Response: ", JSON.stringify(response.data, null, 2)) : "";
+
     globalDispatch({ type: "STOP_LOADING" });
 
     if (error) {       
         globalDispatch({ type: "SET_ERROR", payload: error.message });
         globalDispatch({ type: "SHOW_ALERT" });
     } else {
-        return response.data.images[0].url;
+        const lastImage = response.data.images[response.data.images.length -1];
+        console.log("LastImage: ", lastImage.url);
+        return lastImage;
     }
 }
 

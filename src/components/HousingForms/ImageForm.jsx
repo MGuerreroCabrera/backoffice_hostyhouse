@@ -15,8 +15,6 @@ const ImageForm = ({ housingsState, globalDispatch, closeModal, setIsDataComplet
 
   const imageFile = watch("housingImages");
 
-  // console.log("En ImageForm: ", isDataComplete);
-
   useEffect(() => {
     if (imageFile && imageFile.length > 0) {
       const file = imageFile[0];
@@ -38,11 +36,11 @@ const ImageForm = ({ housingsState, globalDispatch, closeModal, setIsDataComplet
 
     if (imageFile && altText && !fileError) {
       const imageUrl = await addImagesToHousing(housingId, imageFile, altText, globalDispatch);
-      
+      console.log("imageUrl: ", imageUrl.url);
       if (imageUrl) {
         const newImage = {
-          url: imageUrl,
-          alt: altText
+          url: imageUrl.url,
+          alt: imageUrl.alt
         };
         setImages([...images, newImage]);
       }      
@@ -68,6 +66,11 @@ const ImageForm = ({ housingsState, globalDispatch, closeModal, setIsDataComplet
   const handleDeleteImage = async (imageUrl) => {
     await deleteHousingImage(housingId, imageUrl, globalDispatch);
     setImages(images.filter(image => image.url !== imageUrl));
+    // setImages(prevImages => {
+    //   const updatedImages = prevImages.filter(image => image.url !== imageUrl);
+    //   console.log("El array está así: ", prevImages);
+    //   return updatedImages;
+    // })
   }
 
   return (
