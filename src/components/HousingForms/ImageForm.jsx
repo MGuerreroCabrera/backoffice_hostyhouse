@@ -66,11 +66,6 @@ const ImageForm = ({ housingsState, globalDispatch, closeModal, setIsDataComplet
   const handleDeleteImage = async (imageUrl) => {
     await deleteHousingImage(housingId, imageUrl, globalDispatch);
     setImages(images.filter(image => image.url !== imageUrl));
-    // setImages(prevImages => {
-    //   const updatedImages = prevImages.filter(image => image.url !== imageUrl);
-    //   console.log("El array está así: ", prevImages);
-    //   return updatedImages;
-    // })
   }
 
   return (

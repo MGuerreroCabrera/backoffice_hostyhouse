@@ -32,9 +32,7 @@ const DataForm = ({ globalDispatch, housingsDispatch, setIsDataSubmitted }) => {
             })),
             price: data.price
         }
-
-        console.log("Este el objeto que voy a enviar: ", housingData);
-        
+                
         // Crear el registro de la nueva vivenda
         await createHousing(housingData, housingsDispatch, globalDispatch);
 

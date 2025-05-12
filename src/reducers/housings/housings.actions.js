@@ -42,18 +42,16 @@ export const addImagesToHousing = async (housingId, image, altText, globalDispat
         body: imageFormData
     });
 
-    response ? console.log("Response: ", JSON.stringify(response.data, null, 2)) : "";
-
-    globalDispatch({ type: "STOP_LOADING" });
-
+    globalDispatch({ type: "STOP_LOADING" });    
+    
     if (error) {       
         globalDispatch({ type: "SET_ERROR", payload: error.message });
         globalDispatch({ type: "SHOW_ALERT" });
     } else {
         const lastImage = response.data.images[response.data.images.length -1];
-        console.log("LastImage: ", lastImage.url);
         return lastImage;
     }
+    
 }
 
 // Función que elimina una imagen de una vivienda
@@ -110,9 +108,6 @@ export const getHousingById = async (id, globalDispatch, housingsDispatch) => {
 
     const { error, response } = await API ({ endpoint: `/housings/${id}` });
 
-    console.log("Response: ", response);
-    console.log("Error: ", error);
-
     if(error) {
         globalDispatch({ type: "SET_ERROR", payload: error.message });
         globalDispatch({ type: "SHOW_ALERT" });
@@ -133,8 +128,6 @@ export const putHousing = async (housingId, housingData, housingsDispatch, globa
         body: housingData,
         content_type: true
      });
-
-     //console.log("Respuesta de la API: ", response);
 
      if(error) {
         globalDispatch({ type: "SET_ERROR", payload: error.message });
@@ -176,26 +169,3 @@ export const deleteHousing = async (id, globalDispatch, housings, housingsDispat
         globalDispatch({ type: "SHOW_ALERT" });
     }
 }
-
-// Función que devuelve los datos de una vivienda por su id
-// export const getHousingById = async (id, globalDispatch, housingsDispatch) => {
-//     console.log("Entro");
-//     globalDispatch({ type: "LOADING" });
-//     try {
-//         const { error, response } = await API ({ endpoint: `/housings/${id}` });
-
-//         // Comprobar si hay un error en la respuesta de la API
-//         if (error) {
-//             globalDispatch({ type: "SET_ERROR", payload: error.message });
-//             globalDispatch({ type: "SHOW_ALERT" });
-//         } else {
-//             const housingData = response.data;
-//             housingsDispatch({ type: "SET_HOUSING", payload: housingData });
-//         }
-//         globalDispatch({ type: "STOP_LOADING" });
-//     } catch (error) {
-//         globalDispatch({ type: "STOP_LOADING" });
-//         globalDispatch({ type: "SET_ERROR", payload: error.message });
-//         globalDispatch({ type: "SHOW_ALERT" });
-//     }
-// } 

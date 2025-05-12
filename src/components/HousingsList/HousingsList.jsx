@@ -40,7 +40,7 @@ const HousingsList = () => {
     const handleDeleteHousing = async (id) => {
         await deleteHousing(id, globalDispatch, housings, housingsDispatch);
     }
-    console.log("GlobalState: ", globalState);
+    
   return (
     <>
         { globalState.opOk && <Alert type="success" onClose={ () => closeAlert(globalDispatch) } globalDispatch = { globalDispatch }>Operación realizada correctamente</Alert> }      
