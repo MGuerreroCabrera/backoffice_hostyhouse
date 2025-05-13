@@ -9,6 +9,7 @@ import { useReducer } from "react";
 import { closeModal, handleFileChange, openModal, fetchFeatures, onSubmit, deleteFeature } from "../../reducers/features/features.actions";
 import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
 import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
+import useModal from "../../Hooks/useModal";
 
 const FeaturesList = () => {
   // Uso del hook useReducer globalReducer
@@ -21,7 +22,11 @@ const FeaturesList = () => {
   const [state, dispatch] = useReducer(featuresReducer, INITIAL_FEATURES_STATE);
 
   // Desestructurización de las propiedades del INITIAL_FEATURES_STATE
-  const { features, isModalOpen, iconName } = state;
+  // const { features, isModalOpen, iconName } = state;
+  const { features, iconName } = state;
+
+  // Uso del custom hook useModal para manejar la apertura y el cierre del modal
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   // Configuración de react-hook-form
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm();
@@ -45,14 +50,16 @@ const FeaturesList = () => {
 
   // Función que maneja el botón de Cancelar
   const handleCancel = () => {
-    closeModal(dispatch);
+    //closeModal(dispatch);
+    closeModal();
     reset();
   }
   
   return (
     <>
       {isModalOpen && (
-        <div className="modal-overlay" onClick={ () => closeModal(dispatch) }>
+        // <div className="modal-overlay" onClick={ () => closeModal(dispatch) }>
+        <div className="modal-overlay" onClick={ () => closeModal() }>
           <div className="modal-content" onClick={ (e) => e.stopPropagation() }>
             <h3 className="form-title">Nuevo registro</h3>
             <form onSubmit={ handleSubmit(handleFormSubmit) } className="new-feature-form">
@@ -87,7 +94,8 @@ const FeaturesList = () => {
       <div className="data-container">
         <div className="ttle-btn-add-row">
           <h2 className="section-title">Características de las viviendas</h2>
-          <button className="btn-add-record" onClick={ () => { openModal(dispatch) } }>+ Nuevo registro</button>
+          {/* <button className="btn-add-record" onClick={ () => { openModal(dispatch) } }>+ Nuevo registro</button> */}
+          <button className="btn-add-record" onClick={ () => { openModal() } }>+ Nuevo registro</button>
         </div>
         <div className="features-header">
             <div className="l-column">
