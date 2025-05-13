@@ -2,9 +2,7 @@ export const INITIAL_HOUSINGS_STATE = {
     // Propiedad ( estado ) para almacenar las viviendas
     housings: [],
     housingId: null,
-    housing: [],
-    // Propiedad para controlar si el modal está abierto
-    isModalOpen: false,
+    housing: []
 }
 
 export const housingsReducer = (state, action) => {
@@ -14,11 +12,7 @@ export const housingsReducer = (state, action) => {
         case "SET_HOUSING_ID":
             return { ...state, housingId: action.payload };
         case "SET_HOUSING":
-            return { ...state, housing: action.payload, isModalOpen: true };
-        case "OPEN_MODAL":
-            return { ...state, isModalOpen: true };
-        case "CLOSE_MODAL":
-            return { ...state, isModalOpen: false, housings: [] };
+            return { ...state, housing: action.payload, isModalOpen: true };       
         default:
             return { ...state };
     }

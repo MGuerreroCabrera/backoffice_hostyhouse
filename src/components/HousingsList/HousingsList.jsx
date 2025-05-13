@@ -9,6 +9,7 @@ import { useState } from "react";
 import Loading from "../Loading/Loading";
 import Alert from "../Alert/Alert";
 import { closeAlert } from "../../utils/closeAlert";
+import useModal from "../../Hooks/useModal";
 
 const HousingsList = () => {
 
@@ -19,8 +20,11 @@ const HousingsList = () => {
     const [isDataComplete, setIsDataComplete] = useState(false);
     const [modalView, setModalView] = useState("form");
 
+    // Uso del custom hook useModal para manejar los estados de apertura y cierre del Modal
+    const { isModalOpen, openModal, closeModal } = useModal();
+
     // Desestructurizar las propiedades de los reducers
-    const { housings, isModalOpen } = housingsState;
+    const { housings } = housingsState;
     
     // useEffect para la llamada a la API
     useEffect(() => {
@@ -49,7 +53,8 @@ const HousingsList = () => {
         <div className="data-container">
             <div className="ttle-btn-add-row">
                 <h2 className="section-title">Viviendas</h2>
-                <button className="btn-add-record" onClick={ () => { setModalView("form"); openModal(housingsDispatch) } }>+ Nuevo registro</button>
+                {/* <button className="btn-add-record" onClick={ () => { setModalView("form"); openModal(housingsDispatch) } }>+ Nuevo registro</button> */}
+                <button className="btn-add-record" onClick={ () => { setModalView("form"); openModal() } }>+ Nuevo registro</button>
             </div>
             <div className="houses-container">
                 { Array.isArray(housings) && housings.map((housing) => (
@@ -62,15 +67,16 @@ const HousingsList = () => {
                             <p>{ housing.description?.substring(0, 150) + "..." }</p>
                         </div>
                         <div className="btn-row">
-                            <button className="btn-card edit"  onClick={ () => { setModalView("edit"); openModal(housingsDispatch); housingsDispatch({ type: "SET_HOUSING_ID", payload: housing._id }) } }>
+                            {/* <button className="btn-card edit"  onClick={ () => { setModalView("edit"); openModal(housingsDispatch); housingsDispatch({ type: "SET_HOUSING_ID", payload: housing._id }) } }> */}
+                            <button className="btn-card edit"  onClick={ () => { setModalView("edit"); openModal(); housingsDispatch({ type: "SET_HOUSING_ID", payload: housing._id }) } }>
                                 <img src="/icons/edit.png" className="btn-img" />
                                 Editar
                             </button> 
                             <button className="btn-card delete" onClick={ () => handleDeleteHousing(housing._id) }>
                                 <img src="/icons/delete.png" className="btn-img" />
                                 Eliminar
-                            </button> 
-                            <button className="btn-card show" onClick={ () => { setModalView("detail"); openModal(housingsDispatch); housingsDispatch({ type: "SET_HOUSING_ID", payload: housing._id }) } }>
+                            </button>                             
+                            <button className="btn-card show" onClick={ () => { setModalView("detail"); openModal(); housingsDispatch({ type: "SET_HOUSING_ID", payload: housing._id }) } }>
                                 <img src="/icons/turquoise-eye.png" className="btn-img" />
                                 Ver
                             </button> 
@@ -79,7 +85,8 @@ const HousingsList = () => {
                 )) }
             </div>
         </div>
-        {housingsState.isModalOpen && (
+        {/* {housingsState.isModalOpen && ( */}
+        {isModalOpen && (
             <HousingModal 
             housingsDispatch={ housingsDispatch } 
             housingsState={ housingsState } 
@@ -88,6 +95,7 @@ const HousingsList = () => {
             modalView={ modalView }
             globalDispatch = { globalDispatch }
             globalState = { globalState }
+            closeModal = { closeModal }
             />            
         )}
     </>

@@ -7,7 +7,7 @@ export const INITIAL_USERS_STATE = {
     error: null,
     loading: false,
     requested: false,
-    isModalOpen: false
+    // isModalOpen: false
 }
 
 // Crear función reductora
@@ -36,10 +36,10 @@ export const usersReducer = (state, action) => {
             return { ...state, user: null, token: null, error: null, loading: false }
         case "SET_USERS":
             return { ...state, users: action.payload }        
-        case "OPEN_MODAL":
-            return { ...state, isModalOpen: true }
-        case "CLOSE_MODAL":
-            return { ...state, isModalOpen: false }
+        // case "OPEN_MODAL":
+        //     return { ...state, isModalOpen: true }
+        // case "CLOSE_MODAL":
+        //     return { ...state, isModalOpen: false }
         case "SET_ROL":
             return { ...state, rol: action.payload };
         default:

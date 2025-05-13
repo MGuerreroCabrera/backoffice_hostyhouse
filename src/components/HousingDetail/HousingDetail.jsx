@@ -1,9 +1,10 @@
 import "./HousingDetail.css";
-import { closeModal, getHousingById } from "../../reducers/housings/housings.actions";
+
 import { useEffect } from "react";
 import { fetchHousing } from "../../utils/fetchHousing";
+import useModal from "../../Hooks/useModal";
 
-const HousingDetail = ({ housingsState, globalDispatch, housingsDispatch }) => {
+const HousingDetail = ({ housingsState, globalDispatch, housingsDispatch, closeModal }) => {
     
     useEffect(() => {        
         fetchHousing(housingsState.housingId, globalDispatch, housingsDispatch);
@@ -16,7 +17,7 @@ const HousingDetail = ({ housingsState, globalDispatch, housingsDispatch }) => {
         <div className="data-container" onClick={(e) => e.stopPropagation()}>
             <header className="housing-detail">
                 <h1>Detalle de la vivienda</h1>
-                <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar" className="close-modal" onClick={ () => { closeModal(housingsDispatch) } } />
+                <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar" className="close-modal" onClick={ () => { closeModal() } } />
             </header>
             <main>
                 <p className="xxl-title">{ housing.name }</p>
@@ -60,7 +61,7 @@ const HousingDetail = ({ housingsState, globalDispatch, housingsDispatch }) => {
                         <p>No hay imágenes disponibles.</p>
                     ) }
                 </div>
-                <button className="btn-1" onClick={ () => { closeModal(housingsDispatch) } }>Cerrar</button>
+                <button className="btn-1" onClick={ () => { closeModal() } }>Cerrar</button>
             </main>
         </div>
     )

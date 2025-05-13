@@ -9,6 +9,7 @@ import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/globa
 import { INITIAL_BOOKINGS_STATE, bookingsReducer } from "../../reducers/bookings/bookings.reducer";
 import BookingModal from "../BookingModal/BookingModal";
 import { closeAlert } from "../../utils/closeAlert";
+import useModal from "../../Hooks/useModal";
 
 const Bookings = () => {
 
@@ -20,18 +21,22 @@ const Bookings = () => {
     const { loading, page, totalPages, error, opOk, showAlert } = globalState;
     const { bookings, selectedBooking } = bookingsState;
 
+    // Uso del custom hook useModal para manejar los estados de apertura y cierre del modal
+    const { isModalOpen, openModal, closeModal } = useModal();
+
     // useEffect para llamar a la API
     useEffect(() => {
         fetchBookings(globalDispatch, bookingsDispatch, page);
     }, [page]);
 
     const handleRowClick = (bookingId) => {
+        openModal();
         fetchBookingById(globalDispatch, bookingsDispatch, bookingId);
     };
 
-    const closeModal = () => {
-        bookingsDispatch({ type: "SET_SELECTED_BOOKING", payload: null });
-    };
+    // const closeModal = () => {
+    //     bookingsDispatch({ type: "SET_SELECTED_BOOKING", payload: null });
+    // };
 
     return (
         <>
@@ -62,11 +67,13 @@ const Bookings = () => {
                 )}
                 <Paginator page={ page } totalPages={ totalPages } globalDispatch={ globalDispatch } />
             </div>
-            {selectedBooking && (
+            {/* {selectedBooking && (
                 // <BookingModal booking={selectedBooking} onClose={closeModal} onEdit={handleEdit} globalDispatch={ globalDispatch } bookingDispatch={ bookingsDispatch }/>
                 <BookingModal booking={selectedBooking} closeModal={ closeModal } globalDispatch={ globalDispatch } bookingDispatch={ bookingsDispatch } bookings={ bookings }/>
+            )} */}
+            {isModalOpen && (
+                <BookingModal booking={selectedBooking} closeModal={ closeModal } globalDispatch={ globalDispatch } bookingDispatch={ bookingsDispatch } bookings={ bookings }/>
             )}
-            
         </>
     )
 }

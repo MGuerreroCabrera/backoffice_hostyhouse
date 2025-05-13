@@ -22,7 +22,6 @@ const FeaturesList = () => {
   const [state, dispatch] = useReducer(featuresReducer, INITIAL_FEATURES_STATE);
 
   // Desestructurización de las propiedades del INITIAL_FEATURES_STATE
-  // const { features, isModalOpen, iconName } = state;
   const { features, iconName } = state;
 
   // Uso del custom hook useModal para manejar la apertura y el cierre del modal
@@ -40,7 +39,7 @@ const FeaturesList = () => {
   }, [iconValue])
 
   const handleFormSubmit = (data) => {
-    onSubmit(data, globalDispatch, dispatch, features, page);
+    onSubmit(data, globalDispatch, dispatch, features, closeModal, reset);
   }
 
   // useEffect para llamar a la API
@@ -50,7 +49,6 @@ const FeaturesList = () => {
 
   // Función que maneja el botón de Cancelar
   const handleCancel = () => {
-    //closeModal(dispatch);
     closeModal();
     reset();
   }
@@ -58,7 +56,6 @@ const FeaturesList = () => {
   return (
     <>
       {isModalOpen && (
-        // <div className="modal-overlay" onClick={ () => closeModal(dispatch) }>
         <div className="modal-overlay" onClick={ () => closeModal() }>
           <div className="modal-content" onClick={ (e) => e.stopPropagation() }>
             <h3 className="form-title">Nuevo registro</h3>
@@ -94,7 +91,6 @@ const FeaturesList = () => {
       <div className="data-container">
         <div className="ttle-btn-add-row">
           <h2 className="section-title">Características de las viviendas</h2>
-          {/* <button className="btn-add-record" onClick={ () => { openModal(dispatch) } }>+ Nuevo registro</button> */}
           <button className="btn-add-record" onClick={ () => { openModal() } }>+ Nuevo registro</button>
         </div>
         <div className="features-header">

@@ -4,7 +4,7 @@ import HousingForm from "../../components/HousingForm/HousingForm";
 import HousingDetail from "../HousingDetail/HousingDetail";
 import EditHousingForm from "../EditHousingForm/EditHousingForm";
 
-const HousingModal = ({ housingsDispatch, housingsState, isDataComplete, setIsDataComplete, modalView, globalDispatch, globalState }) => {
+const HousingModal = ({ housingsDispatch, housingsState, isDataComplete, setIsDataComplete, modalView, globalDispatch, globalState, closeModal }) => {
   return (
     <>
       <div className="modal-overlay" onClick={ (e) => { 
@@ -19,12 +19,14 @@ const HousingModal = ({ housingsDispatch, housingsState, isDataComplete, setIsDa
             housingsState = { housingsState } 
             isDataComplete = { isDataComplete } 
             setIsDataComplete = { setIsDataComplete }
+            closeModal = { closeModal }
           />
         ) : modalView === "detail" ? (
           <HousingDetail 
           housingsState = { housingsState } 
           globalDispatch = { globalDispatch }
           housingsDispatch = { housingsDispatch }
+          closeModal = { closeModal }
           />
         ) : modalView === "edit" ? (
           <EditHousingForm 
@@ -32,6 +34,7 @@ const HousingModal = ({ housingsDispatch, housingsState, isDataComplete, setIsDa
             housingsDispatch = { housingsDispatch }
             globalDispatch = { globalDispatch }
             globalState = { globalState }
+            closeModal = { closeModal }
           />
         ) : "" }
       </div>

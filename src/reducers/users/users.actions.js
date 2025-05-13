@@ -130,18 +130,8 @@ export const fetchUsers = async (globalDispatch, usersDispatch, page) => {
     }
 }
 
-// Función que abre el modal
-export const openModal = (usersDispatch, reset) => { 
-    usersDispatch({ type: "OPEN_MODAL" });
-    reset(); 
-};
-
-// Función que cierra el modal
-export const closeModal = (usersDispatch) => { usersDispatch({ type: "CLOSE_MODAL" }); };
-
-
 // Función que permite crear un nuevo usuario
-export const postUser = async (data, globalDispatch, usersDispatch, users, userId = null) => {
+export const postUser = async (data, globalDispatch, usersDispatch, users, userId = null, closeModal) => {
     try {
         // Poner el loading a true
         globalDispatch({ type: "LOADING" });
@@ -169,8 +159,7 @@ export const postUser = async (data, globalDispatch, usersDispatch, users, userI
                 const updatedUsers = [ ...users, newUser ];
                 usersDispatch({ type: "SET_USERS", payload: updatedUsers });
             }
-            usersDispatch({ type: "CLOSE_MODAL" });
-            closeModal(usersDispatch);
+            closeModal();
         }
         
     } catch (error) {
@@ -178,7 +167,7 @@ export const postUser = async (data, globalDispatch, usersDispatch, users, userI
         globalDispatch({ type: "SET_ERROR", payload: error.message });
         globalDispatch({ type: "SHOW_ALERT" });
         usersDispatch({ type: "CLOSE_MODAL" });
-        closeModal(usersDispatch);
+        closeModal();
     }
 }
 

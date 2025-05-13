@@ -2,7 +2,7 @@ import "./UsersList.css";
 import { useReducer } from "react";
 import { globalReducer, INITIAL_GLOBAL_STATE } from "../../reducers/global/global.reducer";
 import { INITIAL_USERS_STATE, usersReducer } from "../../reducers/users/users.reducer";
-import { fetchUsers, openModal, closeModal, postUser, deleteUser, findUserById } from "../../reducers/users/users.actions";
+import { fetchUsers, postUser, deleteUser, findUserById } from "../../reducers/users/users.actions";
 import { useEffect } from "react";
 import Paginator from "../Paginator/Paginator";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ import Alert from "../Alert/Alert";
 import { closeAlert } from "../../utils/closeAlert";
 import Loading from "../Loading/Loading";
 import { useState } from "react";
+import useModal from "../../Hooks/useModal";
 
 const UsersList = () => {
   // Uso del hook useReducer para ( globalReducer y usersReducers )
@@ -18,7 +19,11 @@ const UsersList = () => {
 
   // Desestructurizar propiedades de los reducers
   const { loading, page, totalPages, error, showAlert, opOk, rol } = globalState;
-  const { users, isModalOpen } = usersState;
+  // const { users, isModalOpen } = usersState;
+  const { users } = usersState;
+
+  // Uso del custom hook useModal para manejar los estados del modal
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   // useEffect para llamar a la API y traer los registros.
   useEffect(() => {
@@ -33,13 +38,20 @@ const UsersList = () => {
 
   const handleFormSubmit = (data) => {
     if(error) { return };
-    postUser(data, globalDispatch, usersDispatch, users, editingUserId);
+    postUser(data, globalDispatch, usersDispatch, users, editingUserId, closeModal);
   }
 
+  useEffect(() => {
+    console.log("Nuevo valor de editingUserId", editingUserId);
+    reset();
+  }, [editingUserId]);
   // Función que maneja el botón Cancelar
   const handleCancel = () => {
-    closeModal(usersDispatch);
+    console.log("Entro con valor: ", editingUserId);
     reset();
+    setEditingUserId(null);
+    closeModal();
+    console.log("Ahora valgo: ", editingUserId);
   }  
 
   // Función para manejar la apertura del modal con los datos del usuario
@@ -53,7 +65,7 @@ const UsersList = () => {
     // Poner el id del usuario en el estado
     setEditingUserId(userId);
     // Abrir modal
-    openModal(usersDispatch, reset);
+    openModal();
   };
 
   return (
@@ -80,7 +92,7 @@ const UsersList = () => {
                 }) } placeholder={ errors.email ? errors.email.message : "" } className="input-text" />
               {errors.email && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.email.message }</Alert>}   
               { editingUserId === null && (
-                <>              
+                <>
                   <label htmlFor="password" className="input-label">
                     Contraseña
                   </label>
@@ -115,12 +127,12 @@ const UsersList = () => {
       {
       loading && <Loading />
       }
-      {showAlert && error && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) }}>{error}</Alert>}
-      {showAlert && opOk && <Alert type="success" onClose={ () => closeAlert(globalDispatch) }>Operación realizada correctamente</Alert>}
+      {showAlert && error && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) }} globalDispatch = { globalDispatch }>{error}</Alert>}
+      {showAlert && opOk && <Alert type="success" onClose={ () => closeAlert(globalDispatch) } globalDispatch = { globalDispatch }>Operación realizada correctamente</Alert>}
       <div className="data-container">
       <div className="ttle-btn-add-row">
         <h2 className="section-title">Usuarios</h2>
-        <button className="btn-add-record" onClick={ () => openModal(usersDispatch, reset) }>+ Nuevo registro</button>        
+        <button className="btn-add-record" onClick={ () => { reset(); openModal(); setEditingUserId(null) } }>+ Nuevo registro</button>        
       </div>
       <div className="columns-header">        
         <div className="header-data" style={{ justifyContent: "flex-start" }}>

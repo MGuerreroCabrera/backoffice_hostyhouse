@@ -1,16 +1,14 @@
 import "./EditHousingForm.css";
-import { addImagesToHousing, closeModal, deleteHousingImage, putHousing } from "../../reducers/housings/housings.actions";
+import { addImagesToHousing, deleteHousingImage, putHousing } from "../../reducers/housings/housings.actions";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useEffect } from "react";
 import Alert from "../Alert/Alert";
 import { closeAlert } from "../../utils/closeAlert";
 import Loading from "../Loading/Loading";
-import { featuresReducer, INITIAL_FEATURES_STATE } from "../../reducers/features/features.reducer";
-import { useReducer } from "react";
 import { fetchHousing } from "../../utils/fetchHousing";
 
-const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, globalState }) => {
+const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, globalState, closeModal }) => {
 
     
     const housing = housingsState.housing;
@@ -68,7 +66,7 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
         console.log("Envío esto: ", housingData);
         // Llamar a la función que actualiza los datos del registro
         await putHousing(housing._id, housingData, housingsDispatch, globalDispatch);            
-        closeModal(housingsDispatch);
+        closeModal();
     };
 
     // useEffect para la subida de imágenes
@@ -117,7 +115,7 @@ const EditHousingForm = ({ housingsState, housingsDispatch, globalDispatch, glob
         <section className="data-container" onClick={(e) => e.stopPropagation()}>            
             <header>
                 <h1>Editar datos</h1>
-                <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar" className="close-modal" onClick={ () => closeModal(housingsDispatch) } />
+                <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar" className="close-modal" onClick={ () => closeModal() } />
             </header>
             <main>
                 <form onSubmit={ handleSubmit(onSubmit) }>

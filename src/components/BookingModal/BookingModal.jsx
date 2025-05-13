@@ -1,8 +1,7 @@
 import "./BookingModal.css";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { fetchBookingById, updateBooking } from "../../reducers/bookings/bookings.actions";
-import { deleteBooking } from "../../utils/deleteBooking";
+import { deleteBooking, fetchBookingById, updateBooking } from "../../reducers/bookings/bookings.actions";
 
 const BookingModal = ({ booking = {}, closeModal, globalDispatch, bookingDispatch, bookings }) => {
 
@@ -23,19 +22,14 @@ const BookingModal = ({ booking = {}, closeModal, globalDispatch, bookingDispatc
         }
     }, [booking._id]);
 
-    const handleOverlayClick = (e) => {
-        if (e.target.className === 'modal-overlay') {
-            closeModal();
-        }
-    };
-
     // Manejar el evento click de Eliminar reserva
     const handleDelete = (closeModal) => {
         deleteBooking(closeModal, globalDispatch, bookingDispatch, booking._id, bookings);
     }
 
     return (
-        <div className="modal-booking-overlay" onClick={handleOverlayClick}>
+        // <div className="modal-booking-overlay" onClick={handleOverlayClick}>
+        <div className="modal-booking-overlay" onClick={() => closeModal()}>
             <div className="modal-booking-content">
                 <img src="/icons/close.png" alt="Cerrar" title="Cerrar" className="close-icon" onClick={() => closeModal()} />
                 <h2>Detalles de la Reserva</h2>

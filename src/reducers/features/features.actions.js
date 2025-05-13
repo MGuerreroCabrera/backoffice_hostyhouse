@@ -108,7 +108,7 @@ export const deleteFeature = async (id, globalDispatch, features, dispatch) => {
 }
 
 // Función para manejar el envío del formulario
-export const onSubmit = async (data, globalDispatch, dispatch, features) => {  
+export const onSubmit = async (data, globalDispatch, dispatch, features, closeModal, reset) => {  
   try {
     globalDispatch({ type: "LOADING" });
 
@@ -139,11 +139,11 @@ export const onSubmit = async (data, globalDispatch, dispatch, features) => {
       globalDispatch({ type: "SHOW_ALERT" });
     } else {
       globalDispatch({ type: "STOP_LOADING" });
-      closeModal(dispatch);
       globalDispatch({ type: "SET_ERROR", payload: null });
       globalDispatch({ type: "OP_OK" });
       globalDispatch({ type: "SHOW_ALERT" });
-      globalDispatch({ type: "CLOSE_MODAL" });
+      closeModal();
+      reset();
       // Agregar el nuevo registro al estado de features
       if(features.length < 10) {
         const newFeature = { _id: response.data._id, name: response.data.name, icon: response.data.icon };

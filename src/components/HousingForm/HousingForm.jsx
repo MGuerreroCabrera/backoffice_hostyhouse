@@ -4,10 +4,9 @@ import { useState } from "react";
 import ImageForm from "../HousingForms/ImageForm";
 import DataForm from "../HousingForms/DataForm";
 import Loading from "../Loading/Loading";
-import { closeModal } from "../../reducers/housings/housings.actions";
 import { closeAlert } from "../../utils/closeAlert";
 
-const HousingForm = ({ housingsDispatch, housingsState, isDataComplete, setIsDataComplete }) => {
+const HousingForm = ({ housingsDispatch, housingsState, isDataComplete, setIsDataComplete, closeModal }) => {
 
     const [ globalState, globalDispatch ] = useReducer(globalReducer, INITIAL_GLOBAL_STATE);    
 
@@ -22,7 +21,7 @@ const HousingForm = ({ housingsDispatch, housingsState, isDataComplete, setIsDat
            { loading && <Loading /> }
            { showAlert && error && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ error }</Alert> }
             <h2>{ isDataSubmitted ? "Paso 2 de 2 - Subir imágenes" : "Paso 1 de 2 - Datos de la vivienda" }</h2>
-            <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar ventana" className="close-modal" onClick={ () => closeModal(housingsDispatch) }/>
+            <img src="/icons/close.png" alt="Cerrar ventana" title="Cerrar ventana" className="close-modal" onClick={ () => closeModal() }/>
             { !isDataSubmitted ? (
                 <DataForm 
                     globalDispatch = { globalDispatch }
@@ -33,7 +32,7 @@ const HousingForm = ({ housingsDispatch, housingsState, isDataComplete, setIsDat
                 <ImageForm 
                     housingsState = { housingsState } 
                     globalDispatch = { globalDispatch }
-                    closeModal = { () => closeModal(housingsDispatch) }
+                    closeModal = { () => closeModal() }
                     isDataComplete = { isDataComplete }
                     setIsDataComplete = { setIsDataComplete }
                 />

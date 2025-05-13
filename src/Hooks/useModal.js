@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const useModal  = () => {
+    
     // Estados de apertura y cierre del modal
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -15,6 +16,7 @@ const useModal  = () => {
         openModal,
         closeModal
     }
+
 };
 
 export default useModal;
