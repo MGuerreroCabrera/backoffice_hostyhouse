@@ -11,16 +11,21 @@ import { closeAlert } from "../../utils/closeAlert";
 import Loading from "../Loading/Loading";
 import { useState } from "react";
 import useModal from "../../Hooks/useModal";
+import UsersModal from "../UsersModal/UsersModal";
 
 const UsersList = () => {
   // Uso del hook useReducer para ( globalReducer y usersReducers )
   const [globalState, globalDispatch] = useReducer(globalReducer, INITIAL_GLOBAL_STATE);
   const [usersState, usersDispatch] = useReducer(usersReducer, INITIAL_USERS_STATE);
+  //console.log("GlobalDispatch en list: ", globalDispatch);
 
   // Desestructurizar propiedades de los reducers
   const { loading, page, totalPages, error, showAlert, opOk, rol } = globalState;
   // const { users, isModalOpen } = usersState;
   const { users } = usersState;
+
+  //! CÓDIGO NUEVO
+  const [modalView, setModalView] = useState("new");
 
   // Uso del custom hook useModal para manejar los estados del modal
   const { isModalOpen, openModal, closeModal } = useModal();
@@ -41,10 +46,17 @@ const UsersList = () => {
     postUser(data, globalDispatch, usersDispatch, users, editingUserId, closeModal);
   }
 
+  //! CÓDIGO NUEVO
+  const handleNewUser = () => {
+    setModalView("new");
+    openModal();
+  }
+
   useEffect(() => {
     console.log("Nuevo valor de editingUserId", editingUserId);
     reset();
   }, [editingUserId]);
+
   // Función que maneja el botón Cancelar
   const handleCancel = () => {
     console.log("Entro con valor: ", editingUserId);
@@ -55,74 +67,87 @@ const UsersList = () => {
   }  
 
   // Función para manejar la apertura del modal con los datos del usuario
-  const handleEditUser = async (userId) => {
-    // Obtener los datos del usaurio
-    const userData = await findUserById(userId, globalDispatch);
-    // Resetear el formulario con los datos del usuario
-    reset(userData);
-    // Establecer el rol del usuario
-    globalDispatch({ type: "SET_ROL", payload: userData.rol });
-    // Poner el id del usuario en el estado
-    setEditingUserId(userId);
-    // Abrir modal
+  // const handleEditUser = async (userId) => {
+  //   // Obtener los datos del usaurio
+  //   const userData = await findUserById(userId, globalDispatch);
+  //   // Resetear el formulario con los datos del usuario
+  //   reset(userData);
+  //   // Establecer el rol del usuario
+  //   globalDispatch({ type: "SET_ROL", payload: userData.rol });
+  //   // Poner el id del usuario en el estado
+  //   setEditingUserId(userId);
+  //   // Abrir modal
+  //   openModal();
+  // };
+
+  //! CODIGO NUEVO
+  const handleEditUser = () => {
+    setModalView("edit");
     openModal();
-  };
+  }
 
   return (
     <>
       {isModalOpen && (
-        <div className="users-modal-overlay" onClick={ handleCancel }>
-          <div className="users-modal-content" onClick={ (e) => e.stopPropagation() }>
-            <h3 className="users-form-title">Nuevo registro</h3>
-            <form onSubmit={ handleSubmit(handleFormSubmit) } className="new-user-form">
-              <label htmlFor="name" className="input-label">
-                Nombre de usuario
-              </label>
-              <input type="text" { ...register("name", {required: "El campo nombre es obligatorio"}) } placeholder={ errors.name ? errors.name.message : "" } className="input-text" />
-              {errors.name && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.name.message }</Alert>}
-              <label htmlFor="email" className="input-label">
-                Correo electrónico
-              </label>
-              <input type="text" { ...register("email", {
-                required: "El campo email es obligatorio",
-                pattern: { 
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 
-                  message: "Por favor, introduce una dirección de correo electrónico válida" 
-                }
-                }) } placeholder={ errors.email ? errors.email.message : "" } className="input-text" />
-              {errors.email && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.email.message }</Alert>}   
-              { editingUserId === null && (
-                <>
-                  <label htmlFor="password" className="input-label">
-                    Contraseña
-                  </label>
-                  <input type="password" { ...register("password", {required: "El campo contraseña es obligatorio"}) } placeholder={ errors.password ? errors.password.message : "" } className="input-text" />
-                  {errors.password && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.password.message }</Alert>}           
-                </>
-              ) }              
-              <label htmlFor="rol" className="input-label">
-                Rol del usuario
-              </label>
-              <select {...register("rol")} value={rol} onChange={(e) => {
-                const selectedRole = e.target.value;
-                // Verificar si el usuario que se está editando es admin
-                if(editingUserId && users.find(user => user._id === editingUserId).rol === "admin") {
-                  globalDispatch({ type: "SET_ERROR", payload: "No puedes cambiarle el rol a un administrador" });
-                  globalDispatch({ type: "SHOW_ALERT" });
-                } else {
-                  globalDispatch({ type: "SET_ROL", payload: selectedRole });
-                }
-              }} className="input-text select-rol">
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-              <div className="buttons-row">
-                <button type="button" onClick={ handleCancel } className="btn-1">Cancelar</button>
-                <button type="submit" className="btn-1">Enviar</button>
-              </div>
-            </form>
-          </div>
-        </div>
+        <UsersModal 
+          modalView = { modalView }
+          closeModal = { closeModal } 
+          globalDispatch = { globalDispatch }
+          usersDispatch = { usersDispatch }
+          users = { users }
+        />
+        // <div className="users-modal-overlay" onClick={ handleCancel }>
+        //   <div className="users-modal-content" onClick={ (e) => e.stopPropagation() }>
+        //     <h3 className="users-form-title">Nuevo registro</h3>
+        //     <form onSubmit={ handleSubmit(handleFormSubmit) } className="new-user-form">
+        //       <label htmlFor="name" className="input-label">
+        //         Nombre de usuario
+        //       </label>
+        //       <input type="text" { ...register("name", {required: "El campo nombre es obligatorio"}) } placeholder={ errors.name ? errors.name.message : "" } className="input-text" />
+        //       {errors.name && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.name.message }</Alert>}
+        //       <label htmlFor="email" className="input-label">
+        //         Correo electrónico
+        //       </label>
+        //       <input type="text" { ...register("email", {
+        //         required: "El campo email es obligatorio",
+        //         pattern: { 
+        //           value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, 
+        //           message: "Por favor, introduce una dirección de correo electrónico válida" 
+        //         }
+        //         }) } placeholder={ errors.email ? errors.email.message : "" } className="input-text" />
+        //       {errors.email && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.email.message }</Alert>}   
+        //       { editingUserId === null && (
+        //         <>
+        //           <label htmlFor="password" className="input-label">
+        //             Contraseña
+        //           </label>
+        //           <input type="password" { ...register("password", {required: "El campo contraseña es obligatorio"}) } placeholder={ errors.password ? errors.password.message : "" } className="input-text" />
+        //           {errors.password && <Alert type="error" onClose={ () => { closeAlert(globalDispatch) } }>{ errors.password.message }</Alert>}           
+        //         </>
+        //       ) }              
+        //       <label htmlFor="rol" className="input-label">
+        //         Rol del usuario
+        //       </label>
+        //       <select {...register("rol")} value={rol} onChange={(e) => {
+        //         const selectedRole = e.target.value;
+        //         // Verificar si el usuario que se está editando es admin
+        //         if(editingUserId && users.find(user => user._id === editingUserId).rol === "admin") {
+        //           globalDispatch({ type: "SET_ERROR", payload: "No puedes cambiarle el rol a un administrador" });
+        //           globalDispatch({ type: "SHOW_ALERT" });
+        //         } else {
+        //           globalDispatch({ type: "SET_ROL", payload: selectedRole });
+        //         }
+        //       }} className="input-text select-rol">
+        //         <option value="user">User</option>
+        //         <option value="admin">Admin</option>
+        //       </select>
+        //       <div className="buttons-row">
+        //         <button type="button" onClick={ handleCancel } className="btn-1">Cancelar</button>
+        //         <button type="submit" className="btn-1">Enviar</button>
+        //       </div>
+        //     </form>
+        //   </div>
+        // </div>
       )}
       {
       loading && <Loading />
@@ -132,7 +157,8 @@ const UsersList = () => {
       <div className="data-container">
       <div className="ttle-btn-add-row">
         <h2 className="section-title">Usuarios</h2>
-        <button className="btn-add-record" onClick={ () => { reset(); openModal(); setEditingUserId(null) } }>+ Nuevo registro</button>        
+        {/* <button className="btn-add-record" onClick={ () => { reset(); openModal(); setEditingUserId(null) } }>+ Nuevo registro</button> */}
+        <button className="btn-add-record" onClick={ () => { handleNewUser() } }>+ Nuevo registro</button>
       </div>
       <div className="columns-header">        
         <div className="header-data" style={{ justifyContent: "flex-start" }}>
@@ -160,7 +186,8 @@ const UsersList = () => {
             <span>{ user.rol }</span>
           </div>
           <div className="data-actions">
-            <img src="icons/edit.png" alt="Editar registro" title="Editar registro" onClick={ () => handleEditUser(user._id) } />
+            {/* <img src="icons/edit.png" alt="Editar registro" title="Editar registro" onClick={ () => handleEditUser(user._id) } /> */}
+            <img src="icons/edit.png" alt="Editar registro" title="Editar registro" onClick={ () => handleEditUser() } />
             <img src="icons/delete.png" alt="Eliminar registro" title="Eliminar registro" onClick={() => deleteUser(user._id, globalDispatch, usersDispatch, users)} />
           </div>
         </div>

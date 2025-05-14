@@ -35,11 +35,7 @@ export const usersReducer = (state, action) => {
         case "RESET_PWD":
             return { ...state, user: null, token: null, error: null, loading: false }
         case "SET_USERS":
-            return { ...state, users: action.payload }        
-        // case "OPEN_MODAL":
-        //     return { ...state, isModalOpen: true }
-        // case "CLOSE_MODAL":
-        //     return { ...state, isModalOpen: false }
+            return { ...state, users: action.payload }      
         case "SET_ROL":
             return { ...state, rol: action.payload };
         default:

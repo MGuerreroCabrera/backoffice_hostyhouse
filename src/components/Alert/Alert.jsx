@@ -14,7 +14,6 @@ const Alert = ({ type, children, onClose, globalDispatch }) => {
     }, [onClose]);
 
     return (
-        // <div className={`alert-container glass ${type}`}>
         <div className={`alert-container ${type}`}>
             <p>{ children }</p>
         </div>

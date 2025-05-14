@@ -34,10 +34,6 @@ const Bookings = () => {
         fetchBookingById(globalDispatch, bookingsDispatch, bookingId);
     };
 
-    // const closeModal = () => {
-    //     bookingsDispatch({ type: "SET_SELECTED_BOOKING", payload: null });
-    // };
-
     return (
         <>
             {loading && <Loading />}
