@@ -5,9 +5,7 @@ import { closeAlert } from '../../utils/closeAlert';
 import { postUser } from "../../reducers/users/users.actions";
 
 const NewUserForm = ({ globalDispatch, closeModal, usersDispatch, users }) => {
-
-  //console.log("globalDispatch: ", globalDispatch);
-
+  
   // Configuarar react hook form para el formulario
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
 

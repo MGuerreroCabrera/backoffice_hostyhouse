@@ -2,7 +2,7 @@ import EditUserForm from "../EditUserForm/EditUserForm";
 import NewUserForm from "../NewUserForm/NewUserForm";
 import "./UsersModal.css";
 
-const UsersModal = ({ modalView, closeModal, globalDispatch, usersDispatch, users }) => {
+const UsersModal = ({ modalView, closeModal, globalDispatch, usersDispatch, users, userId = null }) => {
   return (
     <div className="modal-overlay" onClick={ (e) => { 
         if(e.target === e.currentTarget) {
@@ -11,15 +11,19 @@ const UsersModal = ({ modalView, closeModal, globalDispatch, usersDispatch, user
         }}>
         {modalView === "new" ? (
             <NewUserForm 
-                globalDispatch={globalDispatch}
-                closeModal={closeModal} 
-                usersDispatch={usersDispatch}
-                users={users}
+                globalDispatch = { globalDispatch }
+                closeModal = { closeModal } 
+                usersDispatch = { usersDispatch }
+                users = { users }
             />
         ) : modalView === "edit" ? (
             <EditUserForm
-                globalDispatch={globalDispatch}
-                closeModal={closeModal}
+                globalDispatch = { globalDispatch }
+                closeModal = { closeModal }
+                usersDispatch = { usersDispatch }
+                users = { users }
+                userId = { userId }
+
             />
         ) : ""}
     </div>
