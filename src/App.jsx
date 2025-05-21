@@ -24,11 +24,9 @@ const App = () => {
   const { state: { loading }, dispatch } = useContext(UsersContext); 
 
   // Comprobar si existe token para enviar al usuario a /login
-  // useEffect(() => {
-  //   checkSession(dispatch, navigate);
-  // }, []);
-    
-  // }  
+  useEffect(() => {
+    checkSession(dispatch, navigate);
+  }, []);  
 
   return (
     <>
