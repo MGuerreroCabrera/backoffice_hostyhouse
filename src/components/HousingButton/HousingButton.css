@@ -1,0 +1,41 @@
+.general-button {
+    width: clamp(110px, 10%, 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;    
+    cursor: pointer;
+    font-size: var(--hh-font-size-xs);
+    gap: var(--hh-spacing-s);
+    padding: var(--hh-spacing-s);
+    border-radius: var(--hh-br-s);
+}
+
+.general-button img {
+    width: 12px;
+    height: 12px;
+}
+
+.general-button:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.see {
+    color: var(--hh-color-010);
+    outline: .5px solid var(--hh-color-010);
+}
+
+.edit {
+    color: var(--hh-color-020);
+    outline: .5px solid var(--hh-color-020);
+}
+
+.delete {
+    color: var(--hh-error-color);
+    outline: .5px solid   var(--hh-error-color);
+}
+
+.void {
+    color: var(--hh-color-020);
+    outline: .5px solid var(--hh-color-020);
+}

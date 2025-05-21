@@ -1,0 +1,8 @@
+.p-auth-footer {
+    text-align: center;
+    opacity: 0.7;
+    margin-top: var(--hh-spacing-l);
+    color: var(--hh-color-000);
+    font-family: var(--hh-font-family-primary);
+    font-size: var(--hh-font-size-xs);
+}

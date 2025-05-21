@@ -1,0 +1,31 @@
+.user-info-container {
+    width: 20%;
+    height: 10svh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--hh-spacing-m);
+    padding: var(--hh-spacing-m);
+}
+
+.user-info-container > img {
+    width: 15px;
+    cursor: pointer;
+}
+
+.user-info-container > p {
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-090);
+}
+
+@media (max-width: 500px) {
+    .user-info-container > p {
+        font-size: var(--hh-font-size-xs);
+    }
+    .user-info-container > img {
+        width: 10px;
+    }
+}

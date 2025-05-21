@@ -1,0 +1,42 @@
+.login-container {
+    width: 40%;
+    min-width: 340px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    padding: var(--hh-spacing-m);
+}
+
+.login-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--hh-spacing-s);
+}
+
+.login-header > h2 {
+    font-size: var(--hh-font-size-m);
+    font-family: var(--hh-font-family-primary);
+    color: var(--hh-color-090);
+}
+
+.forgot-password-ln {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    cursor: pointer;
+    font-family: var(--hh-font-family-primary);
+    font-size: var(--hh-font-size-s);
+    padding: var(--hh-spacing-s);
+    color: var(--hh-color-010);
+}
+
+.forgot-password-ln:focus {
+    border: none;
+    outline: none;
+}
+
+.forgot-password-ln:hover {
+    text-decoration: underline;
+}

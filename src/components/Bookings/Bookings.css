@@ -1,0 +1,73 @@
+.data-container h2 {
+    font-size: var(--hh-font-size-m);
+    color: var(--hh-color-090);
+}
+
+.bookings-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    padding: var(--hh-spacing-s);
+    background-color: var(--hh-color-010);
+    border-radius: var(--hh-br-m);
+    margin-top: var(--hh-spacing-s);
+}
+
+.data-container .bookings-header span {
+    width: 20%;
+    text-align: center;
+    color: var(--hh-color-000);
+    font-size: var(--hh-font-size-s);
+}
+
+.data-container .data-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;    
+    transition: all 0.5s ease-in-out;
+    padding: var(--hh-spacing-s);
+    border-radius: var(--hh-br-m);
+    margin-top: var(--hh-spacing-xs);
+}
+
+.data-container .data-row:hover {
+
+    background-color: var(--hh-color-080);
+    opacity: 0.9;
+}
+
+.data-container .data-row span {
+    width: 20%;
+    text-align: center;
+    color: var(--hh-color-090);
+    font-size: var(--hh-font-size-s);
+}
+
+@media (max-width: 755px) {
+    .data-container .bookings-header span:nth-child(4),
+    .data-container .bookings-header span:nth-child(5),
+    .data-container .data-row span:nth-child(4),
+    .data-container .data-row span:nth-child(5) {
+        display: none
+    }
+
+    .data-container .bookings-header,
+    .data-container .data-row {
+        padding: var(--hh-spacing-xs);
+    }
+
+    .data-container .bookings-header span,
+    .data-container .data-row span{        
+        width: 33%;
+    }
+}
+
+@media (max-width: 500px) {
+    .data-container .bookings-header span,
+    .data-container .data-row span {
+        font-size: var(--hh-font-size-xs);
+    }
+}

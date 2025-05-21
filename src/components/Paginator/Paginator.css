@@ -1,0 +1,31 @@
+.pagination-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    gap: var(--hh-spacing-m);
+    padding: var(--hh-spacing-l);    
+}
+
+.pagination-row button {
+    border: none;
+    outline: none;
+    cursor: pointer
+}
+
+.pagination-row span {
+    font-size: var(--hh-font-size-xs);
+    color: var(--hh-color-010);
+}
+
+.pagination-row .arrow {
+    cursor: pointer;
+    width: 20px;
+}
+
+.pagination-row .arrow.prev {
+    transform: rotate(180deg);
+}

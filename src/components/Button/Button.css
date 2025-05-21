@@ -1,0 +1,21 @@
+.button {
+    width: 100%;
+    border: none;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-m);
+    color: var(--hh-color-000);
+    background-color: var(--hh-color-010);
+    font-family: var(--hh-font-family-primary);
+    font-size: var(--hh-font-size-s);
+}
+
+.button:hover {
+    background-color: var(--hh-color-020);
+}
+
+.button:focus {
+    border: none;
+    outline: none;
+}

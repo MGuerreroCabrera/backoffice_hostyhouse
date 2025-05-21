@@ -1,0 +1,59 @@
+/* Fuentes para el proyecto*/
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* Reset de estilos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style-type: none;
+  text-decoration: none;
+}
+
+/* Variables CSS */
+:root {
+  /* Colores */
+  --hh-color-000: #ffffff;
+  --hh-color-010: #01B0BE;
+  --hh-color-020: #027b84;
+  --hh-color-080: #f4f4f4;
+  --hh-color-085: #808080;
+  --hh-color-090: #606060;  
+  --hh-color-100: #232323;
+  --hh-error-color: #ff0000;
+  --hh-success-color: #006700;
+
+  /* Espaciados */
+  --hh-spacing-xs: 5px;
+  --hh-spacing-s: 10px;
+  --hh-spacing-m: 15px;
+  --hh-spacing-l: 20px;
+  --hh-spacing-xl: 25px;
+  --hh-spacing-xxl: 50px;
+
+  /* Radius */
+  --hh-br-s: 5px;
+  --hh-br-m: 10px;
+  --hh-br-l: 15px;
+
+  /* Fuentes */
+  --hh-font-family-primary: "Mulish", sans-serif;
+
+  /* Tamaños de fuente */
+
+  --hh-font-size-xs: clamp(12px, 1rem, 10px);
+  --hh-font-size-s: clamp(12px, 1vw + 1em, 14px);
+  --hh-font-size-m: clamp(16px, 1vw + 1em, 18px);
+  --hh-font-size-l: clamp(1rem, 1vw + 1em, 2rem);
+  --hh-font-size-xl: clamp(1rem, 4vw, 5rem);
+  --hh-font-size-xxl: clamp(1rem, 7vw, 5rem);
+  --hh-font-size-ultra: clamp(3rem, 15vw, 10rem);
+}
+
+/* Estilos para el body por defecto */
+body {
+  min-width: 100%;
+  min-height: 100svh;
+  background-color: var(--hh-color-090);
+  font-family: var(--hh-font-family-primary);
+}

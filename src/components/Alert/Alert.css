@@ -1,0 +1,56 @@
+.alert-container {
+    width: 350px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    backdrop-filter: blur(2px) saturate(200%);
+    -webkit-backdrop-filter: blur(2px) saturate(200%);
+    background-color: rgba(57, 59, 65, 0.6);
+    border: 1px solid rgba(147, 146, 146, 0.125);
+    animation: slideFromTopLeft 0.5s ease-out forwards;
+    padding: var(--hh-spacing-l);
+}
+
+.alert-container p {
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-000);
+}
+
+.alert-container .glass {
+    backdrop-filter: blur(1.5px);
+    border-bottom: 1px solid var(--hh-color-000);
+}
+
+.alert-container.error {
+    border-left: 1px solid var(--hh-error-color);
+}
+
+.alert-container.success {
+    border-left: 1px solid var(--hh-success-color);
+}
+
+@keyframes slideFromTopLeft {
+    from {
+        transform: translate(-100%, -100%);
+        opacity: 0;
+    } to {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        top: -10svh;
+    } to {
+        top: 0svh;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        top: 0;
+    } to {
+        top: -10svh;
+    }
+}

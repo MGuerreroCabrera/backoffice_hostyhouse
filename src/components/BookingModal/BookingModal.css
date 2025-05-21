@@ -1,0 +1,103 @@
+.modal-booking-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-booking-content {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative; 
+    outline: 0.5px solid var(--hh-color-090);
+    width: clamp(380px, 50%, 720px);
+    background-color: var(--hh-color-000);
+    padding: var(--hh-spacing-l);
+    border-radius: var(--hh-br-s);
+}
+
+.close-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+} 
+
+.modal-booking-content h2 {
+    font-size: var(--hh-font-size-m);
+    color: var(--hh-color-090);
+}
+
+.modal-booking-content .data-booking-content {
+    display: flex;
+    flex-direction: column;
+    padding: var(--hh-spacing-m);
+    gap: var(--hh-spacing-m);
+}
+
+.modal-booking-content .data-booking-content p {
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-090);        
+}
+
+.update-booking-form {
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--hh-spacing-m);
+    gap: var(--hh-spacing-m);
+}
+
+.update-booking-form .data-booking-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: var(--hh-spacing-xs);
+}
+
+.update-booking-form label {
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-090);
+}
+
+input[type="date"] {
+    appearance: none; 
+    border: none;
+    cursor: pointer;
+    font-family: var(--hh-font-family-primary);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-xs);
+    outline: 0.5px solid var(--hh-color-090);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-000);
+    color: var(--hh-color-090);
+}
+
+.input-booking-form {
+    border: none;
+    font-family: var(--hh-font-family-primary);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-xs);
+    outline: 0.5px solid var(--hh-color-090);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-000);
+    color: var(--hh-color-090);
+}
+
+.booking-buttons-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--hh-spacing-xs);
+}
+
+.booking-buttons-container div {
+    width: 49%;
+}

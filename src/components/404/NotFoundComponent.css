@@ -1,0 +1,31 @@
+.not-found-component-container {
+    width: clamp(300px, 50%, 700px);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--hh-spacing-xl);
+    padding: var(--hh-spacing-l);
+}
+
+.not-found-component-container .right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--hh-spacing-m);    
+}
+
+.not-found-component-container .right > img {
+    width: 5rem;
+}
+.fhf-txt {
+    font-size: var(--hh-font-size-ultra);
+    color: var(--hh-color-010);
+}
+
+.txt-not-found {
+    text-align: center;
+    font-size: var(--hh-font-size-l);
+    color: var(--hh-color-000);
+}

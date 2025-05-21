@@ -1,0 +1,23 @@
+.coporate-image-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--hh-spacing-s);
+}
+
+.coporate-image-container > img {
+    width: 40px;
+}
+
+.coporate-image-container > h3 {
+    font-size: var(--hh-font-size-l);
+    color: var(--hh-color-010);
+    font-family: var(--hh-font-family-primary);
+}
+
+@media (max-width: 500px) {
+    .coporate-image-container > img {
+        width: 25px;
+    }
+}

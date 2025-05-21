@@ -1,0 +1,238 @@
+.data-housing-form {
+    width: 100%;
+    display: flex;  
+    flex-wrap: wrap;  
+    justify-content: center;
+    align-items: center;
+    padding: var(--hh-spacing-m);
+}
+
+.data-housing-form .form-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: var(--hh-spacing-s);
+    gap: var(--hh-spacing-xs);
+}
+
+.upload-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: thin dashed var(--hh-color-080);
+    border-radius: var(--hh-br-s);
+    margin-top: var(--hh-spacing-m);
+    gap: var(--hh-spacing-s);
+    padding: var(--hh-spacing-m);
+}
+
+.upload-label {
+    width: 30%;
+    max-width: 380px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: var(--hh-spacing-m);
+}
+
+.upload-img {
+    width: 18px;
+}
+
+.input-label-s {
+    color: var(--hh-color-085);
+    font-size: var(--hh-font-size-xs);
+}
+
+.button-row {    
+    width: 100%;
+    display: flex;
+    gap: var(--hh-spacing-s);
+    margin-top: var(--hh-spacing-m);
+}
+
+.description {
+    width: 100%;
+    border: none;
+    overflow-y: auto;
+    resize: vertical;
+    outline: .5px solid var(--hh-color-090);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-s);
+    font-family: var(--hh-font-family-primary);
+    color: var(--hh-color-090);    
+}
+
+/* Scrollbar para navegadores Webkit (Chrome, Edge, Safari) */
+.description::-webkit-scrollbar {
+    width: 5px; 
+}
+
+/* Fondo del scrollbar */
+.description::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: var(--hh-color-000); 
+}
+
+
+/* Estilo del thumb (barra deslizante) */
+.description::-webkit-scrollbar-thumb {
+    background: var(--hh-color-010); 
+    border-radius: 5px;
+}
+
+/* Hover del thumb */
+.description::-webkit-scrollbar-thumb:hover {
+    background: var(--hh-color-020);
+}
+
+/* Para Firefox */
+.description {
+    scrollbar-width: thin;
+    scrollbar-color: var(--hh-color-010) var(--hh-color-000);
+}
+
+.description:focus {
+    outline: .5px solid var(--hh-color-010);
+}
+
+.housing-features {
+    width: 100%;
+    position: relative;
+    border: .5px solid var(--hh-color-090);
+    border-radius: var(--hh-br-s);    
+    margin: var(--hh-spacing-s);
+}
+
+.housing-features > span {
+    position: absolute; 
+    top: -10px; 
+    left: 10px; 
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-090);
+    background-color: var(--hh-color-000);
+    padding: 0 var(--hh-spacing-s);
+}
+
+.housing-features .features-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: var(--hh-spacing-m);
+}
+
+.housing-features .features-container .feature-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: flex-start;   
+}
+
+.housing-features .features-container .feature-div .feature-title {
+    font-size: var(--hh-font-size-xs);
+    color: var(--hh-color-090);
+    padding: var(--hh-spacing-s);    
+}
+
+.housing-features .features-container .feature-div .feature-box {
+    display: flex;
+    align-items: center;
+    gap: var(--hh-spacing-s);
+    padding: 0 var(--hh-spacing-s);    
+}
+
+.housing-features .features-container .feature-div .feature-img {
+    width: 20px;
+    height: 20px;
+}
+
+.feature-input {
+    width: 75px;
+    border: none;
+    font-family: var(--hh-font-family-primary);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-xs);
+    outline: 0.5px solid var(--hh-color-090);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-000);
+    color: var(--hh-color-090);
+}
+
+.feature-input:focus {
+    outline: .5px solid var(--hh-color-010);
+}
+
+/* Estilos para las imágenes creadas */
+
+.images-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.image-preview {
+  width: 150px;
+  height: 150px;
+  border: 1px solid var(--hh-color-080);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.image-preview .housing-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-preview p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--hh-color-000);;
+  margin: 0;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.error-message {
+  color: var(--hh-error-color);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.delete-image-icon {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    transition: transform 0.5s ease;    
+    cursor: pointer;
+}
+
+.delete-image-icon:hover {
+    transform: scale(1.1);
+}
+
+@media screen and (max-width: 768px) {
+    .data-housing-form .form-row .description {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 395px) {
+    .data-housing-form .form-row .description {
+        width: 100%;
+    }
+}

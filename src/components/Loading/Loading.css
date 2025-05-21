@@ -1,0 +1,16 @@
+.loading-container {
+    min-width: 100%;
+    min-height: 100svh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 9999999999999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(155, 155, 155, 0.6);
+}
+
+.loading-container > img {
+    width: 75px;
+}

@@ -1,0 +1,160 @@
+.page-container {
+    width: 100%;
+    min-height: 80svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: var(--hh-color-080);
+}
+
+.data-container {
+    width: 80%;
+    height: 80svh;
+    position: relative;
+    overflow-y: auto;
+    resize: vertical;
+    scrollbar-width: thin;
+    scrollbar-color: var(--hh-color-010) var(--hh-color-000);
+    background-color: var(--hh-color-000);
+    border: 0.5px solid var(--hh-color-090);
+    border-radius: var(--hh-br-m);
+    padding: var(--hh-spacing-l);
+}
+
+.section-title {
+    font-size: var(--hh-font-size-l);
+    color: var(--hh-color-090);
+}
+
+.action-button {
+    cursor: pointer;
+}
+
+.ttle-btn-add-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--hh-spacing-m) 0;
+}
+
+.columns-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--hh-color-010);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-s);
+    margin-bottom: var(--hh-spacing-xs);
+}
+
+/* Estilo global para los labels de los imputs */
+.input-label {
+    font-size: var(--hh-font-size-s);
+    color: var(--hh-color-090);
+}
+
+/* Estilo global para los inputs */
+.input-text {
+    border: none;
+    font-family: var(--hh-font-family-primary);
+    border-radius: var(--hh-br-s);
+    padding: var(--hh-spacing-xs);
+    outline: 0.5px solid var(--hh-color-090);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-000);
+    color: var(--hh-color-090);
+}
+
+.input-text:focus {
+    outline: .5px solid var(--hh-color-010);
+}
+
+/* Tamaños para los inputs */
+.input-100 {
+    width: 100%;
+}
+
+.input-50 {
+    width: 50%;
+}
+
+.input-20 {
+    width: 20%
+}
+/* Estilos para los botones de los formularios */
+.btn-add-record {
+    min-width: 100px;
+    border:none;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    padding: var(--hh-spacing-s);
+    color: var(--hh-color-000);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-010);
+    border-radius: var(--hh-br-m);
+    outline: none;
+}
+
+.btn-add-record:hover {
+    background-color: var(--hh-color-020);
+}
+
+.btn-1 {
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: var(--hh-spacing-s);
+    color: var(--hh-color-010);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-080);
+    border-radius: var(--hh-br-s);
+}
+.btn-1:hover {
+    outline: .5px solid var(--hh-color-090);
+}
+
+.btn-1-delete {
+    width: 100%;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: var(--hh-spacing-s);
+    color: var(--hh-error-color);
+    font-size: var(--hh-font-size-s);
+    background-color: var(--hh-color-080);
+    border-radius: var(--hh-br-s);
+}
+.btn-1-delete:hover {
+    outline: .5px solid var(--hh-error-color);
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+}
+
+@media (max-width: 600px) {
+    .btn-add-record {
+        width: 35%;
+        font-size: var(--hh-font-size-xs);
+    }
+    .data-container {
+        width: 95%;
+    }
+    .input-50 {
+        width: 100%;
+    }
+    .input-20 {
+        width: 100%;
+    }
+}

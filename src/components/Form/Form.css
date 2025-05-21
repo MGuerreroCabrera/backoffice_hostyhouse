@@ -1,0 +1,12 @@
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--hh-spacing-m);
+    background-color: var(--hh-color-000);
+    border: 1px solid var(--hh-color-010);
+    border-radius: var(--hh-br-s);
+    gap: var(--hh-spacing-l);
+}

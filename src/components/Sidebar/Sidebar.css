@@ -1,0 +1,83 @@
+.menu-icon {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.5s ease-in-out;
+}
+
+.menu-icon:hover {
+    opacity: 1;
+}
+
+.close-icon {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.5s ease-in-out;
+}
+
+.close-icon:hover {
+    opacity: 1;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -390px;
+    width: 390px;
+    height: 100%;
+    transition: left 0.5s ease-in-out;
+    z-index: 2;
+    background-color: var(--hh-color-080);
+}
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    margin-top: var(--hh-spacing-xxl);
+}
+
+.sidebar ul li {    
+    width: 100%;
+    padding: var(--hh-spacing-m);
+    color: var(--hh-color-090);
+}
+
+.nav-element-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--hh-spacing-m);
+    color: var(--hh-color-090);
+}
+
+.sidebar ul li:hover {
+    background-color: var(--hh-color-010);
+}
+
+.sidebar ul li img {
+    width: 20px;
+    height: 20px;
+}
+
+.background {
+    width: 100%;
+    height: 100svh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0.5;
+    background-color: var(--hh-color-100);
+}

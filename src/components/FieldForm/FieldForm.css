@@ -1,0 +1,12 @@
+.field-form {
+    width: 100%;
+    padding: var(--hh-spacing-m);
+    border: 1px solid var(--hh-color-010);
+    background-color: var(--hh-color-000);
+    color: var(--hh-color-100);
+    border-radius: var(--hh-br-s);
+}
+
+.field-form:focus {
+    outline: none;
+}

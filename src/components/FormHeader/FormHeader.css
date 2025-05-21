@@ -1,0 +1,22 @@
+.form-header-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: var(--hh-spacing-m);
+    padding: var(--hh-spacing-l);
+}
+
+.form-header-container > h2 {
+    font-size: var(--hh-font-size-l);
+    font-family: var(--hh-font-family-primary);
+    color: var(--hh-color-090);
+}
+
+.form-header-container > p {
+    font-size: var(--hh-font-size-m);
+    font-family: var(--hh-font-family-primary);
+    color: var(--hh-color-090);
+    opacity: 0.8;
+}
