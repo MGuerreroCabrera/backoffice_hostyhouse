@@ -7,6 +7,8 @@ export const login = async (body, dispatch, navigate) => {
     dispatch({ type: "LOADING" });
 
     const { error, response } = await API({ endpoint: "/users/login", method: "POST", body, content_type: true });
+    console.log("Response: ", response);
+    console.log("Error: ", error);
     
     if(error) {
         dispatch({ type: "ERROR", payload: error.message });
