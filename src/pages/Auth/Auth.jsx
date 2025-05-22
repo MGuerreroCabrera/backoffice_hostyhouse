@@ -1,6 +1,6 @@
+import "./Auth.css";
 import Login from "../../components/Login/Login";
 import ForgotPassword from "../../components/ForgotPassword/ForgotPassword";
-import "./Auth.css";
 
 const Auth = () => {
   return (
