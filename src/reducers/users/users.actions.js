@@ -90,7 +90,6 @@ export const checkSession = async (dispatch, navigate) => {
         }
     }
 };
-// COMENTARIO TEMPORAL
 // Función que hace logout
 export const logout = (navigate) => {
     // Eliminar el token y el nombre del usuario del localStorage
