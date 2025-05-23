@@ -8,6 +8,7 @@ export const API = async ({ endpoint, method = "GET", body, content_type }) => {
         const headers = {
             "Authorization": `Bearer ${localStorage.getItem("hhToken")}`
         };
+    }
     if(content_type) {
         headers["Content-Type"] = "application/json";
         body = JSON.stringify(body)
