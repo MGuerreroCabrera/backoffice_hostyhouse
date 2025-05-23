@@ -4,10 +4,10 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 // Función que permite crear y reutilizar peticiones al backend
 export const API = async ({ endpoint, method = "GET", body, content_type }) => {
     // Inicializar valores de headers metiendo el Authorization para la función checkSession
-    const headers = {
-        "Authorization": `Bearer ${localStorage.getItem("hhToken")}`
-    };
-
+    if(localStorage.getItem("hhToken")) {
+        const headers = {
+            "Authorization": `Bearer ${localStorage.getItem("hhToken")}`
+        };
     if(content_type) {
         headers["Content-Type"] = "application/json";
         body = JSON.stringify(body)
